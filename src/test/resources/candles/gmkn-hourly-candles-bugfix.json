@@ -1,0 +1,1957 @@
+{
+  "candles": [
+    {
+      "open": {
+        "units": "16584",
+        "nano": 0
+      },
+      "high": {
+        "units": "16602",
+        "nano": 0
+      },
+      "low": {
+        "units": "16536",
+        "nano": 0
+      },
+      "close": {
+        "units": "16542",
+        "nano": 0
+      },
+      "volume": "5688",
+      "time": "2023-12-07T12:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16550",
+        "nano": 0
+      },
+      "high": {
+        "units": "16598",
+        "nano": 0
+      },
+      "low": {
+        "units": "16540",
+        "nano": 0
+      },
+      "close": {
+        "units": "16554",
+        "nano": 0
+      },
+      "volume": "5204",
+      "time": "2023-12-07T13:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16558",
+        "nano": 0
+      },
+      "high": {
+        "units": "16564",
+        "nano": 0
+      },
+      "low": {
+        "units": "16520",
+        "nano": 0
+      },
+      "close": {
+        "units": "16550",
+        "nano": 0
+      },
+      "volume": "4894",
+      "time": "2023-12-07T14:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16552",
+        "nano": 0
+      },
+      "high": {
+        "units": "16784",
+        "nano": 0
+      },
+      "low": {
+        "units": "16544",
+        "nano": 0
+      },
+      "close": {
+        "units": "16784",
+        "nano": 0
+      },
+      "volume": "32996",
+      "time": "2023-12-07T15:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16784",
+        "nano": 0
+      },
+      "high": {
+        "units": "16790",
+        "nano": 0
+      },
+      "low": {
+        "units": "16722",
+        "nano": 0
+      },
+      "close": {
+        "units": "16736",
+        "nano": 0
+      },
+      "volume": "8363",
+      "time": "2023-12-07T16:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16736",
+        "nano": 0
+      },
+      "high": {
+        "units": "16958",
+        "nano": 0
+      },
+      "low": {
+        "units": "16728",
+        "nano": 0
+      },
+      "close": {
+        "units": "16888",
+        "nano": 0
+      },
+      "volume": "10616",
+      "time": "2023-12-07T17:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16886",
+        "nano": 0
+      },
+      "high": {
+        "units": "16968",
+        "nano": 0
+      },
+      "low": {
+        "units": "16868",
+        "nano": 0
+      },
+      "close": {
+        "units": "16896",
+        "nano": 0
+      },
+      "volume": "6272",
+      "time": "2023-12-07T18:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16894",
+        "nano": 0
+      },
+      "high": {
+        "units": "16906",
+        "nano": 0
+      },
+      "low": {
+        "units": "16864",
+        "nano": 0
+      },
+      "close": {
+        "units": "16886",
+        "nano": 0
+      },
+      "volume": "2615",
+      "time": "2023-12-07T19:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16886",
+        "nano": 0
+      },
+      "high": {
+        "units": "16938",
+        "nano": 0
+      },
+      "low": {
+        "units": "16860",
+        "nano": 0
+      },
+      "close": {
+        "units": "16912",
+        "nano": 0
+      },
+      "volume": "5002",
+      "time": "2023-12-07T20:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16938",
+        "nano": 0
+      },
+      "high": {
+        "units": "16938",
+        "nano": 0
+      },
+      "low": {
+        "units": "16938",
+        "nano": 0
+      },
+      "close": {
+        "units": "16938",
+        "nano": 0
+      },
+      "volume": "276",
+      "time": "2023-12-08T06:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16940",
+        "nano": 0
+      },
+      "high": {
+        "units": "17240",
+        "nano": 0
+      },
+      "low": {
+        "units": "16856",
+        "nano": 0
+      },
+      "close": {
+        "units": "17044",
+        "nano": 0
+      },
+      "volume": "31694",
+      "time": "2023-12-08T07:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "17042",
+        "nano": 0
+      },
+      "high": {
+        "units": "17048",
+        "nano": 0
+      },
+      "low": {
+        "units": "16980",
+        "nano": 0
+      },
+      "close": {
+        "units": "17032",
+        "nano": 0
+      },
+      "volume": "8842",
+      "time": "2023-12-08T08:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "17036",
+        "nano": 0
+      },
+      "high": {
+        "units": "17064",
+        "nano": 0
+      },
+      "low": {
+        "units": "17000",
+        "nano": 0
+      },
+      "close": {
+        "units": "17006",
+        "nano": 0
+      },
+      "volume": "3661",
+      "time": "2023-12-08T09:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "17002",
+        "nano": 0
+      },
+      "high": {
+        "units": "17030",
+        "nano": 0
+      },
+      "low": {
+        "units": "16900",
+        "nano": 0
+      },
+      "close": {
+        "units": "16900",
+        "nano": 0
+      },
+      "volume": "7346",
+      "time": "2023-12-08T10:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16900",
+        "nano": 0
+      },
+      "high": {
+        "units": "16918",
+        "nano": 0
+      },
+      "low": {
+        "units": "16880",
+        "nano": 0
+      },
+      "close": {
+        "units": "16896",
+        "nano": 0
+      },
+      "volume": "5187",
+      "time": "2023-12-08T11:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16898",
+        "nano": 0
+      },
+      "high": {
+        "units": "16900",
+        "nano": 0
+      },
+      "low": {
+        "units": "16780",
+        "nano": 0
+      },
+      "close": {
+        "units": "16796",
+        "nano": 0
+      },
+      "volume": "8387",
+      "time": "2023-12-08T12:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16794",
+        "nano": 0
+      },
+      "high": {
+        "units": "16802",
+        "nano": 0
+      },
+      "low": {
+        "units": "16760",
+        "nano": 0
+      },
+      "close": {
+        "units": "16794",
+        "nano": 0
+      },
+      "volume": "5966",
+      "time": "2023-12-08T13:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16790",
+        "nano": 0
+      },
+      "high": {
+        "units": "16846",
+        "nano": 0
+      },
+      "low": {
+        "units": "16762",
+        "nano": 0
+      },
+      "close": {
+        "units": "16774",
+        "nano": 0
+      },
+      "volume": "5532",
+      "time": "2023-12-08T14:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16774",
+        "nano": 0
+      },
+      "high": {
+        "units": "16826",
+        "nano": 0
+      },
+      "low": {
+        "units": "16770",
+        "nano": 0
+      },
+      "close": {
+        "units": "16826",
+        "nano": 0
+      },
+      "volume": "2269",
+      "time": "2023-12-08T15:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16790",
+        "nano": 0
+      },
+      "high": {
+        "units": "16798",
+        "nano": 0
+      },
+      "low": {
+        "units": "16750",
+        "nano": 0
+      },
+      "close": {
+        "units": "16790",
+        "nano": 0
+      },
+      "volume": "3905",
+      "time": "2023-12-08T16:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16790",
+        "nano": 0
+      },
+      "high": {
+        "units": "16824",
+        "nano": 0
+      },
+      "low": {
+        "units": "16782",
+        "nano": 0
+      },
+      "close": {
+        "units": "16810",
+        "nano": 0
+      },
+      "volume": "1712",
+      "time": "2023-12-08T17:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16810",
+        "nano": 0
+      },
+      "high": {
+        "units": "16832",
+        "nano": 0
+      },
+      "low": {
+        "units": "16810",
+        "nano": 0
+      },
+      "close": {
+        "units": "16832",
+        "nano": 0
+      },
+      "volume": "1276",
+      "time": "2023-12-08T18:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16830",
+        "nano": 0
+      },
+      "high": {
+        "units": "16850",
+        "nano": 0
+      },
+      "low": {
+        "units": "16800",
+        "nano": 0
+      },
+      "close": {
+        "units": "16814",
+        "nano": 0
+      },
+      "volume": "1699",
+      "time": "2023-12-08T19:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16812",
+        "nano": 0
+      },
+      "high": {
+        "units": "16828",
+        "nano": 0
+      },
+      "low": {
+        "units": "16776",
+        "nano": 0
+      },
+      "close": {
+        "units": "16776",
+        "nano": 0
+      },
+      "volume": "1446",
+      "time": "2023-12-08T20:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16708",
+        "nano": 0
+      },
+      "high": {
+        "units": "16886",
+        "nano": 0
+      },
+      "low": {
+        "units": "16654",
+        "nano": 0
+      },
+      "close": {
+        "units": "16852",
+        "nano": 0
+      },
+      "volume": "82",
+      "time": "2023-12-09T07:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16712",
+        "nano": 0
+      },
+      "high": {
+        "units": "16920",
+        "nano": 0
+      },
+      "low": {
+        "units": "16708",
+        "nano": 0
+      },
+      "close": {
+        "units": "16920",
+        "nano": 0
+      },
+      "volume": "43",
+      "time": "2023-12-09T08:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16924",
+        "nano": 0
+      },
+      "high": {
+        "units": "17042",
+        "nano": 0
+      },
+      "low": {
+        "units": "16806",
+        "nano": 0
+      },
+      "close": {
+        "units": "16880",
+        "nano": 0
+      },
+      "volume": "105",
+      "time": "2023-12-09T09:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "17022",
+        "nano": 0
+      },
+      "high": {
+        "units": "17022",
+        "nano": 0
+      },
+      "low": {
+        "units": "16808",
+        "nano": 0
+      },
+      "close": {
+        "units": "16960",
+        "nano": 0
+      },
+      "volume": "52",
+      "time": "2023-12-09T10:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16824",
+        "nano": 0
+      },
+      "high": {
+        "units": "16990",
+        "nano": 0
+      },
+      "low": {
+        "units": "16824",
+        "nano": 0
+      },
+      "close": {
+        "units": "16990",
+        "nano": 0
+      },
+      "volume": "55",
+      "time": "2023-12-09T11:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16994",
+        "nano": 0
+      },
+      "high": {
+        "units": "17024",
+        "nano": 0
+      },
+      "low": {
+        "units": "16854",
+        "nano": 0
+      },
+      "close": {
+        "units": "17020",
+        "nano": 0
+      },
+      "volume": "26",
+      "time": "2023-12-09T12:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "17024",
+        "nano": 0
+      },
+      "high": {
+        "units": "17040",
+        "nano": 0
+      },
+      "low": {
+        "units": "16856",
+        "nano": 0
+      },
+      "close": {
+        "units": "16880",
+        "nano": 0
+      },
+      "volume": "76",
+      "time": "2023-12-09T13:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "17020",
+        "nano": 0
+      },
+      "high": {
+        "units": "17078",
+        "nano": 0
+      },
+      "low": {
+        "units": "16862",
+        "nano": 0
+      },
+      "close": {
+        "units": "17008",
+        "nano": 0
+      },
+      "volume": "104",
+      "time": "2023-12-09T14:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16864",
+        "nano": 0
+      },
+      "high": {
+        "units": "17002",
+        "nano": 0
+      },
+      "low": {
+        "units": "16850",
+        "nano": 0
+      },
+      "close": {
+        "units": "16850",
+        "nano": 0
+      },
+      "volume": "18",
+      "time": "2023-12-09T15:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16990",
+        "nano": 0
+      },
+      "high": {
+        "units": "17116",
+        "nano": 0
+      },
+      "low": {
+        "units": "16848",
+        "nano": 0
+      },
+      "close": {
+        "units": "16854",
+        "nano": 0
+      },
+      "volume": "190",
+      "time": "2023-12-10T07:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16848",
+        "nano": 0
+      },
+      "high": {
+        "units": "17010",
+        "nano": 0
+      },
+      "low": {
+        "units": "16844",
+        "nano": 0
+      },
+      "close": {
+        "units": "16844",
+        "nano": 0
+      },
+      "volume": "35",
+      "time": "2023-12-10T08:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16832",
+        "nano": 0
+      },
+      "high": {
+        "units": "16972",
+        "nano": 0
+      },
+      "low": {
+        "units": "16790",
+        "nano": 0
+      },
+      "close": {
+        "units": "16912",
+        "nano": 0
+      },
+      "volume": "48",
+      "time": "2023-12-10T09:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16916",
+        "nano": 0
+      },
+      "high": {
+        "units": "16936",
+        "nano": 0
+      },
+      "low": {
+        "units": "16782",
+        "nano": 0
+      },
+      "close": {
+        "units": "16930",
+        "nano": 0
+      },
+      "volume": "28",
+      "time": "2023-12-10T10:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16788",
+        "nano": 0
+      },
+      "high": {
+        "units": "16982",
+        "nano": 0
+      },
+      "low": {
+        "units": "16788",
+        "nano": 0
+      },
+      "close": {
+        "units": "16982",
+        "nano": 0
+      },
+      "volume": "27",
+      "time": "2023-12-10T11:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16840",
+        "nano": 0
+      },
+      "high": {
+        "units": "16968",
+        "nano": 0
+      },
+      "low": {
+        "units": "16816",
+        "nano": 0
+      },
+      "close": {
+        "units": "16958",
+        "nano": 0
+      },
+      "volume": "28",
+      "time": "2023-12-10T12:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16960",
+        "nano": 0
+      },
+      "high": {
+        "units": "17076",
+        "nano": 0
+      },
+      "low": {
+        "units": "16812",
+        "nano": 0
+      },
+      "close": {
+        "units": "17030",
+        "nano": 0
+      },
+      "volume": "122",
+      "time": "2023-12-10T13:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "17034",
+        "nano": 0
+      },
+      "high": {
+        "units": "17042",
+        "nano": 0
+      },
+      "low": {
+        "units": "16868",
+        "nano": 0
+      },
+      "close": {
+        "units": "16872",
+        "nano": 0
+      },
+      "volume": "33",
+      "time": "2023-12-10T14:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16856",
+        "nano": 0
+      },
+      "high": {
+        "units": "17018",
+        "nano": 0
+      },
+      "low": {
+        "units": "16856",
+        "nano": 0
+      },
+      "close": {
+        "units": "17018",
+        "nano": 0
+      },
+      "volume": "19",
+      "time": "2023-12-10T15:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16822",
+        "nano": 0
+      },
+      "high": {
+        "units": "16822",
+        "nano": 0
+      },
+      "low": {
+        "units": "16822",
+        "nano": 0
+      },
+      "close": {
+        "units": "16822",
+        "nano": 0
+      },
+      "volume": "149",
+      "time": "2023-12-11T06:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16822",
+        "nano": 0
+      },
+      "high": {
+        "units": "16830",
+        "nano": 0
+      },
+      "low": {
+        "units": "16710",
+        "nano": 0
+      },
+      "close": {
+        "units": "16714",
+        "nano": 0
+      },
+      "volume": "8654",
+      "time": "2023-12-11T07:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16714",
+        "nano": 0
+      },
+      "high": {
+        "units": "16746",
+        "nano": 0
+      },
+      "low": {
+        "units": "16630",
+        "nano": 0
+      },
+      "close": {
+        "units": "16708",
+        "nano": 0
+      },
+      "volume": "8203",
+      "time": "2023-12-11T08:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16706",
+        "nano": 0
+      },
+      "high": {
+        "units": "16750",
+        "nano": 0
+      },
+      "low": {
+        "units": "16668",
+        "nano": 0
+      },
+      "close": {
+        "units": "16730",
+        "nano": 0
+      },
+      "volume": "3975",
+      "time": "2023-12-11T09:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16728",
+        "nano": 0
+      },
+      "high": {
+        "units": "16744",
+        "nano": 0
+      },
+      "low": {
+        "units": "16630",
+        "nano": 0
+      },
+      "close": {
+        "units": "16638",
+        "nano": 0
+      },
+      "volume": "3497",
+      "time": "2023-12-11T10:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16636",
+        "nano": 0
+      },
+      "high": {
+        "units": "16682",
+        "nano": 0
+      },
+      "low": {
+        "units": "16600",
+        "nano": 0
+      },
+      "close": {
+        "units": "16610",
+        "nano": 0
+      },
+      "volume": "8438",
+      "time": "2023-12-11T11:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16608",
+        "nano": 0
+      },
+      "high": {
+        "units": "16694",
+        "nano": 0
+      },
+      "low": {
+        "units": "16604",
+        "nano": 0
+      },
+      "close": {
+        "units": "16618",
+        "nano": 0
+      },
+      "volume": "4680",
+      "time": "2023-12-11T12:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16614",
+        "nano": 0
+      },
+      "high": {
+        "units": "16750",
+        "nano": 0
+      },
+      "low": {
+        "units": "16602",
+        "nano": 0
+      },
+      "close": {
+        "units": "16716",
+        "nano": 0
+      },
+      "volume": "6632",
+      "time": "2023-12-11T13:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16710",
+        "nano": 0
+      },
+      "high": {
+        "units": "16774",
+        "nano": 0
+      },
+      "low": {
+        "units": "16706",
+        "nano": 0
+      },
+      "close": {
+        "units": "16740",
+        "nano": 0
+      },
+      "volume": "5076",
+      "time": "2023-12-11T14:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16736",
+        "nano": 0
+      },
+      "high": {
+        "units": "16764",
+        "nano": 0
+      },
+      "low": {
+        "units": "16708",
+        "nano": 0
+      },
+      "close": {
+        "units": "16720",
+        "nano": 0
+      },
+      "volume": "3768",
+      "time": "2023-12-11T15:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16710",
+        "nano": 0
+      },
+      "high": {
+        "units": "16710",
+        "nano": 0
+      },
+      "low": {
+        "units": "16626",
+        "nano": 0
+      },
+      "close": {
+        "units": "16648",
+        "nano": 0
+      },
+      "volume": "2504",
+      "time": "2023-12-11T16:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16646",
+        "nano": 0
+      },
+      "high": {
+        "units": "16710",
+        "nano": 0
+      },
+      "low": {
+        "units": "16642",
+        "nano": 0
+      },
+      "close": {
+        "units": "16706",
+        "nano": 0
+      },
+      "volume": "863",
+      "time": "2023-12-11T17:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16704",
+        "nano": 0
+      },
+      "high": {
+        "units": "16706",
+        "nano": 0
+      },
+      "low": {
+        "units": "16640",
+        "nano": 0
+      },
+      "close": {
+        "units": "16652",
+        "nano": 0
+      },
+      "volume": "1054",
+      "time": "2023-12-11T18:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16654",
+        "nano": 0
+      },
+      "high": {
+        "units": "16658",
+        "nano": 0
+      },
+      "low": {
+        "units": "16624",
+        "nano": 0
+      },
+      "close": {
+        "units": "16626",
+        "nano": 0
+      },
+      "volume": "777",
+      "time": "2023-12-11T19:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16636",
+        "nano": 0
+      },
+      "high": {
+        "units": "16676",
+        "nano": 0
+      },
+      "low": {
+        "units": "16600",
+        "nano": 0
+      },
+      "close": {
+        "units": "16660",
+        "nano": 0
+      },
+      "volume": "1510",
+      "time": "2023-12-11T20:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16660",
+        "nano": 0
+      },
+      "high": {
+        "units": "16660",
+        "nano": 0
+      },
+      "low": {
+        "units": "16660",
+        "nano": 0
+      },
+      "close": {
+        "units": "16660",
+        "nano": 0
+      },
+      "volume": "29",
+      "time": "2023-12-12T06:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16660",
+        "nano": 0
+      },
+      "high": {
+        "units": "16798",
+        "nano": 0
+      },
+      "low": {
+        "units": "16660",
+        "nano": 0
+      },
+      "close": {
+        "units": "16722",
+        "nano": 0
+      },
+      "volume": "7987",
+      "time": "2023-12-12T07:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16720",
+        "nano": 0
+      },
+      "high": {
+        "units": "16764",
+        "nano": 0
+      },
+      "low": {
+        "units": "16662",
+        "nano": 0
+      },
+      "close": {
+        "units": "16700",
+        "nano": 0
+      },
+      "volume": "8716",
+      "time": "2023-12-12T08:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16692",
+        "nano": 0
+      },
+      "high": {
+        "units": "16700",
+        "nano": 0
+      },
+      "low": {
+        "units": "16652",
+        "nano": 0
+      },
+      "close": {
+        "units": "16676",
+        "nano": 0
+      },
+      "volume": "3963",
+      "time": "2023-12-12T09:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16672",
+        "nano": 0
+      },
+      "high": {
+        "units": "16686",
+        "nano": 0
+      },
+      "low": {
+        "units": "16584",
+        "nano": 0
+      },
+      "close": {
+        "units": "16600",
+        "nano": 0
+      },
+      "volume": "5859",
+      "time": "2023-12-12T10:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16610",
+        "nano": 0
+      },
+      "high": {
+        "units": "16642",
+        "nano": 0
+      },
+      "low": {
+        "units": "16582",
+        "nano": 0
+      },
+      "close": {
+        "units": "16624",
+        "nano": 0
+      },
+      "volume": "11757",
+      "time": "2023-12-12T11:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16630",
+        "nano": 0
+      },
+      "high": {
+        "units": "16640",
+        "nano": 0
+      },
+      "low": {
+        "units": "16540",
+        "nano": 0
+      },
+      "close": {
+        "units": "16564",
+        "nano": 0
+      },
+      "volume": "8752",
+      "time": "2023-12-12T12:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16566",
+        "nano": 0
+      },
+      "high": {
+        "units": "16596",
+        "nano": 0
+      },
+      "low": {
+        "units": "16488",
+        "nano": 0
+      },
+      "close": {
+        "units": "16512",
+        "nano": 0
+      },
+      "volume": "10437",
+      "time": "2023-12-12T13:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16512",
+        "nano": 0
+      },
+      "high": {
+        "units": "16520",
+        "nano": 0
+      },
+      "low": {
+        "units": "16458",
+        "nano": 0
+      },
+      "close": {
+        "units": "16504",
+        "nano": 0
+      },
+      "volume": "8924",
+      "time": "2023-12-12T14:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16502",
+        "nano": 0
+      },
+      "high": {
+        "units": "16548",
+        "nano": 0
+      },
+      "low": {
+        "units": "16474",
+        "nano": 0
+      },
+      "close": {
+        "units": "16528",
+        "nano": 0
+      },
+      "volume": "6659",
+      "time": "2023-12-12T15:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16528",
+        "nano": 0
+      },
+      "high": {
+        "units": "16530",
+        "nano": 0
+      },
+      "low": {
+        "units": "16480",
+        "nano": 0
+      },
+      "close": {
+        "units": "16496",
+        "nano": 0
+      },
+      "volume": "2930",
+      "time": "2023-12-12T16:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16496",
+        "nano": 0
+      },
+      "high": {
+        "units": "16496",
+        "nano": 0
+      },
+      "low": {
+        "units": "16424",
+        "nano": 0
+      },
+      "close": {
+        "units": "16440",
+        "nano": 0
+      },
+      "volume": "3849",
+      "time": "2023-12-12T17:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16442",
+        "nano": 0
+      },
+      "high": {
+        "units": "16490",
+        "nano": 0
+      },
+      "low": {
+        "units": "16420",
+        "nano": 0
+      },
+      "close": {
+        "units": "16444",
+        "nano": 0
+      },
+      "volume": "2203",
+      "time": "2023-12-12T18:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16454",
+        "nano": 0
+      },
+      "high": {
+        "units": "16492",
+        "nano": 0
+      },
+      "low": {
+        "units": "16424",
+        "nano": 0
+      },
+      "close": {
+        "units": "16480",
+        "nano": 0
+      },
+      "volume": "2532",
+      "time": "2023-12-12T19:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16480",
+        "nano": 0
+      },
+      "high": {
+        "units": "16482",
+        "nano": 0
+      },
+      "low": {
+        "units": "16442",
+        "nano": 0
+      },
+      "close": {
+        "units": "16478",
+        "nano": 0
+      },
+      "volume": "1253",
+      "time": "2023-12-12T20:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16404",
+        "nano": 0
+      },
+      "high": {
+        "units": "16404",
+        "nano": 0
+      },
+      "low": {
+        "units": "16404",
+        "nano": 0
+      },
+      "close": {
+        "units": "16404",
+        "nano": 0
+      },
+      "volume": "187",
+      "time": "2023-12-13T06:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16418",
+        "nano": 0
+      },
+      "high": {
+        "units": "16452",
+        "nano": 0
+      },
+      "low": {
+        "units": "16352",
+        "nano": 0
+      },
+      "close": {
+        "units": "16382",
+        "nano": 0
+      },
+      "volume": "10116",
+      "time": "2023-12-13T07:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16378",
+        "nano": 0
+      },
+      "high": {
+        "units": "16524",
+        "nano": 0
+      },
+      "low": {
+        "units": "16376",
+        "nano": 0
+      },
+      "close": {
+        "units": "16488",
+        "nano": 0
+      },
+      "volume": "4058",
+      "time": "2023-12-13T08:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16490",
+        "nano": 0
+      },
+      "high": {
+        "units": "16570",
+        "nano": 0
+      },
+      "low": {
+        "units": "16470",
+        "nano": 0
+      },
+      "close": {
+        "units": "16556",
+        "nano": 0
+      },
+      "volume": "9070",
+      "time": "2023-12-13T09:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16550",
+        "nano": 0
+      },
+      "high": {
+        "units": "16624",
+        "nano": 0
+      },
+      "low": {
+        "units": "16550",
+        "nano": 0
+      },
+      "close": {
+        "units": "16604",
+        "nano": 0
+      },
+      "volume": "10435",
+      "time": "2023-12-13T10:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16604",
+        "nano": 0
+      },
+      "high": {
+        "units": "16618",
+        "nano": 0
+      },
+      "low": {
+        "units": "16574",
+        "nano": 0
+      },
+      "close": {
+        "units": "16614",
+        "nano": 0
+      },
+      "volume": "6055",
+      "time": "2023-12-13T11:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16614",
+        "nano": 0
+      },
+      "high": {
+        "units": "16634",
+        "nano": 0
+      },
+      "low": {
+        "units": "16600",
+        "nano": 0
+      },
+      "close": {
+        "units": "16604",
+        "nano": 0
+      },
+      "volume": "4675",
+      "time": "2023-12-13T12:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16602",
+        "nano": 0
+      },
+      "high": {
+        "units": "16630",
+        "nano": 0
+      },
+      "low": {
+        "units": "16600",
+        "nano": 0
+      },
+      "close": {
+        "units": "16604",
+        "nano": 0
+      },
+      "volume": "4592",
+      "time": "2023-12-13T13:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16606",
+        "nano": 0
+      },
+      "high": {
+        "units": "16628",
+        "nano": 0
+      },
+      "low": {
+        "units": "16600",
+        "nano": 0
+      },
+      "close": {
+        "units": "16628",
+        "nano": 0
+      },
+      "volume": "2499",
+      "time": "2023-12-13T14:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16628",
+        "nano": 0
+      },
+      "high": {
+        "units": "16720",
+        "nano": 0
+      },
+      "low": {
+        "units": "16570",
+        "nano": 0
+      },
+      "close": {
+        "units": "16570",
+        "nano": 0
+      },
+      "volume": "14620",
+      "time": "2023-12-13T15:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16590",
+        "nano": 0
+      },
+      "high": {
+        "units": "16624",
+        "nano": 0
+      },
+      "low": {
+        "units": "16580",
+        "nano": 0
+      },
+      "close": {
+        "units": "16594",
+        "nano": 0
+      },
+      "volume": "4191",
+      "time": "2023-12-13T16:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16594",
+        "nano": 0
+      },
+      "high": {
+        "units": "16608",
+        "nano": 0
+      },
+      "low": {
+        "units": "16588",
+        "nano": 0
+      },
+      "close": {
+        "units": "16608",
+        "nano": 0
+      },
+      "volume": "1171",
+      "time": "2023-12-13T17:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16608",
+        "nano": 0
+      },
+      "high": {
+        "units": "16626",
+        "nano": 0
+      },
+      "low": {
+        "units": "16604",
+        "nano": 0
+      },
+      "close": {
+        "units": "16616",
+        "nano": 0
+      },
+      "volume": "737",
+      "time": "2023-12-13T18:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16616",
+        "nano": 0
+      },
+      "high": {
+        "units": "16644",
+        "nano": 0
+      },
+      "low": {
+        "units": "16614",
+        "nano": 0
+      },
+      "close": {
+        "units": "16630",
+        "nano": 0
+      },
+      "volume": "923",
+      "time": "2023-12-13T19:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16632",
+        "nano": 0
+      },
+      "high": {
+        "units": "16638",
+        "nano": 0
+      },
+      "low": {
+        "units": "16600",
+        "nano": 0
+      },
+      "close": {
+        "units": "16600",
+        "nano": 0
+      },
+      "volume": "1037",
+      "time": "2023-12-13T20:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16680",
+        "nano": 0
+      },
+      "high": {
+        "units": "16680",
+        "nano": 0
+      },
+      "low": {
+        "units": "16680",
+        "nano": 0
+      },
+      "close": {
+        "units": "16680",
+        "nano": 0
+      },
+      "volume": "24",
+      "time": "2023-12-14T06:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16650",
+        "nano": 0
+      },
+      "high": {
+        "units": "16670",
+        "nano": 0
+      },
+      "low": {
+        "units": "16622",
+        "nano": 0
+      },
+      "close": {
+        "units": "16630",
+        "nano": 0
+      },
+      "volume": "8870",
+      "time": "2023-12-14T07:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16630",
+        "nano": 0
+      },
+      "high": {
+        "units": "16662",
+        "nano": 0
+      },
+      "low": {
+        "units": "16622",
+        "nano": 0
+      },
+      "close": {
+        "units": "16652",
+        "nano": 0
+      },
+      "volume": "2136",
+      "time": "2023-12-14T08:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16658",
+        "nano": 0
+      },
+      "high": {
+        "units": "16700",
+        "nano": 0
+      },
+      "low": {
+        "units": "16644",
+        "nano": 0
+      },
+      "close": {
+        "units": "16674",
+        "nano": 0
+      },
+      "volume": "6723",
+      "time": "2023-12-14T09:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16674",
+        "nano": 0
+      },
+      "high": {
+        "units": "16694",
+        "nano": 0
+      },
+      "low": {
+        "units": "16668",
+        "nano": 0
+      },
+      "close": {
+        "units": "16680",
+        "nano": 0
+      },
+      "volume": "2990",
+      "time": "2023-12-14T10:00:00Z",
+      "isComplete": true
+    },
+    {
+      "open": {
+        "units": "16680",
+        "nano": 0
+      },
+      "high": {
+        "units": "16696",
+        "nano": 0
+      },
+      "low": {
+        "units": "16622",
+        "nano": 0
+      },
+      "close": {
+        "units": "16680",
+        "nano": 0
+      },
+      "volume": "6167",
+      "time": "2023-12-14T11:00:00Z",
+      "isComplete": true
+    }
+  ]
+}

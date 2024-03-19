@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+package ru.home.project.telegram.bot;
+
+message TelegramMsg {
+  string figi = 1;
+  string ticker = 2;
+  string text = 3;
+  string accountId = 4;
+}
+
+service TelegramMessageService {
+  rpc processMessage(TelegramMsg) returns (google.protobuf.Empty);
+}

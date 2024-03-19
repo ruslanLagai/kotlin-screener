@@ -1,0 +1,47 @@
+server:
+  shutdown: graceful
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  flyway:
+    enabled: false
+    baseline-on-migrate: true
+    locations: classpath:db/migration
+    schemas: screener
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.mysql.cj.jdbc.MysqlConnectionPoolDataSource
+    url: jdbc:mysql://localhost:3307/screener?allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
+    username: root
+    password: j&4$R>TqA2
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: create-drop
+    database: mysql
+
+ru:
+  tinkoff:
+    piapi:
+      core:
+        target: invest-public-api.tinkoff.ru:443
+        connection-timeout: 5
+        request-timeout: 5
+        token: t.z3VkhlabQQqBM7v2JRuRcOLB9tWDluDgpz24p1yo38BQbS6VqGH4bYBPw0ORrL35qXjKk4Cwk4NEwxh0sT1mcQ
+logging:
+  level:
+    root: debug
+service:
+  tinkoff:
+    instruments:
+      - BBG004731489
+    daily-cron: 0 35 23 * * MON-FRI
+  telegram:
+    bot:
+      url: localhost:9091
+      admin-account: 501710552
+      accounts:
+        - 2199915782

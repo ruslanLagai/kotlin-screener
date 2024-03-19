@@ -1,0 +1,31 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.mysql.cj.jdbc.MysqlConnectionPoolDataSource
+    url: jdbc:mysql://localhost:3307/screener?allowPublicKeyRetrieval=true
+    username: root
+    password: j&4$R>TqA2
+
+ru:
+  tinkoff:
+    piapi:
+      core:
+        target: invest-public-api.tinkoff.ru:443
+        connection-timeout: 5
+        request-timeout: 5
+        token: ${COMMON_TOKEN}
+logging:
+  level:
+    root: ${LOGGING_LEVEL}
+service:
+  tinkoff:
+    instruments:
+      - BBG004731489
+      -
+    daily-cron: ${CRON}
+  telegram:
+    bot:
+      url: ${TELEGRAM_NOTIFICATION_BOT_URL}
+      admin-account: ${ADMIN_ACCOUNT}
+      accounts:
+        - ${ACCOUNT_ID_ONE}
