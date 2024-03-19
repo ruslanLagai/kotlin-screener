@@ -19,9 +19,7 @@ logging:
     root: ${LOGGING_LEVEL}
 service:
   tinkoff:
-    instruments:
-      - BBG004731489
-      -
+    instruments: ${INSTRUMENTS}
     daily-cron: ${CRON}
   telegram:
     bot:

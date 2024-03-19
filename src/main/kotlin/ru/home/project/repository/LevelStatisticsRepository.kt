@@ -11,4 +11,6 @@ import ru.home.project.entity.LevelStatisticsEntity
 interface LevelStatisticsRepository : JpaRepository<LevelStatisticsEntity, String> {
 
     fun getByFigi(figi: String): Set<LevelStatisticsEntity>
+
+    fun getByFigiAndMaxLevel(figi: String, maxLevel: Double): LevelStatisticsEntity
 }

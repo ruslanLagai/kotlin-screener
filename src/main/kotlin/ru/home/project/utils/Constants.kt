@@ -11,3 +11,4 @@ const val percentageForGoodSignalShort = 0.99
 const val percentageForShort = 0.98
 const val percentageForCandlesLowBorder = 0.98
 const val percentageForCandlesHighBorder = 1.02
+const val telegramMessage = "%s приближается к уровню %s.\n%s"

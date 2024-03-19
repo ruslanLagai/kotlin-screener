@@ -36,8 +36,7 @@ logging:
     root: debug
 service:
   tinkoff:
-    instruments:
-      - BBG004731489
+    instruments: BBG004731489,BBG004730N88
     daily-cron: 0 35 23 * * MON-FRI
   telegram:
     bot:

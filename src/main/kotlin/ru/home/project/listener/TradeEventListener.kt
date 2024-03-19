@@ -5,13 +5,16 @@ import org.slf4j.LoggerFactory
 import org.springframework.context.event.EventListener
 import org.springframework.scheduling.annotation.Async
 import org.springframework.stereotype.Component
+import ru.home.project.entity.LevelStatisticsEntity
 import ru.home.project.model.LevelType
 import ru.home.project.model.TradeEvent
 import ru.home.project.properties.TelegramBotProperties
 import ru.home.project.repository.InstrumentRepository
+import ru.home.project.repository.LevelStatisticsRepository
 import ru.home.project.service.CandlesService
 import ru.home.project.service.ClosestLevelService
 import ru.home.project.service.TelegramBotGrpcService
+import ru.home.project.utils.telegramMessage
 import ru.tinkoff.piapi.contract.v1.CandleInterval
 
 /**
@@ -23,7 +26,8 @@ class TradeEventListener(
     val telegramBotGrpcService: TelegramBotGrpcService,
     val candlesService: CandlesService,
     val instrumentRepository: InstrumentRepository,
-    val telegramBotProperties: TelegramBotProperties
+    val telegramBotProperties: TelegramBotProperties,
+    val levelStatisticsRepository: LevelStatisticsRepository
 ) {
 
     private val log: Logger = LoggerFactory.getLogger(TradeEventListener::class.java)
@@ -59,8 +63,20 @@ class TradeEventListener(
             return
         }
 
+        val levelValue = if (levelType == LevelType.Support) level.maxLevel else level.minLevel
+        val levelStatistics = levelStatisticsRepository.getByFigiAndMaxLevel(event.figi, level.maxLevel)
+        val statistics = getStatistics(levelStatistics)
+        val message = String.format(telegramMessage, instrument.ticker, levelValue, statistics)
         telegramBotProperties.accounts.forEach {
-            telegramBotGrpcService.sendMessage(figi = event.figi, ticker = instrument.ticker, text = "", accountId = it)
+            telegramBotGrpcService.sendMessage(figi = event.figi, ticker = instrument.ticker, text = message, accountId = it)
+        }
+    }
+
+    private fun getStatistics(levelStatisticsEntity: LevelStatisticsEntity): String {
+        levelStatisticsEntity.apply {
+            return "Уровень отработал " + goodSignals + " раз из " + totalCrosses +
+                    "\nСреднее пробитие: " + averageBreaking +
+                    "\nСредний отскок: " + averageRebound;
         }
     }
 }
