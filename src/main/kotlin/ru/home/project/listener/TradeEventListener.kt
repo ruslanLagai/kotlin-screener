@@ -5,19 +5,14 @@ import org.slf4j.LoggerFactory
 import org.springframework.context.event.EventListener
 import org.springframework.scheduling.annotation.Async
 import org.springframework.stereotype.Component
-import ru.home.project.entity.MergedLevelEntity
 import ru.home.project.model.LevelType
 import ru.home.project.model.TradeEvent
 import ru.home.project.properties.TelegramBotProperties
 import ru.home.project.repository.InstrumentRepository
-import ru.home.project.repository.LevelStatisticsRepository
 import ru.home.project.service.CandlesService
 import ru.home.project.service.ClosestLevelService
 import ru.home.project.service.TelegramBotGrpcService
-import ru.home.project.service.impl.LevelStatisticServiceImpl
-import ru.home.project.telegram.bot.TelegramMessageServiceGrpc.TelegramMessageServiceStub
 import ru.tinkoff.piapi.contract.v1.CandleInterval
-import java.util.concurrent.ConcurrentHashMap
 
 /**
  * @author rlagay

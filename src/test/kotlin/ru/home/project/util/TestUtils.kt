@@ -5,9 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.google.protobuf.util.JsonFormat
-import ru.home.project.processor.DailyLevelProcessorTest
 import ru.tinkoff.piapi.contract.v1.GetCandlesResponse
-import java.io.File
 import java.nio.file.Files
 import kotlin.io.path.Path
 

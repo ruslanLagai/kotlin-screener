@@ -14,8 +14,10 @@ import ru.home.project.utils.yearsToScan
 import ru.tinkoff.piapi.contract.v1.CandleInterval
 import ru.tinkoff.piapi.contract.v1.HistoricCandle
 import ru.tinkoff.piapi.core.InvestApi
-import ru.tinkoff.piapi.core.MarketDataService
-import java.time.*
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.Period
+import java.time.ZoneOffset
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors

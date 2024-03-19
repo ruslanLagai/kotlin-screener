@@ -31,7 +31,7 @@ class DbConfig {
     }
 
     @Bean
-    fun entityManagerFactory(dataSource: DataSource?): LocalContainerEntityManagerFactoryBean {
+    fun entityManagerFactory(dataSource: DataSource): LocalContainerEntityManagerFactoryBean {
         val vendorAdapter = HibernateJpaVendorAdapter()
         vendorAdapter.setGenerateDdl(true)
         vendorAdapter.setDatabase(Database.MYSQL)

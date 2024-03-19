@@ -12,9 +12,7 @@ import ru.home.project.repository.LevelStatisticsRepository
 import ru.home.project.service.LevelStatisticService
 import ru.home.project.utils.*
 import ru.tinkoff.piapi.contract.v1.CandleInterval
-import java.time.Duration
 import java.time.ZonedDateTime
-import java.util.function.BiFunction
 import java.util.function.Predicate
 import kotlin.math.abs
 
@@ -211,9 +209,6 @@ class LevelStatisticServiceImpl(
 //            }
 //        }
 //    }
-    private fun getInitialIndex(candles: List<CandleEntity>, candle: CandleEntity): Int {
-        return if (candles.indexOf(candle) > 10) { candles.indexOf(candle) } else { 0 }
-    }
 
     private fun crossedLevelPredicate(level: MergedLevelEntity) : Predicate<CandleEntity> {
         return Predicate<CandleEntity> { candle -> candle.low <= level.maxLevel && candle.high >= level.maxLevel

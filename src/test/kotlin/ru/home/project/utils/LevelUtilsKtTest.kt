@@ -3,11 +3,9 @@ package ru.home.project.utils
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
-import org.junit.jupiter.api.Test
-
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
-import ru.home.project.entity.CandleEntity
+import org.junit.jupiter.api.Test
 import ru.home.project.entity.LevelEntity
 import ru.home.project.entity.MergedLevelEntity
 import ru.home.project.util.readValueAsString

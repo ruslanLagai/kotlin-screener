@@ -3,7 +3,6 @@ package ru.home.project.entity
 import com.fasterxml.jackson.annotation.JsonFormat
 import jakarta.persistence.*
 import ru.home.project.model.LevelType
-import java.time.LocalDateTime
 import java.time.ZonedDateTime
 
 /**
