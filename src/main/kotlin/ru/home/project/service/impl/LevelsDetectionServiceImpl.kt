@@ -65,6 +65,8 @@ class LevelsDetectionServiceImpl(
             .map { LevelEntity(figi = figi, ticker = instrument.ticker, level = it.second, levelDate = it.first) }
         levelsRepository.saveAll(detectedLevels)
 
+        log.info("Detected {} levels for {}", detectedLevels.size, figi)
+
         val mergedLevels = mergeLevels(detectedLevels)
         mergedLevelsRepository.saveAll(mergedLevels)
         mergedLevels.forEach {

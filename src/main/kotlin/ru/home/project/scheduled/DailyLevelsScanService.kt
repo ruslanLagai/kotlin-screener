@@ -24,6 +24,7 @@ class DailyLevelsScanService(
     fun scanLevels() {
         kotlin.runCatching {
             tinkoffTradingProperties.instruments.forEach {
+                log.info("Starting levels scan for {}", it)
                 levelsDetectionService.detectLevels(it, CandleInterval.CANDLE_INTERVAL_DAY, CandleInterval.CANDLE_INTERVAL_HOUR)
                 Thread.sleep(Duration.ofSeconds(120))
             }

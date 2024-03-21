@@ -87,6 +87,6 @@ protobuf {
 }
 
 springBoot {
-    mainClass.value("ru.home.project.TinkoffScreenerApp")
+    mainClass.value("ru.home.project.TinkoffScreenerAppKt")
 }
 

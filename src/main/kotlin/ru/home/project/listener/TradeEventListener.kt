@@ -53,7 +53,7 @@ class TradeEventListener(
             lastCandles.all { it.high < level.minLevel }
         }
         if (!isFarRetest) {
-            log.debug("Close retest for level {}", level.level)
+            log.info("Close retest for level {}", level.level)
             return
         }
 
@@ -68,6 +68,7 @@ class TradeEventListener(
         val statistics = getStatistics(levelStatistics)
         val message = String.format(telegramMessage, instrument.ticker, levelValue, statistics)
         telegramBotProperties.accounts.forEach {
+            log.info("Sending message on {} to telegram user {}", instrument.ticker, it)
             telegramBotGrpcService.sendMessage(figi = event.figi, ticker = instrument.ticker, text = message, accountId = it)
         }
     }
