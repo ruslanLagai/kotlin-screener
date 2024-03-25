@@ -50,7 +50,7 @@ class ClosestLevelServiceImpl(
         }.minByOrNull { abs(((it.maxLevel + it.minLevel) / 2) - price) }
 
         if (closestLevel == null) {
-            log.info("No levels found for {}, price {}", figi, price)
+            log.debug("No levels found for {}, price {}", figi, price)
             return null
         }
 
