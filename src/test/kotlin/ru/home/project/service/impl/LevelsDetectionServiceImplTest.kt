@@ -9,6 +9,7 @@ import org.springframework.test.context.DynamicPropertySource
 import org.testcontainers.containers.MySQLContainer
 import org.testcontainers.junit.jupiter.Container
 import org.testcontainers.junit.jupiter.Testcontainers
+import ru.home.project.config.FlywayConfig
 import ru.home.project.entity.InstrumentEntity
 import ru.home.project.entity.LevelEntity
 import ru.home.project.properties.TinkoffTradingProperties
@@ -43,6 +44,9 @@ class LevelsDetectionServiceImplTest {
     @MockBean
     private lateinit var tinkoffTradingProperties: TinkoffTradingProperties
 
+    @MockBean
+    private lateinit var flywayConfig: FlywayConfig
+
     companion object {
 
         @JvmStatic
@@ -55,6 +59,7 @@ class LevelsDetectionServiceImplTest {
             registry.add("spring.datasource.url", container::getJdbcUrl)
             registry.add("spring.datasource.username", container::getUsername)
             registry.add("spring.datasource.password", container::getPassword)
+            registry.add("spring.flyway.schemas", container::getDatabaseName)
             registry.add("spring.datasource.driver-class-name", container::getDriverClassName)
         }
 

@@ -12,5 +12,5 @@ interface LevelStatisticsRepository : JpaRepository<LevelStatisticsEntity, Strin
 
     fun getByFigi(figi: String): Set<LevelStatisticsEntity>
 
-    fun getByFigiAndMaxLevel(figi: String, maxLevel: Double): LevelStatisticsEntity
+    fun getByFigiAndMaxLevel(figi: String, maxLevel: Double): List<LevelStatisticsEntity>
 }

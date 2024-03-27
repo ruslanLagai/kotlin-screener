@@ -1,5 +1,6 @@
 package ru.home.project.listener
 
+import org.apache.commons.math3.util.Precision
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.context.event.EventListener
@@ -16,6 +17,8 @@ import ru.home.project.service.ClosestLevelService
 import ru.home.project.service.TelegramBotGrpcService
 import ru.home.project.utils.telegramMessage
 import ru.tinkoff.piapi.contract.v1.CandleInterval
+import java.time.LocalDateTime
+import java.util.concurrent.ConcurrentHashMap
 
 /**
  * @author rlagay
@@ -31,6 +34,7 @@ class TradeEventListener(
 ) {
 
     private val log: Logger = LoggerFactory.getLogger(TradeEventListener::class.java)
+    private val sentMessages = ConcurrentHashMap<String, LocalDateTime>()
 
     /**
      * Проверка близости к уровням
@@ -39,6 +43,13 @@ class TradeEventListener(
     @Async("tradeEventExecutor")
     @EventListener
     fun processTradeEvent(event: TradeEvent) {
+        val prevMessageDate = sentMessages[event.figi]
+        if (prevMessageDate != null) {
+            if (prevMessageDate.plusDays(5).isAfter(LocalDateTime.now())) {
+                return
+            }
+        }
+
         val level = closestLevelService.getClosestLevel(event.figi, event.price)
         if (level == null) {
             log.debug("Skipping trade event for {}, no close levels", event.figi)
@@ -74,10 +85,16 @@ class TradeEventListener(
             log.info("Sending message on {} to telegram user {}", instrument.ticker, it)
             telegramBotGrpcService.sendMessage(figi = event.figi, ticker = instrument.ticker, text = message, accountId = it)
         }
+        sentMessages.put(event.figi, LocalDateTime.now())
     }
 
-    private fun getStatistics(levelStatisticsEntity: LevelStatisticsEntity): String {
-        levelStatisticsEntity.apply {
+    private fun getStatistics(levelStatisticsEntities: List<LevelStatisticsEntity>): String {
+        val goodSignals = levelStatisticsEntities.sumOf { it.goodSignals }
+        val totalCrosses = levelStatisticsEntities.sumOf { it.totalCrosses }
+        val averageBreaking = Precision.round(levelStatisticsEntities.map { it.averageBreaking }.average(), 2)
+        val averageRebound = Precision.round(levelStatisticsEntities.map { it.averageRebound }.average(), 2)
+
+        levelStatisticsEntities.apply {
             return "Уровень отработал " + goodSignals + " раз из " + totalCrosses +
                     "\nСреднее пробитие: " + averageBreaking +
                     "\nСредний отскок: " + averageRebound;
