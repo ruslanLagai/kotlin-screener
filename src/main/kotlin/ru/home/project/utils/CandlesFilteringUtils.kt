@@ -29,7 +29,7 @@ fun retrieveDatesAroundLevel(candles: List<CandleEntity>, level: MergedLevelEnti
             prev = dates[i]
             bufferList.add(dates[i])
             continue
-        } else if (start.plusDays(7).isBefore(dates[i])) {
+        } else if (start.plusDays(7).isBefore(dates[i]) || start.plusDays(7).equals(dates[i])) {
             val startDate = if (bufferList.isEmpty()) prev else start
             val interval = IntervalForScan(start = startDate, end = prev)
             result.add(interval)
@@ -125,6 +125,7 @@ fun removeCloseRetests(support: MutableMap<ZonedDateTime, List<CandleEntity>>,
 
     val keysToRemove = ArrayList<ZonedDateTime>()
     val keys = HashMap<ZonedDateTime, List<CandleEntity>>()
+    var isFirstPass = true
     keys.putAll(support)
     keys.putAll(resistance)
 
@@ -135,12 +136,13 @@ fun removeCloseRetests(support: MutableMap<ZonedDateTime, List<CandleEntity>>,
         if (lastCrossing == null || firstCrossing == null) {
             keysToRemove.add(it.key)
         } else {
-            val isCloseRetest = firstCrossing.dateTime != minDate
+            val isCloseRetest = !isFirstPass
                     && Duration.between(minDate, firstCrossing.dateTime).toHours() < hoursToDetectCloseRetest
             if (isCloseRetest) {
                 keysToRemove.add(it.key)
             }
             minDate = lastCrossing.dateTime
+            isFirstPass = false
         }
     }
 

@@ -14,10 +14,18 @@ ru:
         connection-timeout: 5
         request-timeout: 5
         token: ${COMMON_TOKEN}
+  coin-market-cap:
+    url: https://pro-api.coinmarketcap.com/v1/cryptocurrency
+    token: ${COIN_MARKET_CAP_TOKEN}
+  twelve-data:
+    url: https://api.twelvedata.com
+    token: ${TWELVE_DATA_TOKEN}
 logging:
   level:
     root: ${LOGGING_LEVEL}
 service:
+  crypto:
+    daily-cron: ${CRYPTO_PRICES_CRON}
   tinkoff:
     instruments: ${INSTRUMENTS}
     daily-cron: ${CRON}

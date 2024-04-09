@@ -1,7 +1,10 @@
 package ru.home.project.utils
 
+import org.apache.commons.math3.util.Precision
 import ru.home.project.entity.LevelEntity
+import ru.home.project.entity.LevelStatisticsEntity
 import ru.home.project.entity.MergedLevelEntity
+import ru.home.project.model.LevelType
 import kotlin.math.abs
 import kotlin.math.max
 
@@ -39,4 +42,20 @@ fun mergeLevels(levels: List<LevelEntity>): Set<MergedLevelEntity> {
 
 private fun getNearByLevels(levelEntity: LevelEntity, levels: List<LevelEntity>): List<LevelEntity> {
     return levels.filter { abs(it.level - levelEntity.level) / max(it.level, levelEntity.level) < 0.01 }
+}
+
+fun levelType(closestLevel: MergedLevelEntity) =
+    if (closestLevel.minLevel > closestLevel.price) LevelType.Support else LevelType.Resistance
+
+fun getStatistics(levelStatisticsEntities: List<LevelStatisticsEntity>): String {
+    val goodSignals = levelStatisticsEntities.sumOf { it.goodSignals }
+    val totalCrosses = levelStatisticsEntities.sumOf { it.totalCrosses }
+    val averageBreaking = Precision.round(levelStatisticsEntities.map { it.averageBreaking }.average(), 2)
+    val averageRebound = Precision.round(levelStatisticsEntities.map { it.averageRebound }.average(), 2)
+
+    levelStatisticsEntities.apply {
+        return "Уровень отработал " + goodSignals + " раз из " + totalCrosses +
+                "\nСреднее пробитие: " + averageBreaking +
+                "\nСредний отскок: " + averageRebound;
+    }
 }

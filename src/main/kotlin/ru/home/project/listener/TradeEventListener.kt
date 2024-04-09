@@ -1,12 +1,15 @@
 package ru.home.project.listener
 
-import org.apache.commons.math3.util.Precision
+import com.google.common.util.concurrent.AtomicDouble
+import org.apache.commons.lang3.function.TriFunction
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.context.event.EventListener
 import org.springframework.scheduling.annotation.Async
 import org.springframework.stereotype.Component
-import ru.home.project.entity.LevelStatisticsEntity
+import ru.home.project.entity.MergedLevelEntity
+import ru.home.project.model.CryptoPrice
+import ru.home.project.model.ItemType
 import ru.home.project.model.LevelType
 import ru.home.project.model.TradeEvent
 import ru.home.project.properties.TelegramBotProperties
@@ -14,9 +17,13 @@ import ru.home.project.repository.InstrumentRepository
 import ru.home.project.repository.LevelStatisticsRepository
 import ru.home.project.service.CandlesService
 import ru.home.project.service.ClosestLevelService
+import ru.home.project.service.CryptoCandlesService
 import ru.home.project.service.TelegramBotGrpcService
+import ru.home.project.utils.getStatistics
+import ru.home.project.utils.levelType
 import ru.home.project.utils.telegramMessage
 import ru.tinkoff.piapi.contract.v1.CandleInterval
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.concurrent.ConcurrentHashMap
 
@@ -28,6 +35,7 @@ class TradeEventListener(
     val closestLevelService: ClosestLevelService,
     val telegramBotGrpcService: TelegramBotGrpcService,
     val candlesService: CandlesService,
+    val cryptoCandlesService: CryptoCandlesService,
     val instrumentRepository: InstrumentRepository,
     val telegramBotProperties: TelegramBotProperties,
     val levelStatisticsRepository: LevelStatisticsRepository
@@ -36,6 +44,11 @@ class TradeEventListener(
     private val log: Logger = LoggerFactory.getLogger(TradeEventListener::class.java)
     private val sentMessages = ConcurrentHashMap<String, LocalDateTime>()
 
+    private val farRetestProcessor = mapOf(
+        Pair(ItemType.STOCK, checkTinkoffStock()),
+        Pair(ItemType.CRYPTO, checkCrypto())
+    )
+    
     /**
      * Проверка близости к уровням
      * Если ближе, чем 2%, считаем статистику и шлем оповещение
@@ -43,6 +56,22 @@ class TradeEventListener(
     @Async("tradeEventExecutor")
     @EventListener
     fun processTradeEvent(event: TradeEvent) {
+        processEvent(event, ItemType.STOCK)
+    }
+
+    @Async("cryptoEventExecutor")
+    @EventListener
+    fun processCryptoPricesEvent(price: CryptoPrice) {
+        val event = TradeEvent(price.price, price.symbol)
+        processEvent(event, ItemType.CRYPTO)
+    }
+    
+    /**
+     * Проверка близости к уровням
+     * Если ближе, чем 2%, считаем статистику и шлем оповещение
+     */
+
+    private fun processEvent(event: TradeEvent, type: ItemType) {
         val prevMessageDate = sentMessages[event.figi]
         if (prevMessageDate != null) {
             if (prevMessageDate.plusDays(5).isAfter(LocalDateTime.now())) {
@@ -55,15 +84,10 @@ class TradeEventListener(
             log.debug("Skipping trade event for {}, no close levels", event.figi)
             return
         }
+        val levelValue = AtomicDouble()
 
-        val lastCandles = candlesService.getLastCandlesFromDb(event.figi, CandleInterval.CANDLE_INTERVAL_DAY)
-        val levelType = if (level.minLevel > event.price) LevelType.Support else LevelType.Resistance
-        val isFarRetest = if (LevelType.Support == levelType) {
-            lastCandles.all { it.low > level.maxLevel }
-        } else {
-            lastCandles.all { it.high < level.minLevel }
-        }
-        if (!isFarRetest) {
+        val isFarRetest = farRetestProcessor[type]?.apply(event, level, levelValue)
+        if (isFarRetest == null || !isFarRetest) {
             log.debug("Close retest for level {}", level.level)
             return
         }
@@ -74,10 +98,9 @@ class TradeEventListener(
             return
         }
 
-        val levelValue = if (levelType == LevelType.Support) level.maxLevel else level.minLevel
         val levelStatistics = levelStatisticsRepository.getByFigiAndMaxLevel(event.figi, level.maxLevel)
         val statistics = getStatistics(levelStatistics)
-        val message = String.format(telegramMessage, instrument.ticker, levelValue, statistics)
+        val message = String.format(telegramMessage, instrument.ticker, levelValue.get(), statistics)
 
         log.info("Detected signal for {}", event.figi)
 
@@ -85,19 +108,32 @@ class TradeEventListener(
             log.info("Sending message on {} to telegram user {}", instrument.ticker, it)
             telegramBotGrpcService.sendMessage(figi = event.figi, ticker = instrument.ticker, text = message, accountId = it)
         }
-        sentMessages.put(event.figi, LocalDateTime.now())
+        sentMessages[event.figi] = LocalDateTime.now()
+    }
+    
+    private fun checkTinkoffStock(): TriFunction<TradeEvent, MergedLevelEntity, AtomicDouble, Boolean> {
+        return TriFunction { event, level, levelValue ->
+            val lastCandles = candlesService.getLastCandlesFromDb(event.figi, CandleInterval.CANDLE_INTERVAL_DAY)
+            val levelType = levelType(level)
+            levelValue.set(if (levelType == LevelType.Support) level.maxLevel else level.minLevel)
+            if (LevelType.Support == levelType) {
+                lastCandles.all { it.low > level.maxLevel }
+            } else {
+                lastCandles.all { it.high < level.minLevel }
+            }
+        }
     }
 
-    private fun getStatistics(levelStatisticsEntities: List<LevelStatisticsEntity>): String {
-        val goodSignals = levelStatisticsEntities.sumOf { it.goodSignals }
-        val totalCrosses = levelStatisticsEntities.sumOf { it.totalCrosses }
-        val averageBreaking = Precision.round(levelStatisticsEntities.map { it.averageBreaking }.average(), 2)
-        val averageRebound = Precision.round(levelStatisticsEntities.map { it.averageRebound }.average(), 2)
-
-        levelStatisticsEntities.apply {
-            return "Уровень отработал " + goodSignals + " раз из " + totalCrosses +
-                    "\nСреднее пробитие: " + averageBreaking +
-                    "\nСредний отскок: " + averageRebound;
+    private fun checkCrypto(): TriFunction<TradeEvent, MergedLevelEntity, AtomicDouble, Boolean> {
+        return TriFunction { event, level, levelValue ->
+            val lastCandles = cryptoCandlesService.getDailyCandles(event.figi, LocalDate.now().minusDays(30))
+            val levelType = levelType(level)
+            levelValue.set(if (levelType == LevelType.Support) level.maxLevel else level.minLevel)
+            if (LevelType.Support == levelType) {
+                lastCandles.all { it.low > level.maxLevel }
+            } else {
+                lastCandles.all { it.high < level.minLevel }
+            }
         }
     }
 }

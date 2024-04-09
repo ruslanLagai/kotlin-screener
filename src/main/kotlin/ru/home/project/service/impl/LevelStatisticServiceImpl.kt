@@ -11,7 +11,6 @@ import ru.home.project.model.LevelType
 import ru.home.project.repository.LevelStatisticsRepository
 import ru.home.project.service.LevelStatisticService
 import ru.home.project.utils.*
-import ru.tinkoff.piapi.contract.v1.CandleInterval
 import java.time.ZonedDateTime
 import java.util.function.Predicate
 import kotlin.math.abs
@@ -26,7 +25,7 @@ class LevelStatisticServiceImpl(
 
     private val log: Logger = LoggerFactory.getLogger(LevelStatisticServiceImpl::class.java)
 
-    override fun analyzeStock(figi: String, ticker: String?, level: MergedLevelEntity, interval: CandleInterval,
+    override fun analyzeStock(figi: String, ticker: String?, level: MergedLevelEntity,
                               candles: ArrayList<CandleEntity>) {
         try {
             // candles near the level

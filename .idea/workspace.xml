@@ -4,77 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5719d778-1cb0-4c50-a764-2f453e82c867" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/settings.gradle.kts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/TinkoffScreenerApp.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/config/AsyncConfig.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/config/ClientConfig.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/config/DbConfig.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/entity/CandleEntity.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/entity/InstrumentEntity.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/entity/LevelEntity.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/entity/LevelStatisticsEntity.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/entity/MergedLevelEntity.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/listener/TradeEventListener.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/model/IntervalForScan.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/model/LevelType.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/model/TradeEvent.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/processor/AbstractLevelProcessor.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/processor/DailyLevelProcessor.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/processor/FourHourLevelProcessor.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/processor/LevelProcessor.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/processor/TinkoffTradesStreamProcessor.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/properties/TinkoffProperties.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/properties/TinkoffTradingProperties.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/repository/CandlesRepository.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/repository/InstrumentRepository.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/repository/LevelStatisticsRepository.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/repository/LevelsRepository.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/repository/MergedLevelsRepository.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/scheduled/DailyLevelsScanService.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/service/CandlesService.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/service/ClosestLevelService.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/service/LevelStatisticService.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/service/LevelsDetectionService.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/service/TinkoffGrpcStreamingService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/service/TinkoffStreamingService.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/service/impl/CandlesServiceImpl.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/service/impl/ClosestLevelServiceImpl.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/service/impl/LevelStatisticServiceImpl.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/service/impl/LevelsDetectionServiceImpl.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/service/impl/TinkoffStreamingServiceImpl.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/utils/CandlesFilteringUtils.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/utils/Constants.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/utils/LevelUtils.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/utils/PriceUtils.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/utils/TimeUtils.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/kotlin/ru/home/project/processor/DailyLevelProcessorTest.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/kotlin/ru/home/project/processor/TinkoffTradesStreamProcessorTest.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/kotlin/ru/home/project/service/impl/CandlesServiceImplTest.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/kotlin/ru/home/project/service/impl/ClosestLevelServiceImplTest.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/kotlin/ru/home/project/service/impl/LevelStatisticServiceImplTest.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/kotlin/ru/home/project/service/impl/LevelsDetectionServiceImplTest.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/kotlin/ru/home/project/service/impl/TinkoffStreamingServiceImplTest.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/kotlin/ru/home/project/util/Candles.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/kotlin/ru/home/project/util/TestUtils.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/kotlin/ru/home/project/utils/CandlesFilteringUtilsKtTest.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/kotlin/ru/home/project/utils/LevelUtilsKtTest.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/candles/gmkn-hourly-candles-bugfix.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/candles/tcsg-hourly-candles.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/candles/vkco-daily-candles.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/candles/vtb-daily-candles.json" afterDir="false" />
+    <list default="true" id="5719d778-1cb0-4c50-a764-2f453e82c867" name="Changes" comment="bugfix - single alert for stock">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/listener/TradeEventListener.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/listener/TradeEventListener.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/utils/CandlesFilteringUtils.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/utils/CandlesFilteringUtils.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/ru/home/project/service/impl/LevelsDetectionServiceImplTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/ru/home/project/service/impl/LevelsDetectionServiceImplTest.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,6 +33,33 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="screener-kotlin" type="f1a62948:ProjectNode" />
               </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="screener-kotlin" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="screener-kotlin" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="screener-kotlin" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="other" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="screener-kotlin" type="f1a62948:ProjectNode" />
+                <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="screener-kotlin" type="f1a62948:ProjectNode" />
+                <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
+              </path>
             </expand>
             <select />
           </tree_state>
@@ -112,11 +73,11 @@
         <option value="Interface" />
         <option value="Kotlin Enum" />
         <option value="Class" />
-        <option value="Kotlin Interface" />
         <option value="Kotlin File" />
         <option value="Kotlin Data Class" />
-        <option value="Kotlin Class" />
         <option value="JUnit5 Test Class" />
+        <option value="Kotlin Interface" />
+        <option value="Kotlin Class" />
       </list>
     </option>
   </component>
@@ -134,23 +95,31 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Gradle.Build screener-kotlin.executor": "Run",
+    "Gradle.CandlesFilteringUtilsKtTest.executor": "Run",
     "Gradle.CandlesFilteringUtilsKtTest.test split candles to interval - bug fix.executor": "Run",
+    "Gradle.CandlesFilteringUtilsKtTest.test split candles to support interval - full candles GMKN.executor": "Debug",
     "Gradle.CandlesServiceImplTest.executor": "Run",
     "Gradle.CandlesServiceImplTest.test getting candles from db + grpc - exception.executor": "Run",
-    "Gradle.CandlesServiceImplTest.test getting candles from db + grpc - hour interval.executor": "Debug",
+    "Gradle.CandlesServiceImplTest.test getting candles from db + grpc - hour interval.executor": "Run",
     "Gradle.CandlesServiceImplTest.test getting candles from db + grpc.executor": "Debug",
-    "Gradle.CandlesServiceImplTest.test getting candles from grpc only.executor": "Run",
+    "Gradle.CandlesServiceImplTest.test getting candles from grpc only.executor": "Debug",
     "Gradle.ClosestLevelServiceImplTest.executor": "Run",
     "Gradle.ClosestLevelServiceImplTest.test get resistance level.executor": "Run",
-    "Gradle.ClosestLevelServiceImplTest.test get support level.executor": "Debug",
+    "Gradle.ClosestLevelServiceImplTest.test get support level.executor": "Run",
     "Gradle.ClosestLevelServiceImplTest.test no levels.executor": "Run",
     "Gradle.DailyLevelProcessorTest.executor": "Run",
     "Gradle.DailyLevelProcessorTest.test not enough candles.executor": "Run",
     "Gradle.DailyLevelProcessorTest.test resistance levels.executor": "Debug",
     "Gradle.DailyLevelProcessorTest.test support levels.executor": "Debug",
+    "Gradle.LevelStatisticServiceImplTest.executor": "Run",
+    "Gradle.LevelUtilsKtTest.test merge levels - bugfix.executor": "Run",
     "Gradle.LevelUtilsKtTest.test merge levels.executor": "Run",
+    "Gradle.LevelsDetectionServiceImplTest.executor": "Run",
+    "Gradle.LevelsDetectionServiceImplTest.test SMLT daily levels - result validation.executor": "Debug",
     "Gradle.LevelsDetectionServiceImplTest.test gmkn daily levels - no data in DB.executor": "Debug",
     "Gradle.LevelsDetectionServiceImplTest.test vtbr daily levels.executor": "Debug",
+    "Gradle.Tests in 'ru.home.project.utils'.executor": "Run",
     "Gradle.Tests in 'screener-kotlin.test'.executor": "Run",
     "Gradle.TinkoffStreamingServiceImplTest.executor": "Run",
     "Gradle.TinkoffStreamingServiceImplTest.test getting trades stream - works only with working stock exchange.executor": "Run",
@@ -158,13 +127,20 @@
     "Gradle.TinkoffTradesStreamProcessorTest.executor": "Run",
     "Gradle.TinkoffTradesStreamProcessorTest.test event publishing.executor": "Run",
     "Gradle.TinkoffTradesStreamProcessorTest.test parallel level update.executor": "Run",
+    "Gradle.screener-kotlin [bootJar].executor": "Run",
+    "Gradle.screener-kotlin [generateProto].executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Spring Boot.TinkoffScreenerApp.executor": "Run",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/rlagay/Documents/Github/new/ozon-api/screener-kotlin/src/test/kotlin/ru/home/project/util",
+    "last_opened_file_path": "/Users/rlagay/Documents/Github/new/ozon-api/screener-kotlin",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -183,9 +159,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/test/kotlin/ru/home/project/util" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/src/main/resources/db/migration" />
       <recent name="$PROJECT_DIR$/src/main/resources" />
-      <recent name="$PROJECT_DIR$/src/main/kotlin/ru/home/project/properties" />
+      <recent name="$PROJECT_DIR$/src/main" />
+      <recent name="$PROJECT_DIR$/src/test/kotlin/ru/home/project/util" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -199,41 +177,19 @@
       <recent name="ru.home.project.processor" />
     </key>
     <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
+      <recent name="ru.home.project.properties" />
       <recent name="ru.home.project.entity" />
       <recent name="ru.home.project.repository" />
       <recent name="ru.home.project.processor" />
       <recent name="ru.home.project.service.impl" />
-      <recent name="ru.home.project.service" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="ru.home.project.config" />
+      <recent name="ru.home.project.properties" />
       <recent name="ru.home.project.service" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.CandlesFilteringUtilsKtTest.test split candles to interval - bug fix">
-    <configuration name="CandlesFilteringUtilsKtTest.test split candles to interval - bug fix" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;ru.home.project.utils.CandlesFilteringUtilsKtTest.test split candles to interval - bug fix&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Gradle.LevelsDetectionServiceImplTest.test SMLT daily levels - result validation">
     <configuration name="CandlesServiceImplTest.test getting candles from db + grpc - hour interval" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -258,7 +214,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="ClosestLevelServiceImplTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="LevelsDetectionServiceImplTest.test SMLT daily levels - result validation" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -271,31 +227,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;ru.home.project.service.impl.ClosestLevelServiceImplTest&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="LevelUtilsKtTest.test merge levels" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;ru.home.project.utils.LevelUtilsKtTest.test merge levels&quot;" />
+            <option value="&quot;ru.home.project.service.impl.LevelsDetectionServiceImplTest.test SMLT daily levels - result validation&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -330,13 +262,48 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
+    <configuration name="screener-kotlin [bootJar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="bootJar" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="TinkoffScreenerApp" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="screener-kotlin.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ru.home.project.TinkoffScreenerApp" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.home.project.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.CandlesFilteringUtilsKtTest.test split candles to interval - bug fix" />
+        <item itemvalue="Gradle.LevelsDetectionServiceImplTest.test SMLT daily levels - result validation" />
         <item itemvalue="Gradle.LevelsDetectionServiceImplTest.test gmkn daily levels - no data in DB" />
+        <item itemvalue="Spring Boot.TinkoffScreenerApp" />
+        <item itemvalue="Gradle.screener-kotlin [bootJar]" />
         <item itemvalue="Gradle.CandlesServiceImplTest.test getting candles from db + grpc - hour interval" />
-        <item itemvalue="Gradle.LevelUtilsKtTest.test merge levels" />
-        <item itemvalue="Gradle.ClosestLevelServiceImplTest" />
       </list>
     </recent_temporary>
   </component>
@@ -362,47 +329,85 @@
       <workItem from="1707333940082" duration="8836000" />
       <workItem from="1707717339990" duration="85979000" />
       <workItem from="1710186313209" duration="21446000" />
+      <workItem from="1710483654853" duration="60233000" />
+      <workItem from="1711047329206" duration="11948000" />
+      <workItem from="1711392965337" duration="16176000" />
+      <workItem from="1711695860073" duration="11707000" />
     </task>
+    <task id="LOCAL-00001" summary="init version">
+      <option name="closed" value="true" />
+      <created>1710834943771</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1710834943771</updated>
+    </task>
+    <task id="LOCAL-00002" summary="check style">
+      <option name="closed" value="true" />
+      <created>1710835435830</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1710835435830</updated>
+    </task>
+    <task id="LOCAL-00003" summary="added message body">
+      <option name="closed" value="true" />
+      <created>1710874465219</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1710874465219</updated>
+    </task>
+    <task id="LOCAL-00004" summary="logging">
+      <option name="closed" value="true" />
+      <created>1711012618469</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1711012618469</updated>
+    </task>
+    <task id="LOCAL-00005" summary="logging">
+      <option name="closed" value="true" />
+      <created>1711356886699</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1711356886699</updated>
+    </task>
+    <task id="LOCAL-00006" summary="bugfix - single alert for stock">
+      <option name="closed" value="true" />
+      <created>1711524540651</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1711524540651</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="init version" />
+    <MESSAGE value="check style" />
+    <MESSAGE value="added message body" />
+    <MESSAGE value="logging" />
+    <MESSAGE value="bugfix - single alert for stock" />
+    <option name="LAST_COMMIT_MESSAGE" value="bugfix - single alert for stock" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/ru/home/project/service/impl/LevelStatisticServiceImpl.kt</url>
-          <line>19</line>
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/test/kotlin/ru/home/project/utils/LevelUtilsKtTest.kt</url>
-          <line>33</line>
-          <option name="timeStamp" value="14" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/test/kotlin/ru/home/project/service/impl/CandlesServiceImplTest.kt</url>
-          <line>101</line>
-          <option name="timeStamp" value="29" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/ru/home/project/service/impl/CandlesServiceImpl.kt</url>
-          <line>94</line>
-          <option name="timeStamp" value="30" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/test/kotlin/ru/home/project/service/impl/LevelsDetectionServiceImplTest.kt</url>
-          <line>73</line>
-          <properties>
-            <option name="lambda-ordinal" value="-1" />
-          </properties>
-          <option name="timeStamp" value="31" />
+          <line>65</line>
+          <option name="timeStamp" value="66" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/kotlin/ru/home/project/service/impl/LevelStatisticServiceImpl.kt</url>
-          <line>43</line>
-          <option name="timeStamp" value="36" />
+          <line>39</line>
+          <option name="timeStamp" value="73" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

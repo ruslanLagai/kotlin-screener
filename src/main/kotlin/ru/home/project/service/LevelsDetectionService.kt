@@ -1,5 +1,6 @@
 package ru.home.project.service
 
+import ru.home.project.model.ItemType
 import ru.tinkoff.piapi.contract.v1.CandleInterval
 
 /**
@@ -9,5 +10,6 @@ import ru.tinkoff.piapi.contract.v1.CandleInterval
  */
 interface LevelsDetectionService {
 
-    fun detectLevels(figi: String, interval: CandleInterval, intervalForStatistics: CandleInterval)
+    fun detectLevels(figi: String, interval: CandleInterval, intervalForStatistics: CandleInterval, type: ItemType)
+
 }

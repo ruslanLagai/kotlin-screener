@@ -12,6 +12,7 @@ import org.testcontainers.junit.jupiter.Testcontainers
 import ru.home.project.config.FlywayConfig
 import ru.home.project.entity.InstrumentEntity
 import ru.home.project.entity.LevelEntity
+import ru.home.project.model.ItemType
 import ru.home.project.properties.TinkoffTradingProperties
 import ru.home.project.repository.InstrumentRepository
 import ru.home.project.repository.LevelStatisticsRepository
@@ -70,7 +71,7 @@ class LevelsDetectionServiceImplTest {
         instrumentRepository.save(InstrumentEntity(figi = "BBG004731489", ticker = "GMKN", lot = 1, currency = "rub",
             name = "Норильский никель"))
 
-        levelsDetectionService.detectLevels("BBG004731489", CandleInterval.CANDLE_INTERVAL_DAY, CandleInterval.CANDLE_INTERVAL_HOUR)
+        levelsDetectionService.detectLevels("BBG004731489", CandleInterval.CANDLE_INTERVAL_DAY, CandleInterval.CANDLE_INTERVAL_HOUR, ItemType.STOCK)
 
         val levels = levelsRepository.getLevelsByFigi("BBG004731489")
         assertTrue { levels.isNotEmpty() }
@@ -85,12 +86,42 @@ class LevelsDetectionServiceImplTest {
         levelsRepository.save(LevelEntity(figi = "BBG00Y91R9T3", ticker = "OZON", level = 3012.5,
             levelDate = ZonedDateTime.of(2023, 11, 22, 0, 0, 0, 0, ZoneId.of("UTC"))))
 
-        levelsDetectionService.detectLevels("BBG00Y91R9T3", CandleInterval.CANDLE_INTERVAL_DAY, CandleInterval.CANDLE_INTERVAL_HOUR)
+        levelsDetectionService.detectLevels("BBG00Y91R9T3", CandleInterval.CANDLE_INTERVAL_DAY, CandleInterval.CANDLE_INTERVAL_HOUR, ItemType.STOCK)
 
         val levels = levelsRepository.getLevelsByFigi("BBG00Y91R9T3")
         assertTrue { levels.isNotEmpty() }
 
         val levelStatistics = levelStatisticsRepository.getByFigi("BBG00Y91R9T3")
+        assertTrue { levelStatistics.isNotEmpty() }
+    }
+
+    @Test
+    fun `test SMLT daily levels - result validation`() {
+        instrumentRepository.save(InstrumentEntity(figi = "BBG00F6NKQX3", ticker = "SMLT", lot = 1, currency = "rub",
+            name = "ГК Самолет"))
+        levelsRepository.save(LevelEntity(figi = "BBG00F6NKQX3", ticker = "SMLT", level = 3600.0,
+            levelDate = ZonedDateTime.of(2023, 11, 22, 0, 0, 0, 0, ZoneId.of("UTC"))))
+
+        levelsDetectionService.detectLevels("BBG00F6NKQX3", CandleInterval.CANDLE_INTERVAL_DAY, CandleInterval.CANDLE_INTERVAL_HOUR, ItemType.STOCK)
+
+        val levels = levelsRepository.getLevelsByFigi("BBG00F6NKQX3")
+        assertTrue { levels.isNotEmpty() }
+
+        val levelStatistics = levelStatisticsRepository.getByFigi("BBG00F6NKQX3")
+        assertTrue { levelStatistics.isNotEmpty() }
+    }
+
+    @Test
+    fun `test BTCUSD daily levels`() {
+        instrumentRepository.save(InstrumentEntity(figi = "BTC/USD", ticker = "BTC/USD", lot = 1, currency = "usdt",
+            name = "BTC"))
+
+        levelsDetectionService.detectLevels("BTC/USD", CandleInterval.CANDLE_INTERVAL_DAY, CandleInterval.CANDLE_INTERVAL_DAY, ItemType.CRYPTO)
+
+        val levels = levelsRepository.getLevelsByFigi("BTC/USD")
+        assertTrue { levels.isNotEmpty() }
+
+        val levelStatistics = levelStatisticsRepository.getByFigi("BTC/USD")
         assertTrue { levelStatistics.isNotEmpty() }
     }
 

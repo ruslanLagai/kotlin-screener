@@ -54,6 +54,7 @@ class CandlesServiceImplTest {
             registry.add("spring.datasource.username", container::getUsername)
             registry.add("spring.datasource.password", container::getPassword)
             registry.add("spring.datasource.driver-class-name", container::getDriverClassName)
+            registry.add("spring.flyway.schemas", container::getDatabaseName)
         }
 
     }

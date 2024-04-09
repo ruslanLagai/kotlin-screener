@@ -47,7 +47,7 @@ class LevelStatisticServiceImplTest {
             CandleEntity(figi = "", open = 2782.5, close = 2789.0, high = 2839.0, low = 2700.0, volume = 10, dateTime = ZonedDateTime.now(),
                 interval = CandleInterval.CANDLE_INTERVAL_HOUR)
         ))
-        levelStatisticService.analyzeStock("BBG00QPYJ5H0", "TCSG", level, CandleInterval.CANDLE_INTERVAL_HOUR, candles)
+        levelStatisticService.analyzeStock("BBG00QPYJ5H0", "TCSG", level, candles)
 
         val levelResistance = LevelStatisticsEntity(figi = "BBG00QPYJ5H0", ticker = "TCSG", maxLevel = 2855.5, minLevel = 2855.5,
             minLevelDate = levelDate, maxLevelDate = levelDate, successRate = 0.0, averageBreaking = 0.02, averageRebound = 0.08,
