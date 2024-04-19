@@ -31,9 +31,12 @@ fun mergeLevels(levels: List<LevelEntity>): Set<MergedLevelEntity> {
 
         }
 
-        val minLevel = nearByLevels.minBy { it.level }
-        val maxLevel = nearByLevels.maxBy { it.level }
+        val minLevel = nearByLevels.minByOrNull { it.level }
+        val maxLevel = nearByLevels.maxByOrNull { it.level }
 
+        if (minLevel == null || maxLevel == null) {
+            continue
+        }
         mergedLevels.add(MergedLevelEntity(minLevel = minLevel.level, maxLevel = maxLevel.level, maxLevelDate = maxLevel.levelDate,
             minLevelDate = minLevel.levelDate, figi = maxLevel.figi, ticker = maxLevel.ticker))
     }
@@ -44,8 +47,8 @@ private fun getNearByLevels(levelEntity: LevelEntity, levels: List<LevelEntity>)
     return levels.filter { abs(it.level - levelEntity.level) / max(it.level, levelEntity.level) < 0.01 }
 }
 
-fun levelType(closestLevel: MergedLevelEntity) =
-    if (closestLevel.minLevel > closestLevel.price) LevelType.Support else LevelType.Resistance
+fun levelType(closestLevel: MergedLevelEntity, price: Double) =
+    if (closestLevel.minLevel > price) LevelType.Support else LevelType.Resistance
 
 fun getStatistics(levelStatisticsEntities: List<LevelStatisticsEntity>): String {
     val goodSignals = levelStatisticsEntities.sumOf { it.goodSignals }

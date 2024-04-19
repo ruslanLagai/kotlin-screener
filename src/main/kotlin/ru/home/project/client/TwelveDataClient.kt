@@ -24,7 +24,7 @@ class TwelveDataClient(
                     .path("/time_series")
                     .queryParam("symbol", symbol)
                     .queryParam("interval", interval)
-                    .queryParam("apikey", twelveDataProperties.token)
+                    .queryParam("apikey", twelveDataProperties.token.random())
                     .queryParam("outputsize", size)
                     .build()
             }

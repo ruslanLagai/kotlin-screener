@@ -11,5 +11,5 @@ import org.springframework.validation.annotation.Validated
 @Validated
 data class TwelveDataProperties(
     @NotBlank val url: String,
-    @NotBlank val token: String
+    @NotBlank val token: List<String>
 )

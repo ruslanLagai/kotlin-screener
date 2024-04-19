@@ -2,6 +2,7 @@ package ru.home.project.service.impl
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.stereotype.Service
 import ru.home.project.client.TwelveDataClient
 import ru.home.project.exceptions.TwelveDataException
@@ -19,7 +20,7 @@ class CryptoCandlesServiceImpl(
 
     private val log: Logger = LoggerFactory.getLogger(CryptoCandlesServiceImpl::class.java)
 
-
+    @Cacheable(cacheNames = [ "twelve-data" ], key = "#symbol + #from.toEpochDay()", condition = "@checkRedis.get()")
     override fun getDailyCandles(symbol: String, from: LocalDate) : List<Candle> {
         val size = LocalDate.now().dayOfYear - from.dayOfYear
         return getCandles(symbol, size)

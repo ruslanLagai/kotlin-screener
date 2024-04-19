@@ -16,7 +16,7 @@ class CryptoCandlesReceivingService(
     val twelveDataTradingProperties: TwelveDataTradingProperties
 ) {
 
-    @Scheduled(cron = "\${service.crypto.daily-cron}")
+    @Scheduled(cron = "\${service.crypto.prices-cron}")
     fun retrieveCandles() {
         kotlin.runCatching {
             coinMarketCapService.getCurrentPrices()

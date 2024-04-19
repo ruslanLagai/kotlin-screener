@@ -23,6 +23,7 @@ import ru.home.project.utils.getStatistics
 import ru.home.project.utils.levelType
 import ru.home.project.utils.telegramMessage
 import ru.tinkoff.piapi.contract.v1.CandleInterval
+import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.concurrent.ConcurrentHashMap
@@ -64,6 +65,7 @@ class TradeEventListener(
     fun processCryptoPricesEvent(price: CryptoPrice) {
         val event = TradeEvent(price.price, price.symbol)
         processEvent(event, ItemType.CRYPTO)
+        Thread.sleep(Duration.ofSeconds(5))
     }
     
     /**
@@ -114,7 +116,7 @@ class TradeEventListener(
     private fun checkTinkoffStock(): TriFunction<TradeEvent, MergedLevelEntity, AtomicDouble, Boolean> {
         return TriFunction { event, level, levelValue ->
             val lastCandles = candlesService.getLastCandlesFromDb(event.figi, CandleInterval.CANDLE_INTERVAL_DAY)
-            val levelType = levelType(level)
+            val levelType = levelType(level, event.price)
             levelValue.set(if (levelType == LevelType.Support) level.maxLevel else level.minLevel)
             if (LevelType.Support == levelType) {
                 lastCandles.all { it.low > level.maxLevel }
@@ -127,7 +129,7 @@ class TradeEventListener(
     private fun checkCrypto(): TriFunction<TradeEvent, MergedLevelEntity, AtomicDouble, Boolean> {
         return TriFunction { event, level, levelValue ->
             val lastCandles = cryptoCandlesService.getDailyCandles(event.figi, LocalDate.now().minusDays(30))
-            val levelType = levelType(level)
+            val levelType = levelType(level, event.price)
             levelValue.set(if (levelType == LevelType.Support) level.maxLevel else level.minLevel)
             if (LevelType.Support == levelType) {
                 lastCandles.all { it.low > level.maxLevel }

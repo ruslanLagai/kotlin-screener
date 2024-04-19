@@ -5,6 +5,13 @@ spring:
     url: jdbc:mysql://localhost:3307/screener?allowPublicKeyRetrieval=true
     username: root
     password: j&4$R>TqA2
+  data:
+    redis:
+      host: 127.0.0.1
+      port: ${REDIS_PORT}
+      password:
+      client-name: screener-app
+      client-type: lettuce
 
 ru:
   tinkoff:
@@ -19,13 +26,19 @@ ru:
     token: ${COIN_MARKET_CAP_TOKEN}
   twelve-data:
     url: https://api.twelvedata.com
-    token: ${TWELVE_DATA_TOKEN}
+    token:
+     - ${TWELVE_DATA_TOKEN_ONE}
+     - ${TWELVE_DATA_TOKEN_TWO}
+     - ${TWELVE_DATA_TOKEN_THREE}
+     - ${TWELVE_DATA_TOKEN_FOUR}
+     - ${TWELVE_DATA_TOKEN_FIVE}
 logging:
   level:
     root: ${LOGGING_LEVEL}
 service:
   crypto:
-    daily-cron: ${CRYPTO_PRICES_CRON}
+    prices-cron: ${CRYPTO_PRICES_CRON}
+    daily-cron: ${CRYPTO_DAILY_CRON}
   tinkoff:
     instruments: ${INSTRUMENTS}
     daily-cron: ${CRON}

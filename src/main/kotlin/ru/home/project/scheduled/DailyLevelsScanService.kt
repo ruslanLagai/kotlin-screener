@@ -25,27 +25,32 @@ class DailyLevelsScanService(
 
     @Scheduled(cron = "\${service.tinkoff.daily-cron}")
     fun scanLevels() {
-        kotlin.runCatching {
-            tinkoffTradingProperties.instruments.forEach {
+        tinkoffTradingProperties.instruments.forEach {
+            kotlin.runCatching {
                 log.info("Starting levels scan for {}", it)
                 levelsDetectionService.detectLevels(it, CandleInterval.CANDLE_INTERVAL_DAY, CandleInterval.CANDLE_INTERVAL_HOUR, ItemType.STOCK)
                 Thread.sleep(Duration.ofSeconds(120))
+            }.onFailure {
+                log.error("Failed to detect levels", it)
             }
-        }.onFailure {
-            log.error("Failed to detect levels", it)
         }
     }
 
     @Scheduled(cron = "\${service.crypto.daily-cron}")
     fun scanCryptoLevels() {
-        kotlin.runCatching {
-            twelveDataTradingProperties.instruments.forEach {
+        twelveDataTradingProperties.instruments.forEach {
+            kotlin.runCatching {
                 log.info("Starting crypto levels scan for {}", it)
-                levelsDetectionService.detectLevels(it, CandleInterval.CANDLE_INTERVAL_DAY, CandleInterval.CANDLE_INTERVAL_DAY, ItemType.CRYPTO)
+                levelsDetectionService.detectLevels(
+                    it,
+                    CandleInterval.CANDLE_INTERVAL_DAY,
+                    CandleInterval.CANDLE_INTERVAL_DAY,
+                    ItemType.CRYPTO
+                )
                 Thread.sleep(Duration.ofSeconds(20))
+            }.onFailure {
+                log.error("Failed to detect crypto levels", it)
             }
-        }.onFailure {
-            log.error("Failed to detect crypto levels", it)
         }
     }
 }
