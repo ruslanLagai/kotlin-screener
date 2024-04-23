@@ -128,7 +128,7 @@ class TradeEventListener(
 
     private fun checkCrypto(): TriFunction<TradeEvent, MergedLevelEntity, AtomicDouble, Boolean> {
         return TriFunction { event, level, levelValue ->
-            val lastCandles = cryptoCandlesService.getDailyCandles(event.figi, LocalDate.now().minusDays(30))
+            val lastCandles = cryptoCandlesService.getDailyCandles(event.figi, LocalDate.now().minusDays(5))
             val levelType = levelType(level, event.price)
             levelValue.set(if (levelType == LevelType.Support) level.maxLevel else level.minLevel)
             if (LevelType.Support == levelType) {

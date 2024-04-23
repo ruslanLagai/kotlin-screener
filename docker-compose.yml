@@ -31,6 +31,7 @@ services:
 #      - ${SPRING_LOCAL_PORT}:${SPRING_DOCKER_PORT}
     depends_on:
       - mysql_db
+      - redis_cache
     restart: on-failure
     mem_reservation: 1G
 
@@ -68,6 +69,18 @@ services:
       MYSQL_ROOT_USER: ${MYSQL_USER}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
+
+  redis:
+    image: redis:5.0.3-alpine
+    container_name: redis_cache
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+    networks:
+      - local
+
 volumes:
   storage:
 networks:

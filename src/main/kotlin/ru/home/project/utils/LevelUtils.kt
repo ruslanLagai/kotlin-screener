@@ -48,7 +48,7 @@ private fun getNearByLevels(levelEntity: LevelEntity, levels: List<LevelEntity>)
 }
 
 fun levelType(closestLevel: MergedLevelEntity, price: Double) =
-    if (closestLevel.minLevel > price) LevelType.Support else LevelType.Resistance
+    if (price > closestLevel.maxLevel) LevelType.Support else LevelType.Resistance
 
 fun getStatistics(levelStatisticsEntities: List<LevelStatisticsEntity>): String {
     val goodSignals = levelStatisticsEntities.sumOf { it.goodSignals }

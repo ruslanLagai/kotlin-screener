@@ -7,7 +7,7 @@ spring:
     password: j&4$R>TqA2
   data:
     redis:
-      host: 127.0.0.1
+      host: ${REDIS_HOST}
       port: ${REDIS_PORT}
       password:
       client-name: screener-app
