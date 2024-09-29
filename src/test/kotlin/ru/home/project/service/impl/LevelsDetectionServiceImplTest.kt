@@ -19,6 +19,7 @@ import ru.home.project.properties.TinkoffTradingProperties
 import ru.home.project.repository.InstrumentRepository
 import ru.home.project.repository.LevelStatisticsRepository
 import ru.home.project.repository.LevelsRepository
+import ru.home.project.repository.MergedLevelsRepository
 import ru.home.project.service.LevelsDetectionService
 import ru.tinkoff.piapi.contract.v1.CandleInterval
 import java.time.ZoneId
@@ -37,6 +38,9 @@ class LevelsDetectionServiceImplTest {
 
     @Autowired
     private lateinit var levelsRepository: LevelsRepository
+
+    @Autowired
+    private lateinit var mergedLevelsRepository: MergedLevelsRepository
 
     @Autowired
     private lateinit var levelStatisticsRepository: LevelStatisticsRepository
@@ -117,6 +121,24 @@ class LevelsDetectionServiceImplTest {
 
         val levelStatistics = levelStatisticsRepository.getByFigi("BBG00F6NKQX3")
         assertTrue { levelStatistics.isNotEmpty() }
+    }
+
+
+    @Test
+    fun `test PISO daily levels - result validation`() {
+        instrumentRepository.save(InstrumentEntity(figi = "TCS00A103X66", ticker = "POSI", lot = 1, currency = "rub",
+            name = "POSI"))
+
+        levelsDetectionService.detectLevels("TCS00A103X66", CandleInterval.CANDLE_INTERVAL_DAY, CandleInterval.CANDLE_INTERVAL_HOUR, ItemType.STOCK)
+
+        val levels = levelsRepository.getLevelsByFigi("TCS00A103X66")
+        assertTrue { levels.isNotEmpty() }
+
+        val levelStatistics = levelStatisticsRepository.getByFigi("TCS00A103X66")
+        assertTrue { levelStatistics.isNotEmpty() }
+
+        val merged = mergedLevelsRepository.getLevelsByFigi("TCS00A103X66")
+        assertTrue { merged.isNotEmpty() }
     }
 
     @Test

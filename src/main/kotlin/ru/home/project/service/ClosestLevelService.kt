@@ -8,7 +8,7 @@ import ru.home.project.entity.MergedLevelEntity
 interface ClosestLevelService {
 
     /**
-     * Получение ближайших уровней: возвращаются те, что ближе 2%
+     * Получение ближайших уровней: возвращаются те, что ближе 1%
      */
     fun getClosestLevel(figi: String, price: Double): MergedLevelEntity?
 

@@ -13,6 +13,6 @@ interface CandlesRepository : JpaRepository<CandleEntity, String> {
 
     fun findByFigiAndIntervalOrderByDateTimeDesc(figi: String, interval: CandleInterval): List<CandleEntity>
 
-    fun findTop5ByFigiAndIntervalOrderByDateTimeDesc(figi: String, interval: CandleInterval): List<CandleEntity>
+    fun findTop14ByFigiAndIntervalOrderByDateTimeDesc(figi: String, interval: CandleInterval): List<CandleEntity>
 
 }

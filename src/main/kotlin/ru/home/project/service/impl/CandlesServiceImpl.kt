@@ -79,7 +79,7 @@ class CandlesServiceImpl(
     }
 
     override fun getLastCandlesFromDb(figi: String, interval: CandleInterval): List<CandleEntity> {
-        return candlesRepository.findTop5ByFigiAndIntervalOrderByDateTimeDesc(figi, interval)
+        return candlesRepository.findTop14ByFigiAndIntervalOrderByDateTimeDesc(figi, interval)
     }
 
     private fun processDbCandles(figi: String, ticker: String?, interval: CandleInterval, saved: ArrayList<CandleEntity>):
