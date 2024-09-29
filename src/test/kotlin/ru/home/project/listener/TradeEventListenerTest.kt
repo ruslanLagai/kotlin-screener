@@ -105,7 +105,7 @@ class TradeEventListenerTest {
             registry.add("spring.datasource.password", container::getPassword)
             registry.add("spring.datasource.driver-class-name", container::getDriverClassName)
             registry.add("spring.flyway.schemas", container::getDatabaseName)
-            registry.add("service.crypto.instruments") { "BTC/USD,ETH/USD" }
+            registry.add("service.crypto.instruments") { "BTC/USD,ETH/USD,TON/USD" }
             registry.add("spring.data.redis.host", redisContainer::getHost)
             registry.add("spring.data.redis.port", redisContainer::getFirstMappedPort)
 
@@ -116,12 +116,19 @@ class TradeEventListenerTest {
     fun `test processing crypto prices`() {
         instrumentRepository.save(InstrumentEntity(figi = "BTC/USD", ticker = "BTC/USD", lot = 1, currency = "usdt", name = "Bitcoin"))
         instrumentRepository.save(InstrumentEntity(figi = "ETH/USD", ticker = "ETH/USD", lot = 1, currency = "usdt", name = "ETH"))
+        instrumentRepository.save(InstrumentEntity(figi = "TON/USD", ticker = "TON/USD", lot = 1, currency = "usdt", name = "Toncoin"))
 
         dailyLevelsScanService.scanCryptoLevels()
 
-        Thread.sleep(Duration.ofSeconds(40))
+        closestLevelService.addLevel("TON/USD", MergedLevelEntity(figi = "TON/USD", price = 0.0, minLevel = 5.77, maxLevel = 5.77,
+            maxLevelDate = ZonedDateTime.now(), minLevelDate = ZonedDateTime.now())
+        )
+
+        Thread.sleep(Duration.ofSeconds(20))
 
         cryptoCandlesReceivingService.retrieveCandles()
+
+        Thread.sleep(Duration.ofSeconds(20))
 
         var levels = mergedLevelsRepository.getLevelsByFigi("BTC/USD")
         assertTrue(levels.size > 5)
@@ -156,7 +163,7 @@ class TradeEventListenerTest {
                 dateTime = ZonedDateTime.of(2024, 4, 15, 0, 0, 0, 0, ZoneId.of("UTC")),
                 interval = CandleInterval.CANDLE_INTERVAL_DAY, volume = 1)
         )
-        Mockito.`when`(candlesRepository.findTop5ByFigiAndIntervalOrderByDateTimeDesc(any(), any())).thenReturn(candles)
+        Mockito.`when`(candlesRepository.findTop14ByFigiAndIntervalOrderByDateTimeDesc(any(), any())).thenReturn(candles)
         tradeEventListener.processTradeEvent(TradeEvent(price = 75.92, figi = "BBG004S68B31"))
 
         verify(telegramBotGrpcService.sendMessage(any(), any(), any(), any()), times(0))

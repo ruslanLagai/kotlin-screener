@@ -70,47 +70,52 @@ class TradeEventListener(
     
     /**
      * Проверка близости к уровням
-     * Если ближе, чем 2%, считаем статистику и шлем оповещение
+     * Если ближе, чем 1%, считаем статистику и шлем оповещение
      */
 
     private fun processEvent(event: TradeEvent, type: ItemType) {
-        val prevMessageDate = sentMessages[event.figi]
-        if (prevMessageDate != null) {
-            if (prevMessageDate.plusDays(5).isAfter(LocalDateTime.now())) {
+        try {
+            val prevMessageDate = sentMessages[event.figi]
+            if (prevMessageDate != null) {
+                if (prevMessageDate.plusDays(5).isAfter(LocalDateTime.now())) {
+                    return
+                }
+            }
+
+            val level = closestLevelService.getClosestLevel(event.figi, event.price)
+            if (level == null) {
+                log.debug("Skipping trade event for {}, no close levels", event.figi)
                 return
             }
+            val levelValue = AtomicDouble()
+
+            val isFarRetest = farRetestProcessor[type]?.apply(event, level, levelValue)
+            if (isFarRetest == null || !isFarRetest) {
+                log.debug("Close retest for level {}", level.level)
+                return
+            }
+
+            val instrument = instrumentRepository.getByFigi(event.figi)
+            if (instrument == null) {
+                log.warn("No record in instrument table for {}", event.figi)
+                return
+            }
+
+            val levelStatistics = levelStatisticsRepository.getByFigiAndMaxLevel(event.figi, level.maxLevel)
+            val statistics = getStatistics(levelStatistics)
+            val message = String.format(telegramMessage, instrument.ticker, levelValue.get(), statistics)
+
+            log.info("Detected signal for {}", event.figi)
+
+            telegramBotProperties.accounts.forEach {
+                log.info("Sending message on {} to telegram user {}", instrument.ticker, it)
+                telegramBotGrpcService.sendMessage(figi = event.figi, ticker = instrument.ticker, text = message, accountId = it)
+            }
+            sentMessages[event.figi] = LocalDateTime.now()
+        } catch (e: Exception) {
+            log.error("Error occurred in trade event", e)
         }
 
-        val level = closestLevelService.getClosestLevel(event.figi, event.price)
-        if (level == null) {
-            log.debug("Skipping trade event for {}, no close levels", event.figi)
-            return
-        }
-        val levelValue = AtomicDouble()
-
-        val isFarRetest = farRetestProcessor[type]?.apply(event, level, levelValue)
-        if (isFarRetest == null || !isFarRetest) {
-            log.debug("Close retest for level {}", level.level)
-            return
-        }
-
-        val instrument = instrumentRepository.getByFigi(event.figi)
-        if (instrument == null) {
-            log.warn("No record in instrument table for {}", event.figi)
-            return
-        }
-
-        val levelStatistics = levelStatisticsRepository.getByFigiAndMaxLevel(event.figi, level.maxLevel)
-        val statistics = getStatistics(levelStatistics)
-        val message = String.format(telegramMessage, instrument.ticker, levelValue.get(), statistics)
-
-        log.info("Detected signal for {}", event.figi)
-
-        telegramBotProperties.accounts.forEach {
-            log.info("Sending message on {} to telegram user {}", instrument.ticker, it)
-            telegramBotGrpcService.sendMessage(figi = event.figi, ticker = instrument.ticker, text = message, accountId = it)
-        }
-        sentMessages[event.figi] = LocalDateTime.now()
     }
     
     private fun checkTinkoffStock(): TriFunction<TradeEvent, MergedLevelEntity, AtomicDouble, Boolean> {
@@ -128,7 +133,7 @@ class TradeEventListener(
 
     private fun checkCrypto(): TriFunction<TradeEvent, MergedLevelEntity, AtomicDouble, Boolean> {
         return TriFunction { event, level, levelValue ->
-            val lastCandles = cryptoCandlesService.getDailyCandles(event.figi, LocalDate.now().minusDays(5))
+            val lastCandles = cryptoCandlesService.getDailyCandles(event.figi, LocalDate.now().minusDays(14))
             val levelType = levelType(level, event.price)
             levelValue.set(if (levelType == LevelType.Support) level.maxLevel else level.minLevel)
             if (LevelType.Support == levelType) {

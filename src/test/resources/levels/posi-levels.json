@@ -1,0 +1,142 @@
+[
+  {
+    "id": "a7a32649-34ff-47c4-acb0-17489788423f",
+    "figi": "TCS00A103X66",
+    "level": 603.8,
+    "levelDate":1633392000.000000000,
+    "ticker": "POSI"
+  },
+  {
+    "id": "6e5114ab-96d3-47c1-9d62-b179342bc369",
+    "figi": "TCS00A103X66",
+    "level": 405,
+    "levelDate":1633392000.000000000,
+    "ticker": "POSI"
+  },
+  {
+    "id": "8d26472f-9c55-44e2-aa8e-185e56978a80",
+    "figi": "TCS00A103X66",
+    "level": 1350,
+    "levelDate":1633392000.000000000,
+    "ticker": "POSI"
+  },
+  {
+    "id": "c949605e-c6e9-47b3-af22-2e9c28b0c452",
+    "figi": "TCS00A103X66",
+    "level": 837,
+    "levelDate":1633392000.000000000,
+    "ticker": "POSI"
+  },
+  {
+    "id": "cfbf699e-f097-46dc-9876-0dc2c929b7f2",
+    "figi": "TCS00A103X66",
+    "level": 938,
+    "levelDate":1633392000.000000000,
+    "ticker": "POSI"
+  },
+  {
+    "id": "2fd17408-0647-49d5-853d-40d77bca8795",
+    "figi": "TCS00A103X66",
+    "level": 1372,
+    "levelDate":1633392000.000000000,
+    "ticker": "POSI"
+  },
+  {
+    "id": "23489ad6-b405-4f55-8edf-b813b1d4328e",
+    "figi": "TCS00A103X66",
+    "level": 951,
+    "levelDate":1633392000.000000000,
+    "ticker": "POSI"
+  },
+  {
+    "id": "988d12d0-7646-48b0-b128-0bbd972107e3",
+    "figi": "TCS00A103X66",
+    "level": 1340.2,
+    "levelDate":1633392000.000000000,
+    "ticker": "POSI"
+  },
+  {
+    "id": "bd2bf088-cad9-4a19-ae61-6caec990404e",
+    "figi": "TCS00A103X66",
+    "level": 1185,
+    "levelDate":1633392000.000000000,
+    "ticker": "POSI"
+  },
+  {
+    "id": "896597a0-f824-45c8-9700-cd15600ca432",
+    "figi": "TCS00A103X66",
+    "level": 1759.8,
+    "levelDate":1633392000.000000000,
+    "ticker": "POSI"
+  },
+  {
+    "id": "4782fd23-70b8-4b3a-a4aa-f210d6cf95c6",
+    "figi": "TCS00A103X66",
+    "level": 1593.6,
+    "levelDate":1633392000.000000000,
+    "ticker": "POSI"
+  },
+  {
+    "id": "523f468a-d774-495b-8024-c96fde12623c",
+    "figi": "TCS00A103X66",
+    "level": 2100,
+    "levelDate":1633392000.000000000,
+    "ticker": "POSI"
+  },
+  {
+    "id": "3635b05b-9c2d-428a-834d-88bb2bc9a747",
+    "figi": "TCS00A103X66",
+    "level": 2200,
+    "levelDate":1633392000.000000000,
+    "ticker": "POSI"
+  },
+  {
+    "id": "4de8d1eb-72c6-4342-82af-35535abf93f2",
+    "figi": "TCS00A103X66",
+    "level": 2580.8,
+    "levelDate":1633392000.000000000,
+    "ticker": "POSI"
+  },
+  {
+    "id": "14446a5b-b87d-41e1-85b2-3436154e2850",
+    "figi": "TCS00A103X66",
+    "level": 1854.8,
+    "levelDate":1633392000.000000000,
+    "ticker": "POSI"
+  },
+  {
+    "id": "fbbfe87a-02f5-40e4-8808-cb70b44d80f0",
+    "figi": "TCS00A103X66",
+    "level": 3138,
+    "levelDate":1633392000.000000000,
+    "ticker": "POSI"
+  },
+  {
+    "id": "289d00d0-db68-4b5f-b47b-bd7b9d46536f",
+    "figi": "TCS00A103X66",
+    "level": 2760,
+    "levelDate":1633392000.000000000,
+    "ticker": "POSI"
+  },
+  {
+    "id": "42cfb6ba-52d7-44a0-9167-34ca0fbc9ecc",
+    "figi": "TCS00A103X66",
+    "level": 3200,
+    "levelDate":1633392000.000000000,
+    "ticker": "POSI"
+  },
+  {
+    "id": "eb3db2f6-ab56-48c7-9d85-ff813d1c10ac",
+    "figi": "TCS00A103X66",
+    "level": 2808.6,
+    "levelDate":1633392000.000000000,
+    "ticker": "POSI"
+  },
+  {
+    "id": "c6ac7b71-a7b5-4ed0-a41d-2eacd6124a2b",
+    "figi": "TCS00A103X66",
+    "level": 2395.4,
+    "levelDate":1633392000.000000000,
+    "ticker": "POSI"
+  }
+]
