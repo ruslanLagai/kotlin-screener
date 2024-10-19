@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.context.event.EventListener
 import org.springframework.scheduling.annotation.Async
 import org.springframework.stereotype.Component
+import ru.home.project.dto.AlertType
 import ru.home.project.entity.MergedLevelEntity
 import ru.home.project.model.CryptoPrice
 import ru.home.project.model.ItemType
@@ -15,10 +16,7 @@ import ru.home.project.model.TradeEvent
 import ru.home.project.properties.TelegramBotProperties
 import ru.home.project.repository.InstrumentRepository
 import ru.home.project.repository.LevelStatisticsRepository
-import ru.home.project.service.CandlesService
-import ru.home.project.service.ClosestLevelService
-import ru.home.project.service.CryptoCandlesService
-import ru.home.project.service.TelegramBotGrpcService
+import ru.home.project.service.*
 import ru.home.project.utils.getStatistics
 import ru.home.project.utils.levelType
 import ru.home.project.utils.telegramMessage
@@ -39,7 +37,8 @@ class TradeEventListener(
     val cryptoCandlesService: CryptoCandlesService,
     val instrumentRepository: InstrumentRepository,
     val telegramBotProperties: TelegramBotProperties,
-    val levelStatisticsRepository: LevelStatisticsRepository
+    val levelStatisticsRepository: LevelStatisticsRepository,
+    val tradingBotService: TradingBotService
 ) {
 
     private val log: Logger = LoggerFactory.getLogger(TradeEventListener::class.java)
@@ -97,19 +96,27 @@ class TradeEventListener(
 
             val instrument = instrumentRepository.getByFigi(event.figi)
             if (instrument == null) {
-                log.warn("No record in instrument table for {}", event.figi)
+                log.warn("Nodocke record in instrument table for {}", event.figi)
                 return
             }
 
             val levelStatistics = levelStatisticsRepository.getByFigiAndMaxLevel(event.figi, level.maxLevel)
             val statistics = getStatistics(levelStatistics)
-            val message = String.format(telegramMessage, instrument.ticker, levelValue.get(), statistics)
+
+            val levelType = levelType(level, event.price)
+            val takeProfit = if (levelType == LevelType.Support) level.maxLevel + level.maxLevel * 0.02 else level.minLevel - level.minLevel * 0.02
+            val stopLoss = if (levelType == LevelType.Support) level.minLevel - level.minLevel * 0.02 else level.maxLevel + level.maxLevel * 0.02
+
+            val message = String.format(telegramMessage, instrument.ticker, levelValue.get(), levelValue.get(),
+                takeProfit, stopLoss, statistics)
 
             log.info("Detected signal for {}", event.figi)
 
             telegramBotProperties.accounts.forEach {
                 log.info("Sending message on {} to telegram user {}", instrument.ticker, it)
                 telegramBotGrpcService.sendMessage(figi = event.figi, ticker = instrument.ticker, text = message, accountId = it)
+                val alertType = if (levelType == LevelType.Support) AlertType.BUY else AlertType.SELL
+                tradingBotService.sendSignal(ticker = instrument.ticker, accountId = it, alertType = alertType)
             }
             sentMessages[event.figi] = LocalDateTime.now()
         } catch (e: Exception) {

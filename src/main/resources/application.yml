@@ -53,6 +53,9 @@ ru:
       - 65901c0f82324bdc84816468b2aa0838
       - a37067dc3b4642f8aabe9b26627ea960
       - 16ecacf18e744e8099ff2052e851d160
+  trading:
+    service:
+      url: trading-bot:9091
 logging:
   level:
     root: debug

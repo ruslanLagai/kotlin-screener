@@ -73,7 +73,7 @@ class CandlesServiceImplTest {
         `when`(candlesRepository.findByFigiAndIntervalOrderByDateTimeDesc(any(), any())).thenReturn(emptyList())
         val candles = ArrayList<CandleEntity>()
 
-        val future = candlesService.getHistoricalCandles("BBG00QPYJ5H0", "TCSG", CandleInterval.CANDLE_INTERVAL_DAY, candles)
+        val future = candlesService.getHistoricalCandles("TCS7238U2033", "TCSG", CandleInterval.CANDLE_INTERVAL_DAY, candles)
 
         future.get()
         assertFalse(candles.isEmpty())
@@ -89,7 +89,7 @@ class CandlesServiceImplTest {
         ))
         val candles = ArrayList<CandleEntity>()
 
-        val future = candlesService.getHistoricalCandles("BBG00QPYJ5H0", "TCSG", CandleInterval.CANDLE_INTERVAL_DAY, candles)
+        val future = candlesService.getHistoricalCandles("TCS7238U2033", "TCSG", CandleInterval.CANDLE_INTERVAL_DAY, candles)
 
         future.get()
         assertFalse(candles.isEmpty())
@@ -105,7 +105,7 @@ class CandlesServiceImplTest {
         ))
         val candles = ArrayList<CandleEntity>()
 
-        val future = candlesService.getHistoricalCandles("BBG00QPYJ5H0", "TCSG", CandleInterval.CANDLE_INTERVAL_HOUR, candles)
+        val future = candlesService.getHistoricalCandles("TCS7238U2033", "TCSG", CandleInterval.CANDLE_INTERVAL_HOUR, candles)
 
         future.get()
         assertFalse(candles.isEmpty())
@@ -117,7 +117,7 @@ class CandlesServiceImplTest {
         `when`(candlesRepository.findByFigiAndIntervalOrderByDateTimeDesc(any(), any())).thenReturn(emptyList())
         val candles = ArrayList<CandleEntity>()
 
-        val future = candlesService.getHistoricalCandles("BBG00QPYJ5H0", "TCSG", CandleInterval.CANDLE_INTERVAL_HOUR, candles)
+        val future = candlesService.getHistoricalCandles("TCS7238U2033", "TCSG", CandleInterval.CANDLE_INTERVAL_HOUR, candles)
 
         future.get()
         assertFalse(candles.isEmpty())
@@ -133,7 +133,7 @@ class CandlesServiceImplTest {
         ))
         val candles = ArrayList<CandleEntity>()
 
-        val future = candlesService.getHistoricalCandles("BBG00QPYJ5H0", "TCSG", CandleInterval.CANDLE_INTERVAL_1_MIN, candles)
+        val future = candlesService.getHistoricalCandles("TCS7238U2033", "TCSG", CandleInterval.CANDLE_INTERVAL_1_MIN, candles)
 
         assertThrows<ExecutionException> { future.get() }
         assertTrue(candles.isEmpty())

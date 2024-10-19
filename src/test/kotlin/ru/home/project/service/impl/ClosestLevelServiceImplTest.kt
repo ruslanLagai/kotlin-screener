@@ -38,12 +38,12 @@ class ClosestLevelServiceImplTest {
         closestLevelService.addLevel("figi", MergedLevelEntity(figi = "figi", ticker = "ticker", minLevelDate = ZonedDateTime.now().minusDays(10), level = 0.0,
             minLevel = 0.0, maxLevel = 0.0, maxLevelDate = ZonedDateTime.now().minusDays(20)
         ))
-        val result = closestLevelService.getClosestLevel("figi", 100.0)
+        val result = closestLevelService.getClosestLevel("figi", 98.8)
 
         assertEquals(98.6, result?.level ?: 0.0)
         assertEquals(98.6, result?.maxLevel ?: 0.0)
         assertEquals(98.5, result?.minLevel ?: 0.0)
-        assertEquals(100.0, result?.price ?: 0.0)
+        assertEquals(98.8, result?.price ?: 0.0)
     }
 
     @Test
@@ -67,12 +67,12 @@ class ClosestLevelServiceImplTest {
             minLevel = 0.0, maxLevel = 0.0, maxLevelDate = ZonedDateTime.now().minusDays(20)
         ))
 
-        val result = closestLevelService.getClosestLevel("figi", 98.0)
+        val result = closestLevelService.getClosestLevel("figi", 98.3)
 
         assertEquals(98.4, result?.level ?: 0.0)
         assertEquals(98.5, result?.maxLevel ?: 0.0)
         assertEquals(98.4, result?.minLevel ?: 0.0)
-        assertEquals(98.0, result?.price ?: 0.0)
+        assertEquals(98.3, result?.price ?: 0.0)
     }
 
     @Test

@@ -41,9 +41,9 @@ class ClosestLevelServiceImpl(
 
         val closestLevel = levels.filter {
             if (it.minLevel < price && it.maxLevel < price) {
-                abs(it.maxLevel - price) / price < 0.01
+                abs(it.maxLevel - price) / price < 0.003
             } else if (it.minLevel > price && it.maxLevel > price) {
-                abs(it.minLevel - price) / price < 0.01
+                abs(it.minLevel - price) / price < 0.003
             } else {
                 false
             }

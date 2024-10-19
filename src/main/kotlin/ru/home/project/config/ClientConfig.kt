@@ -10,9 +10,11 @@ import org.springframework.http.MediaType
 import org.springframework.web.reactive.function.client.ClientResponse
 import org.springframework.web.reactive.function.client.WebClient
 import ru.home.project.exceptions.CoinMarketCapException
+import ru.home.project.exceptions.TradingSignalException
 import ru.home.project.exceptions.TwelveDataException
 import ru.home.project.properties.CoinMarketCapProperties
 import ru.home.project.properties.TinkoffProperties
+import ru.home.project.properties.TradingProperties
 import ru.home.project.properties.TwelveDataProperties
 import ru.tinkoff.piapi.core.InvestApi
 
@@ -23,7 +25,8 @@ import ru.tinkoff.piapi.core.InvestApi
 class ClientConfig(
     val tinkoffProperties: TinkoffProperties,
     val twelveDataProperties: TwelveDataProperties,
-    val coinMarketCapProperties: CoinMarketCapProperties
+    val coinMarketCapProperties: CoinMarketCapProperties,
+    val tradingProperties: TradingProperties
 ) {
 
     private val log: Logger = LoggerFactory.getLogger(ClientConfig::class.java)
@@ -56,6 +59,19 @@ class ClientConfig(
                 { resp: ClientResponse ->
                     log.info("Status code {}, body: {}", resp.statusCode(), resp.bodyToMono(String::class.java))
                     throw CoinMarketCapException("log prefix '${resp.logPrefix()}'")
+                })
+            .build()
+    }
+
+    @Bean
+    fun tradingWebClient(): WebClient {
+        return WebClient.builder()
+            .baseUrl(tradingProperties.url)
+            .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+            .defaultStatusHandler({ status: HttpStatusCode -> status.isError },
+                { resp: ClientResponse ->
+                    log.error("Status code {}, body: {}", resp.statusCode(), resp.bodyToMono(String::class.java))
+                    throw TradingSignalException("Error from trading bot service '${resp.statusCode()}'")
                 })
             .build()
     }

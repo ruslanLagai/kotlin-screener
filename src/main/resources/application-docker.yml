@@ -14,6 +14,9 @@ spring:
       client-type: lettuce
 
 ru:
+  trading:
+    service:
+      url: ${TRADING_BOT_URL}
   tinkoff:
     piapi:
       core:

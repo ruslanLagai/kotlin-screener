@@ -52,6 +52,22 @@ services:
     restart: on-failure
     mem_reservation: 500M
 
+  trading-bot:
+    image: ruslanlagai/trading-bot:3.1
+    container_name: trading-telegram-bot
+    env_file:
+      - .env
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+    networks:
+      - local
+    depends_on:
+      - mysql_db
+    mem_reservation: 500M
+
   mysql_db:
     networks:
       - local

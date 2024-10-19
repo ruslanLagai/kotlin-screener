@@ -166,6 +166,6 @@ class TradeEventListenerTest {
         Mockito.`when`(candlesRepository.findTop14ByFigiAndIntervalOrderByDateTimeDesc(any(), any())).thenReturn(candles)
         tradeEventListener.processTradeEvent(TradeEvent(price = 75.92, figi = "BBG004S68B31"))
 
-        verify(telegramBotGrpcService.sendMessage(any(), any(), any(), any()), times(0))
+        verify(telegramBotGrpcService, times(0)).sendMessage(any(), any(), any(), any())
     }
 }

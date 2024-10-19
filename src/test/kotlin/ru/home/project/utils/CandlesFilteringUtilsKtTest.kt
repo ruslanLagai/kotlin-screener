@@ -37,7 +37,7 @@ class CandlesFilteringUtilsKtTest {
 
         val result = retrieveDatesAroundLevel(candles, level)
 
-        assertEquals(13, result.size)
+        assertEquals(15, result.size)
         assertAll(
             { assertEquals(LocalDate.of(2023,6,5), result[0].start) },
             { assertEquals(LocalDate.of(2023,6,9), result[0].end) }

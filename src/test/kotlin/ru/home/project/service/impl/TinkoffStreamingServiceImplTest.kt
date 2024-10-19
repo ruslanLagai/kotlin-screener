@@ -56,6 +56,8 @@ class TinkoffStreamingServiceImplTest {
             registry.add("spring.datasource.username", container::getUsername)
             registry.add("spring.datasource.password", container::getPassword)
             registry.add("spring.datasource.driver-class-name", container::getDriverClassName)
+            registry.add("spring.flyway.schemas", container::getDatabaseName)
+
         }
 
     }
@@ -75,7 +77,4 @@ class TinkoffStreamingServiceImplTest {
         verify(tradeEventListener, atLeast(1)).processTradeEvent(anyVararg(TradeEvent::class))
     }
 
-    @Test
-    fun `test getting candles stream`() {
-    }
 }
