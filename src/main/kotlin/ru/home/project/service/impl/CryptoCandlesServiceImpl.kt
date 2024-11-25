@@ -20,19 +20,24 @@ class CryptoCandlesServiceImpl(
 
     private val log: Logger = LoggerFactory.getLogger(CryptoCandlesServiceImpl::class.java)
 
+    override fun getFiveMinCandles(symbol: String, from: LocalDate) : List<Candle> {
+        val size = (LocalDate.now().dayOfYear - from.dayOfYear) * 288
+        return getCandles(symbol, size, "5min")
+    }
+
     @Cacheable(cacheNames = [ "twelve-data" ], key = "#symbol + #from.toEpochDay()", condition = "@checkRedis.get()")
     override fun getDailyCandles(symbol: String, from: LocalDate) : List<Candle> {
         val size = LocalDate.now().dayOfYear - from.dayOfYear
-        return getCandles(symbol, size)
+        return getCandles(symbol, size, "1day")
     }
 
     override fun getDailyCandles(symbol: String) : List<Candle> {
-       return getCandles(symbol, 2000)
+       return getCandles(symbol, 2000, "1day")
     }
 
-    private fun getCandles(symbol: String, size: Int) : List<Candle> {
+    private fun getCandles(symbol: String, size: Int, interval: String) : List<Candle> {
         val result = kotlin.runCatching {
-            twelveDataClient.getCryptoCandles(symbol, "1day", size)
+            twelveDataClient.getCryptoCandles(symbol, interval, size)
         }.onFailure {
             log.error("Failed to retrieve crypto candles for {}", symbol, it)
             throw it

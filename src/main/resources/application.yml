@@ -39,8 +39,8 @@ ru:
     piapi:
       core:
         target: invest-public-api.tinkoff.ru:443
-        connection-timeout: 5
-        request-timeout: 5
+        connection-timeout: PT30
+        request-timeout: PT30
         token: t.z3VkhlabQQqBM7v2JRuRcOLB9tWDluDgpz24p1yo38BQbS6VqGH4bYBPw0ORrL35qXjKk4Cwk4NEwxh0sT1mcQ
   coin-market-cap:
     url: https://pro-api.coinmarketcap.com/v1/cryptocurrency

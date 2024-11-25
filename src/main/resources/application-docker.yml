@@ -16,13 +16,13 @@ spring:
 ru:
   trading:
     service:
-      url: ${TRADING_BOT_URL}
+      url: ${TRADING_BOT_REST_URL}
   tinkoff:
     piapi:
       core:
         target: invest-public-api.tinkoff.ru:443
-        connection-timeout: 5
-        request-timeout: 5
+        connection-timeout: PT30
+        request-timeout: PT30
         token: ${COMMON_TOKEN}
   coin-market-cap:
     url: https://pro-api.coinmarketcap.com/v1/cryptocurrency

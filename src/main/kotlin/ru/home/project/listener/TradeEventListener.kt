@@ -115,6 +115,8 @@ class TradeEventListener(
             telegramBotProperties.accounts.forEach {
                 log.info("Sending message on {} to telegram user {}", instrument.ticker, it)
                 telegramBotGrpcService.sendMessage(figi = event.figi, ticker = instrument.ticker, text = message, accountId = it)
+
+                log.info("Sending alert to trading bot")
                 val alertType = if (levelType == LevelType.Support) AlertType.BUY else AlertType.SELL
                 tradingBotService.sendSignal(ticker = instrument.ticker, accountId = it, alertType = alertType)
             }
@@ -140,7 +142,7 @@ class TradeEventListener(
 
     private fun checkCrypto(): TriFunction<TradeEvent, MergedLevelEntity, AtomicDouble, Boolean> {
         return TriFunction { event, level, levelValue ->
-            val lastCandles = cryptoCandlesService.getDailyCandles(event.figi, LocalDate.now().minusDays(14))
+            val lastCandles = cryptoCandlesService.getFiveMinCandles(event.figi, LocalDate.now().minusDays(10))
             val levelType = levelType(level, event.price)
             levelValue.set(if (levelType == LevelType.Support) level.maxLevel else level.minLevel)
             if (LevelType.Support == levelType) {

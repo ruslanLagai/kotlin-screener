@@ -13,11 +13,11 @@ class AsyncConfig {
 
     @Bean
     fun tradeEventExecutor() : Executor {
-        return Executors.newFixedThreadPool(3)
+        return Executors.newFixedThreadPool(1)
     }
 
     @Bean
     fun cryptoEventExecutor() : Executor {
-        return Executors.newFixedThreadPool(3)
+        return Executors.newFixedThreadPool(1)
     }
 }

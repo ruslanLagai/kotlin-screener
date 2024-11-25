@@ -8,6 +8,8 @@ import java.time.LocalDate
  */
 interface CryptoCandlesService {
 
+    fun getFiveMinCandles(symbol: String, from: LocalDate) : List<Candle>
+
     fun getDailyCandles(symbol: String, from: LocalDate) : List<Candle>
 
     fun getDailyCandles(symbol: String) : List<Candle>

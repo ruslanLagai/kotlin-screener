@@ -8,7 +8,5 @@ import org.springframework.boot.context.properties.ConfigurationProperties
 @ConfigurationProperties("ru.tinkoff.piapi.core")
 data class TinkoffProperties(
     val token: String,
-    val target: String,
-    val connectionTimeout: Double,
-    val requestTimeout: Double
+    val target: String
 )
