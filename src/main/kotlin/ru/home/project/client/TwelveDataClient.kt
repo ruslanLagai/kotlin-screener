@@ -18,7 +18,9 @@ class TwelveDataClient(
 ) {
 
     fun getCryptoCandles(symbol: String, interval: String, size: Int) : List<Candle>? {
-        return twelveDataWebClient.get()
+        return twelveDataWebClient
+            .mutate().codecs {configurer -> configurer.defaultCodecs().maxInMemorySize(16 * 1024 * 1024)}.build()
+            .get()
             .uri { uriBuilder: UriBuilder ->
                 uriBuilder
                     .path("/time_series")

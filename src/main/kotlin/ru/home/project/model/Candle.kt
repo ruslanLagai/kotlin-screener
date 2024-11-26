@@ -2,8 +2,8 @@ package ru.home.project.model
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.deser.std.DateDeserializers.DateDeserializer
-import java.util.*
+import ru.home.project.config.deserializer.TwelveDataCandleDateDeserializer
+import java.time.LocalDateTime
 
 /**
  * @author rlagay
@@ -13,5 +13,5 @@ data class Candle(
     @JsonProperty("close") val close: Double,
     @JsonProperty("high") val high: Double,
     @JsonProperty("low") val low: Double,
-    @JsonProperty("datetime") @JsonDeserialize(using = DateDeserializer::class) val datetime: Date
+    @JsonProperty("datetime") @JsonDeserialize(using = TwelveDataCandleDateDeserializer::class) val datetime: LocalDateTime
 )

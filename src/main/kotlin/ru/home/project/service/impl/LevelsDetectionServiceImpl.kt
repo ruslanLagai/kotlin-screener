@@ -50,7 +50,7 @@ class LevelsDetectionServiceImpl(
             symbol, _, _, candles ->
             val result = cryptoCandlesService.getDailyCandles(symbol = symbol)
                 .map {
-                    val instant = it.datetime.toInstant()
+                    val instant = it.datetime.toInstant(ZoneOffset.UTC)
                     CandleEntity(figi = symbol, open = it.open, close = it.close, low = it.low, high = it.high, volume = 0,
                         dateTime = ZonedDateTime.ofInstant(instant, ZoneOffset.UTC), interval = CandleInterval.CANDLE_INTERVAL_DAY)
                 }

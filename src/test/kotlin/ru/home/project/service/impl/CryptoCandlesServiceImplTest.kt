@@ -49,6 +49,20 @@ class CryptoCandlesServiceImplTest {
     }
 
     @Test
+    fun `test getting 5 min crypto candles`() {
+        val result = candlesService.getFiveMinCandles("BTC/USD", LocalDate.now().minusDays(10))
+
+        assertTrue(result.size > 2000)
+    }
+
+    @Test
+    fun `test getting daily crypto candles`() {
+        val result = candlesService.getDailyCandles("BTC/USD", LocalDate.now().minusDays(10))
+
+        assertEquals(10, result.size)
+    }
+
+    @Test
     fun `test invalid symbol`() {
         assertThrows<TwelveDataException> { candlesService.getDailyCandles("BTC/USDT") }
     }
