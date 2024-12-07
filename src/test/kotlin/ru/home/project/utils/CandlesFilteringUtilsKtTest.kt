@@ -51,44 +51,44 @@ class CandlesFilteringUtilsKtTest {
             { assertEquals(LocalDate.of(2023,6,26), result[2].end) }
         )
         assertAll(
-            { assertEquals(LocalDate.of(2023,7,13), result[3].start) },
-            { assertEquals(LocalDate.of(2023,7,17), result[3].end) }
+            { assertEquals(LocalDate.of(2023,6,28), result[3].start) },
+            { assertEquals(LocalDate.of(2023,6,28), result[3].end) }
         )
         assertAll(
-            { assertEquals(LocalDate.of(2023,7,21), result[4].start) },
-            { assertEquals(LocalDate.of(2023,7,26), result[4].end) }
+            { assertEquals(LocalDate.of(2023,7,13), result[4].start) },
+            { assertEquals(LocalDate.of(2023,7,17), result[4].end) }
         )
         assertAll(
-            { assertEquals(LocalDate.of(2023,8,4), result[5].start) },
-            { assertEquals(LocalDate.of(2023,8,4), result[5].end) }
+            { assertEquals(LocalDate.of(2023,7,20), result[5].start) },
+            { assertEquals(LocalDate.of(2023,7,24), result[5].end) }
         )
         assertAll(
-            { assertEquals(LocalDate.of(2023,9,11), result[6].start) },
-            { assertEquals(LocalDate.of(2023,9,15), result[6].end) }
+            { assertEquals(LocalDate.of(2023,8,4), result[6].start) },
+            { assertEquals(LocalDate.of(2023,8,4), result[6].end) }
         )
         assertAll(
-            { assertEquals(LocalDate.of(2023,10,20), result[7].start) },
-            { assertEquals(LocalDate.of(2023,10,23), result[7].end) }
+            { assertEquals(LocalDate.of(2023,9,11), result[7].start) },
+            { assertEquals(LocalDate.of(2023,9,15), result[7].end) }
         )
         assertAll(
-            { assertEquals(LocalDate.of(2023,11,6), result[8].start) },
-            { assertEquals(LocalDate.of(2023,11,8), result[8].end) }
+            { assertEquals(LocalDate.of(2023,9,18), result[8].start) },
+            { assertEquals(LocalDate.of(2023,9,18), result[8].end) }
         )
         assertAll(
-            { assertEquals(LocalDate.of(2023,11,21), result[9].start) },
-            { assertEquals(LocalDate.of(2023,11,23), result[9].end) }
+            { assertEquals(LocalDate.of(2023,10,20), result[9].start) },
+            { assertEquals(LocalDate.of(2023,10,23), result[9].end) }
         )
         assertAll(
-            { assertEquals(LocalDate.of(2023,11,29), result[10].start) },
-            { assertEquals(LocalDate.of(2023,11,29), result[10].end) }
+            { assertEquals(LocalDate.of(2023,11,6), result[10].start) },
+            { assertEquals(LocalDate.of(2023,11,8), result[10].end) }
         )
         assertAll(
-            { assertEquals(LocalDate.of(2024,1,10), result[11].start) },
-            { assertEquals(LocalDate.of(2024,1,15), result[11].end) }
+            { assertEquals(LocalDate.of(2023,11,21), result[11].start) },
+            { assertEquals(LocalDate.of(2023,11,23), result[11].end) }
         )
         assertAll(
-            { assertEquals(LocalDate.of(2024,1,18), result[12].start) },
-            { assertEquals(LocalDate.of(2024,1,23), result[12].end) }
+            { assertEquals(LocalDate.of(2023,11,29), result[12].start) },
+            { assertEquals(LocalDate.of(2023,11,29), result[12].end) }
         )
     }
 

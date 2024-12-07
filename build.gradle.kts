@@ -50,6 +50,7 @@ dependencies {
         exclude("io.grpc:grpc-core")
     }
     implementation ("javax.annotation:javax.annotation-api:1.3.2")
+    implementation ("io.github.wuhewuhe:bybit-java-api:1.2.7")
 
 }
 

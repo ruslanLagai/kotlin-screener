@@ -138,7 +138,9 @@ class CandlesServiceImpl(
     private fun saveCandles(candles: MutableList<HistoricCandle>, figi: String, ticker: String?,
                             interval: CandleInterval, saveData: Boolean
     ): List<CandleEntity> {
-        val converted = candles.map {
+        val converted = candles
+            .filter { it.isComplete }
+            .map {
             val date = timestampToDate(it.time)
             CandleEntity(
                 figi = figi, ticker = ticker, open = priceToDouble(it.open),

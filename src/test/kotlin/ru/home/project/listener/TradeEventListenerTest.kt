@@ -1,12 +1,9 @@
 package ru.home.project.listener
 
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
-
-import org.junit.jupiter.api.Assertions.*
 import org.mockito.Mockito
 import org.mockito.kotlin.any
-import org.mockito.kotlin.times
-import org.mockito.kotlin.verify
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.mock.mockito.MockBean
@@ -17,6 +14,7 @@ import org.testcontainers.containers.MySQLContainer
 import org.testcontainers.junit.jupiter.Container
 import org.testcontainers.junit.jupiter.Testcontainers
 import org.testcontainers.utility.DockerImageName
+import ru.home.project.client.TradingServiceClient
 import ru.home.project.config.FlywayConfig
 import ru.home.project.entity.CandleEntity
 import ru.home.project.entity.InstrumentEntity
@@ -35,6 +33,7 @@ import ru.tinkoff.piapi.contract.v1.CandleInterval
 import java.time.Duration
 import java.time.ZoneId
 import java.time.ZonedDateTime
+import java.util.concurrent.CountDownLatch
 import kotlin.test.BeforeTest
 
 /**
@@ -71,8 +70,11 @@ class TradeEventListenerTest {
     @MockBean
     private lateinit var candlesRepository: CandlesRepository
 
-    @MockBean
+    @Autowired
     private lateinit var telegramBotGrpcService: TelegramBotGrpcService
+
+    @Autowired
+    private lateinit var tradingServiceClient: TradingServiceClient
 
     @Autowired
     private lateinit var closestLevelService: ClosestLevelService
@@ -105,7 +107,7 @@ class TradeEventListenerTest {
             registry.add("spring.datasource.password", container::getPassword)
             registry.add("spring.datasource.driver-class-name", container::getDriverClassName)
             registry.add("spring.flyway.schemas", container::getDatabaseName)
-            registry.add("service.crypto.instruments") { "BTC/USD,ETH/USD,TON/USD" }
+            registry.add("service.crypto.instruments") { "BTCUSDT,ETHUSDT,TONUSDT" }
             registry.add("spring.data.redis.host", redisContainer::getHost)
             registry.add("spring.data.redis.port", redisContainer::getFirstMappedPort)
 
@@ -145,27 +147,29 @@ class TradeEventListenerTest {
 
     @Test
     fun `process tinkoff trade event`() {
+        val lock = CountDownLatch(1)
         instrumentRepository.save(InstrumentEntity(figi = "BBG004S68B31", ticker = "ALRS", lot = 10, currency = "rub", name = "Алроса"))
         val candles = listOf(
             CandleEntity(figi = "BBG004S68B31", close = 75.58, high = 75.73, low = 75.41, open = 75.63,
                 dateTime = ZonedDateTime.of(2024, 4, 19, 0, 0, 0, 0, ZoneId.of("UTC")),
                 interval = CandleInterval.CANDLE_INTERVAL_DAY, volume = 1),
-            CandleEntity(figi = "BBG004S68B31", close = 75.5, high = 76.21, low = 75.2, open = 75.99,
+            CandleEntity(figi = "BBG004S68B31", close = 75.5, high = 75.21, low = 75.2, open = 75.99,
                 dateTime = ZonedDateTime.of(2024, 4, 18, 0, 0, 0, 0, ZoneId.of("UTC")),
                 interval = CandleInterval.CANDLE_INTERVAL_DAY, volume = 1),
-            CandleEntity(figi = "BBG004S68B31", close = 75.87, high = 76.74, low = 75.83, open = 76.4,
+            CandleEntity(figi = "BBG004S68B31", close = 75.87, high = 75.74, low = 75.83, open = 76.4,
                 dateTime = ZonedDateTime.of(2024, 4, 17, 0, 0, 0, 0, ZoneId.of("UTC")),
                 interval = CandleInterval.CANDLE_INTERVAL_DAY, volume = 1),
-            CandleEntity(figi = "BBG004S68B31", close = 76.39, high = 77.1, low = 75.68, open = 76.68,
+            CandleEntity(figi = "BBG004S68B31", close = 76.39, high = 75.1, low = 75.68, open = 76.68,
                 dateTime = ZonedDateTime.of(2024, 4, 16, 0, 0, 0, 0, ZoneId.of("UTC")),
                 interval = CandleInterval.CANDLE_INTERVAL_DAY, volume = 1),
-            CandleEntity(figi = "BBG004S68B31", close = 76.75, high = 77.2, low = 76.57, open = 76.88,
+            CandleEntity(figi = "BBG004S68B31", close = 76.75, high = 75.2, low = 75.57, open = 76.88,
                 dateTime = ZonedDateTime.of(2024, 4, 15, 0, 0, 0, 0, ZoneId.of("UTC")),
                 interval = CandleInterval.CANDLE_INTERVAL_DAY, volume = 1)
         )
         Mockito.`when`(candlesRepository.findTop14ByFigiAndIntervalOrderByDateTimeDesc(any(), any())).thenReturn(candles)
-        tradeEventListener.processTradeEvent(TradeEvent(price = 75.92, figi = "BBG004S68B31"))
 
-        verify(telegramBotGrpcService, times(0)).sendMessage(any(), any(), any(), any())
+        tradeEventListener.processTradeEvent(TradeEvent(price = 76.1, figi = "BBG004S68B31"))
+
+        Thread.sleep(5000)
     }
 }

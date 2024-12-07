@@ -1,5 +1,6 @@
 package ru.home.project.listener
 
+import com.bybit.api.client.domain.market.response.tickers.TickerEntry
 import com.google.common.util.concurrent.AtomicDouble
 import org.apache.commons.lang3.function.TriFunction
 import org.slf4j.Logger
@@ -9,7 +10,6 @@ import org.springframework.scheduling.annotation.Async
 import org.springframework.stereotype.Component
 import ru.home.project.dto.AlertType
 import ru.home.project.entity.MergedLevelEntity
-import ru.home.project.model.CryptoPrice
 import ru.home.project.model.ItemType
 import ru.home.project.model.LevelType
 import ru.home.project.model.TradeEvent
@@ -21,7 +21,6 @@ import ru.home.project.utils.getStatistics
 import ru.home.project.utils.levelType
 import ru.home.project.utils.telegramMessage
 import ru.tinkoff.piapi.contract.v1.CandleInterval
-import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.concurrent.ConcurrentHashMap
@@ -61,10 +60,9 @@ class TradeEventListener(
 
     @Async("cryptoEventExecutor")
     @EventListener
-    fun processCryptoPricesEvent(price: CryptoPrice) {
-        val event = TradeEvent(price.price, price.symbol)
+    fun processCryptoPricesEvent(price: TickerEntry) {
+        val event = TradeEvent(price.lastPrice.toDouble(), price.symbol)
         processEvent(event, ItemType.CRYPTO)
-        Thread.sleep(Duration.ofSeconds(5))
     }
     
     /**

@@ -18,6 +18,7 @@ import ru.home.project.utils.mergeLevels
 import ru.home.project.utils.retrieveDatesAroundLevel
 import ru.tinkoff.piapi.contract.v1.CandleInterval
 import ru.tinkoff.piapi.contract.v1.HistoricCandle
+import java.time.Duration
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
 import java.util.concurrent.CompletableFuture
@@ -100,7 +101,7 @@ class LevelsDetectionServiceImpl(
     override fun detectLevels(figi: String, interval: CandleInterval, intervalForStatistics: CandleInterval, type: ItemType) {
         val instrument = instrumentRepository.getByFigi(figi)
         if (instrument == null) {
-            log.warn("Instrument is not in instrument_entity")
+            log.warn("Instrument is not in instrument_entity {}", figi )
             return
         }
 
@@ -130,5 +131,7 @@ class LevelsDetectionServiceImpl(
         mergedLevels.forEach { level ->
             statisticsProcessor[intervalForStatistics]?.invoke(candles, level, figi, instrument)
         }
+        // to decrease load on twelvedata
+        Thread.sleep(Duration.ofSeconds(2))
     }
 }

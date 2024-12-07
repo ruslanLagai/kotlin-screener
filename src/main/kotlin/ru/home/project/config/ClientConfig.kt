@@ -1,5 +1,14 @@
 package ru.home.project.config
 
+import com.bybit.api.client.config.BybitApiConfig
+import com.bybit.api.client.restApi.BybitApiAsyncMarketDataRestClient
+import com.bybit.api.client.service.BybitApiClientFactory
+import io.grpc.Channel
+import io.grpc.Metadata
+import io.grpc.netty.shaded.io.grpc.netty.NettyChannelBuilder
+import io.grpc.netty.shaded.io.netty.handler.ssl.SslContextBuilder
+import io.grpc.netty.shaded.io.netty.handler.ssl.util.InsecureTrustManagerFactory
+import io.grpc.stub.MetadataUtils
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.context.annotation.Bean
@@ -74,6 +83,12 @@ class ClientConfig(
                     throw TradingSignalException("Error from trading bot service '${resp.statusCode()}'")
                 })
             .build()
+    }
+
+    @Bean
+    fun bybitApiAsyncMarketDataRestClient() : BybitApiAsyncMarketDataRestClient {
+        return BybitApiClientFactory.newInstance("GGlC2mwRe4rhePVa1D", "UJHvckIQoHP4B2wJyg70HiDUH9R3JRvbG4VQ", BybitApiConfig.MAINNET_DOMAIN, true)
+            .newAsyncMarketDataRestClient()
     }
 
 }
