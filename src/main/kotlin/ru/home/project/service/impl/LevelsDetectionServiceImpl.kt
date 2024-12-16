@@ -120,6 +120,7 @@ class LevelsDetectionServiceImpl(
         if (latestLevel != null) {
             candles.removeIf { it.dateTime.isBefore(latestLevel) }
         }
+        candles.sortBy { it.dateTime }
         val detectedLevels = levelProcessor.processStock(figi, candles)
             .map { LevelEntity(figi = figi, ticker = instrument.ticker, level = it.second, levelDate = it.first) }
         levelsRepository.saveAll(detectedLevels)
@@ -132,6 +133,6 @@ class LevelsDetectionServiceImpl(
             statisticsProcessor[intervalForStatistics]?.invoke(candles, level, figi, instrument)
         }
         // to decrease load on twelvedata
-        Thread.sleep(Duration.ofSeconds(2))
+        Thread.sleep(Duration.ofSeconds(10))
     }
 }

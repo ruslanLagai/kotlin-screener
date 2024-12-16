@@ -6,10 +6,14 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.junit.jupiter.MockitoExtension
 import ru.home.project.entity.CandleEntity
+import ru.home.project.model.TwelveDataCandles
 import ru.home.project.util.getCandles
+import ru.home.project.util.readValue
 import ru.home.project.utils.priceToDouble
 import ru.home.project.utils.timestampToDate
 import ru.tinkoff.piapi.contract.v1.CandleInterval
+import java.time.ZoneId
+import java.time.ZonedDateTime
 
 
 /**
@@ -59,5 +63,19 @@ class DailyLevelProcessorTest {
 
         assertNotNull(levels)
         assertEquals(0, levels.size)
+    }
+
+    @Test
+    fun `test ethusdt - bugfix`() {
+        val resp = readValue("candles/ethusdt.json", TwelveDataCandles::class.java)
+
+        val candles = resp.values!!.map { CandleEntity(figi = "ETH/USD", low = it.low, high = it.high,
+            open = it.open, close = it.close, dateTime = ZonedDateTime.of(it.datetime, ZoneId.of("UTC")),
+            ticker = "ETH/USD", interval = CandleInterval.CANDLE_INTERVAL_DAY, volume = 0) }
+
+        val levels = dailyLevelProcessor.processStock("ETH/USD", candles.sortedBy { it.dateTime })
+
+        assertNotNull(levels)
+        assertEquals(3, levels.size)
     }
 }

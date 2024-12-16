@@ -42,6 +42,7 @@ service:
   crypto:
     prices-cron: ${CRYPTO_PRICES_CRON}
     daily-cron: ${CRYPTO_DAILY_CRON}
+    instruments: ${CRYPTO_SYMBOLS}
   tinkoff:
     instruments: ${INSTRUMENTS}
     daily-cron: ${CRON}

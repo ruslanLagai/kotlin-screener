@@ -61,7 +61,8 @@ class TradeEventListener(
     @Async("cryptoEventExecutor")
     @EventListener
     fun processCryptoPricesEvent(price: TickerEntry) {
-        val event = TradeEvent(price.lastPrice.toDouble(), price.symbol)
+        val twelveDataFormatSymbol = price.symbol.replace("USDT", "/USD")
+        val event = TradeEvent(price.lastPrice.toDouble(), twelveDataFormatSymbol)
         processEvent(event, ItemType.CRYPTO)
     }
     

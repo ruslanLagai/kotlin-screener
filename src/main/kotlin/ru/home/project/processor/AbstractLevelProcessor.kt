@@ -98,10 +98,10 @@ abstract class AbstractLevelProcessor: LevelProcessor {
      * @return              - tru/false
      */
     private fun isCandlesLarger(list: List<CandleEntity>?, minimum: Double): Boolean {
-        return list != null && minimum < list.minOf { it.low }
+        return list != null && minimum <= list.minOf { it.low }
     }
 
     private fun isCandlesLess(list: List<CandleEntity>?, max: Double): Boolean {
-        return list != null && max > list.maxOf { it.high }
+        return list != null && max >= list.maxOf { it.high }
     }
 }
