@@ -8,6 +8,7 @@ import ru.home.project.client.TwelveDataClient
 import ru.home.project.exceptions.TwelveDataException
 import ru.home.project.model.Candle
 import ru.home.project.service.CryptoCandlesService
+import java.time.Duration
 import java.time.LocalDate
 
 /**
@@ -21,8 +22,8 @@ class CryptoCandlesServiceImpl(
     private val log: Logger = LoggerFactory.getLogger(CryptoCandlesServiceImpl::class.java)
 
     override fun getFiveMinCandles(symbol: String, from: LocalDate) : List<Candle> {
-        val size = (LocalDate.now().dayOfYear - from.dayOfYear) * 288
-        return getCandles(symbol, size, "5min")
+        val size = Duration.between(from.atStartOfDay(), LocalDate.now().atStartOfDay()).toDays() * 288
+        return getCandles(symbol, size.toInt(), "5min")
     }
 
     @Cacheable(cacheNames = [ "twelve-data" ], key = "#symbol + #from.toEpochDay()", condition = "@checkRedis.get()")
