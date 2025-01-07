@@ -132,9 +132,9 @@ class TradeEventListener(
             val levelType = levelType(level, event.price)
             levelValue.set(if (levelType == LevelType.Support) level.maxLevel else level.minLevel)
             if (LevelType.Support == levelType) {
-                lastCandles.all { it.low > level.maxLevel }
+                lastCandles.all { it.low > level.maxLevel * 1.01 }
             } else {
-                lastCandles.all { it.high < level.minLevel }
+                lastCandles.all { it.high < level.minLevel * 0.99 }
             }
         }
     }
@@ -145,9 +145,9 @@ class TradeEventListener(
             val levelType = levelType(level, event.price)
             levelValue.set(if (levelType == LevelType.Support) level.maxLevel else level.minLevel)
             if (LevelType.Support == levelType) {
-                lastCandles.all { it.low > level.maxLevel }
+                lastCandles.all { it.low > level.maxLevel * 1.01 }
             } else {
-                lastCandles.all { it.high < level.minLevel }
+                lastCandles.all { it.high < level.minLevel * 0.99 }
             }
         }
     }
