@@ -44,7 +44,7 @@ fun mergeLevels(levels: List<LevelEntity>): Set<MergedLevelEntity> {
 }
 
 private fun getNearByLevels(levelEntity: LevelEntity, levels: List<LevelEntity>): List<LevelEntity> {
-    return levels.filter { abs(it.level - levelEntity.level) / max(it.level, levelEntity.level) < 0.02 }
+    return levels.filter { abs(it.level - levelEntity.level) / max(it.level, levelEntity.level) < 0.04 }
 }
 
 fun levelType(closestLevel: MergedLevelEntity, price: Double) =

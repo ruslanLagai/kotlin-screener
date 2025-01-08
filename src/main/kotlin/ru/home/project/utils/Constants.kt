@@ -2,7 +2,7 @@ package ru.home.project.utils
 
 const val yearsToScan = 4
 const val weeksToScan = yearsToScan * 53
-const val daysToDetectLevel = 20
+const val daysToDetectLevel = 7
 const val fourHoursToDetectLevel = 20
 const val hoursToDetectCloseRetest = 120     // 5 days
 const val percentageForLong = 1.02
