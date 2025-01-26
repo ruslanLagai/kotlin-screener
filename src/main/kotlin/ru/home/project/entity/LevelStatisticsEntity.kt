@@ -11,7 +11,7 @@ import java.time.ZonedDateTime
 @Entity(name = "level_statistic_entity")
 data class LevelStatisticsEntity(
     @Id @GeneratedValue(strategy = GenerationType.UUID) val id: String? = null,
-    val figi: String,
+    val figi: String?,
     val ticker: String?,
     val maxLevel: Double,
     val minLevel: Double,

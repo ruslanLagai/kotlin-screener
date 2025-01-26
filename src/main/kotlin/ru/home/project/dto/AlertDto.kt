@@ -5,7 +5,10 @@ package ru.home.project.dto;
  */
 data class AlertDto (
     val ticker: String,
-    val alertType: AlertType
+    val alertType: AlertType,
+    val stopLoss: String,
+    val takeProfit: String,
+    val price: String
 )
 
 enum class AlertType {

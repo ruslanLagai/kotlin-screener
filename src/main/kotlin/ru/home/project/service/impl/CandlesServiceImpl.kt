@@ -78,8 +78,12 @@ class CandlesServiceImpl(
         return candles
     }
 
-    override fun getLastCandlesFromDb(figi: String, interval: CandleInterval): List<CandleEntity> {
-        return candlesRepository.findTop14ByFigiAndIntervalOrderByDateTimeDesc(figi, interval)
+    override fun getLastCandles(figi: String, interval: CandleInterval, dayFrom: Int): List<CandleEntity> {
+        val fromDate = LocalDateTime.now().minus(Period.ofDays(dayFrom)).toInstant(ZoneOffset.UTC)
+        val toDate = LocalDateTime.now().toInstant(ZoneOffset.UTC)
+        val allCandles = ArrayList<CandleEntity>()
+        retrieveCandles(figi, fromDate, toDate, null, CandleInterval.CANDLE_INTERVAL_HOUR, allCandles, false)
+        return allCandles
     }
 
     private fun processDbCandles(figi: String, ticker: String?, interval: CandleInterval, saved: ArrayList<CandleEntity>):

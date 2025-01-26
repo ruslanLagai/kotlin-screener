@@ -2,6 +2,7 @@ package ru.home.project.listener
 
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import org.mockito.ArgumentMatchers.eq
 import org.mockito.Mockito
 import org.mockito.kotlin.any
 import org.springframework.beans.factory.annotation.Autowired
@@ -27,6 +28,7 @@ import ru.home.project.repository.LevelStatisticsRepository
 import ru.home.project.repository.MergedLevelsRepository
 import ru.home.project.scheduled.CryptoCandlesReceivingService
 import ru.home.project.scheduled.DailyLevelsScanService
+import ru.home.project.service.CandlesService
 import ru.home.project.service.ClosestLevelService
 import ru.home.project.service.TelegramBotGrpcService
 import ru.tinkoff.piapi.contract.v1.CandleInterval
@@ -68,7 +70,7 @@ class TradeEventListenerTest {
     private lateinit var tradeEventListener: TradeEventListener
 
     @MockBean
-    private lateinit var candlesRepository: CandlesRepository
+    private lateinit var candlesService : CandlesService
 
     @Autowired
     private lateinit var telegramBotGrpcService: TelegramBotGrpcService
@@ -166,9 +168,9 @@ class TradeEventListenerTest {
                 dateTime = ZonedDateTime.of(2024, 4, 15, 0, 0, 0, 0, ZoneId.of("UTC")),
                 interval = CandleInterval.CANDLE_INTERVAL_DAY, volume = 1)
         )
-        Mockito.`when`(candlesRepository.findTop14ByFigiAndIntervalOrderByDateTimeDesc(any(), any())).thenReturn(candles)
+        Mockito.`when`(candlesService.getLastCandles(any(), any(), eq(14))).thenReturn(candles)
 
-        tradeEventListener.processTradeEvent(TradeEvent(price = 76.1, figi = "BBG004S68B31"))
+        tradeEventListener.processTradeEvent(TradeEvent(price = 2578.5, figi = "BBG004S686N0"))
 
         Thread.sleep(5000)
     }

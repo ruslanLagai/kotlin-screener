@@ -11,4 +11,6 @@ import ru.home.project.entity.LevelEntity
 interface LevelsRepository : JpaRepository<LevelEntity, String> {
 
     fun getLevelsByFigi(figi: String): Set<LevelEntity>
+
+    fun getLevelEntityByLevelBetween(min: Double, max: Double): Set<LevelEntity>
 }

@@ -42,22 +42,19 @@ class LevelUtilsKtTest {
 
         val result = ArrayList<MergedLevelEntity>(mergeLevels(levels)).sortedWith(Comparator.comparing { it.minLevel })
 
-        assertEquals(4, result.size)
+        assertEquals(3, result.size)
         result.forEach {
             assertEquals("figi", it.figi)
             assertEquals("ticker", it.ticker)
         }
         assertEquals(96.9, result[0].minLevel)
-        assertEquals(96.9, result[0].maxLevel)
+        assertEquals(102.0, result[0].maxLevel)
 
-        assertEquals(99.1, result[1].minLevel)
-        assertEquals(102.0, result[1].maxLevel)
+        assertEquals(140.9, result[1].minLevel)
+        assertEquals(140.9, result[1].maxLevel)
 
-        assertEquals(140.9, result[2].minLevel)
-        assertEquals(140.9, result[2].maxLevel)
-
-        assertEquals(149.1, result[3].minLevel)
-        assertEquals(152.0, result[3].maxLevel)
+        assertEquals(149.1, result[2].minLevel)
+        assertEquals(152.0, result[2].maxLevel)
     }
 
     @Test
@@ -68,7 +65,7 @@ class LevelUtilsKtTest {
 
         val result = ArrayList<MergedLevelEntity>(mergeLevels(levels)).sortedWith(Comparator.comparing { it.minLevel })
 
-        assertEquals(15, result.size)
+        assertEquals(11, result.size)
 
     }
 

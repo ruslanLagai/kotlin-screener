@@ -19,5 +19,5 @@ interface CandlesService {
         figi: String, ticker: String?, interval: CandleInterval, intervals: List<IntervalForScan>
     ): ArrayList<CandleEntity>
 
-    fun getLastCandlesFromDb(figi: String, interval: CandleInterval): List<CandleEntity>
+    fun getLastCandles(figi: String, interval: CandleInterval, dayFrom: Int): List<CandleEntity>
 }

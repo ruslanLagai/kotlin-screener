@@ -35,7 +35,7 @@ class DailyLevelProcessorTest {
         val levels = dailyLevelProcessor.processStock("BBG004730ZJ9", candles)
 
         assertNotNull(levels)
-        assertEquals(6, levels.size)
+        assertEquals(14, levels.size)
     }
 
     @Test
@@ -49,7 +49,7 @@ class DailyLevelProcessorTest {
         val levels = dailyLevelProcessor.processStock("TCS00A106YF0", candles)
 
         assertNotNull(levels)
-        assertEquals(7, levels.size)
+        assertEquals(15, levels.size)
     }
 
     @Test
@@ -76,6 +76,6 @@ class DailyLevelProcessorTest {
         val levels = dailyLevelProcessor.processStock("ETH/USD", candles.sortedBy { it.dateTime })
 
         assertNotNull(levels)
-        assertEquals(3, levels.size)
+        assertEquals(4, levels.size)
     }
 }

@@ -14,6 +14,7 @@ import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Service
 import ru.home.project.properties.TwelveDataTradingProperties
 import ru.home.project.service.CoinMarketCapService
+import java.util.concurrent.Executor
 
 /**
  * @author rlagay
@@ -24,6 +25,7 @@ class CryptoCandlesReceivingService(
     val eventPublisher: ApplicationEventPublisher,
     val twelveDataTradingProperties: TwelveDataTradingProperties,
     val bybitApiMarketRestClient: BybitApiAsyncMarketDataRestClient,
+    val cryptoEventExecutor: Executor
 ) {
 
     private val log: Logger = LoggerFactory.getLogger(CryptoCandlesReceivingService::class.java)
@@ -36,7 +38,7 @@ class CryptoCandlesReceivingService(
             val response = mapper.convertValue(genericResp, object : TypeReference<GenericResponse<TickersResult>>() {})
             response.result.tickerEntries
                 .filter { twelveDataTradingProperties.instruments.contains(it.symbol) }
-                .forEach { eventPublisher.publishEvent(it) }
+                .forEach { cryptoEventExecutor.execute { eventPublisher.publishEvent(it) } }
         }
     }
 

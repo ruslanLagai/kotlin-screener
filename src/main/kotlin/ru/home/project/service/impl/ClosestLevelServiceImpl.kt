@@ -28,7 +28,7 @@ class ClosestLevelServiceImpl(
     fun init() {
         val savedLevels = mergedLevelsRepository.findAll().groupBy { it.figi }
         savedLevels.forEach {
-            levels[it.key] = ArrayList(it.value)
+            levels[it.key!!] = ArrayList(it.value)
         }
     }
 

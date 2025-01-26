@@ -35,6 +35,9 @@ ru:
      - ${TWELVE_DATA_TOKEN_THREE}
      - ${TWELVE_DATA_TOKEN_FOUR}
      - ${TWELVE_DATA_TOKEN_FIVE}
+     - ${TWELVE_DATA_TOKEN_SIX}
+     - ${TWELVE_DATA_TOKEN_SEVEN}
+     - ${TWELVE_DATA_TOKEN_EIGHT}
 logging:
   level:
     root: ${LOGGING_LEVEL}

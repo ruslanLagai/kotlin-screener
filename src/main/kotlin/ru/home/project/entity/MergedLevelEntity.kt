@@ -12,7 +12,7 @@ import java.time.ZonedDateTime
 @Entity(name = "merged_level_entity")
 data class MergedLevelEntity(
     @Id @GeneratedValue(strategy = GenerationType.UUID) val id: String? = null,
-    val figi: String,
+    val figi: String? = null,
     val ticker: String? = "",
     val price: Double = 0.0,
     val minLevel: Double,

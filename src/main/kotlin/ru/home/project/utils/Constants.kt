@@ -12,3 +12,7 @@ const val percentageForShort = 0.98
 const val percentageForCandlesLowBorder = 0.98
 const val percentageForCandlesHighBorder = 1.02
 const val telegramMessage = "%s приближается к уровню %s.\nВход %s, тейк %s, стоп %s\n%s"
+const val stockStopLossPercentage = 0.02
+const val stockTakeProfitPercentage = 0.02
+const val cryptoStopLossPercentage = 0.03
+const val cryptoTakeProfitPercentage = 0.04
