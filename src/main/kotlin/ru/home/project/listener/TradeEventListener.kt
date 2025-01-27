@@ -11,10 +11,7 @@ import org.springframework.scheduling.annotation.Async
 import org.springframework.stereotype.Component
 import ru.home.project.dto.AlertType
 import ru.home.project.entity.MergedLevelEntity
-import ru.home.project.model.AlertEvent
-import ru.home.project.model.ItemType
-import ru.home.project.model.LevelType
-import ru.home.project.model.TradeEvent
+import ru.home.project.model.*
 import ru.home.project.properties.TelegramBotProperties
 import ru.home.project.repository.InstrumentRepository
 import ru.home.project.repository.LevelStatisticsRepository
@@ -156,6 +153,9 @@ class TradeEventListener(
         return TriFunction { event, level, levelValue ->
             // изменил с 10 до 7
             val lastCandles = cryptoCandlesService.getFiveMinCandles(event.figi, LocalDate.now().minusDays(7))
+            val withoutLastCandle = ArrayList<Candle>(lastCandles)
+            withoutLastCandle.removeAt(0)
+
             val levelType = levelType(level, event.price)
             levelValue.set(if (levelType == LevelType.Support) level.maxLevel else level.minLevel)
             if (LevelType.Support == levelType) {

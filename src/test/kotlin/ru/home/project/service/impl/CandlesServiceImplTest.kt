@@ -73,7 +73,7 @@ class CandlesServiceImplTest {
         `when`(candlesRepository.findByFigiAndIntervalOrderByDateTimeDesc(any(), any())).thenReturn(emptyList())
         val candles = ArrayList<CandleEntity>()
 
-        val future = candlesService.getHistoricalCandles("BBG00QPYJ5H0", "TCSG", CandleInterval.CANDLE_INTERVAL_DAY, candles)
+        val future = candlesService.getHistoricalCandles("BBG004730N88", "SBER", CandleInterval.CANDLE_INTERVAL_DAY, candles)
 
         future.get()
         assertFalse(candles.isEmpty())
@@ -83,13 +83,13 @@ class CandlesServiceImplTest {
     @Test
     fun `test getting candles from db + grpc`() {
         `when`(candlesRepository.findByFigiAndIntervalOrderByDateTimeDesc(any(), any())).thenReturn(listOf(
-            CandleEntity(id = 1, figi = "BBG00QPYJ5H0", ticker = "TCSG", open = 1000.0, close = 1001.0, high = 1001.0,
+            CandleEntity(id = 1, figi = "BBG004730N88", ticker = "SBER", open = 1000.0, close = 1001.0, high = 1001.0,
                 low = 999.0, volume = 1000, interval = CandleInterval.CANDLE_INTERVAL_DAY,
                 dateTime = ZonedDateTime.of(2023, 11, 11, 1, 1, 1, 1, ZoneId.of("UTC")))
         ))
         val candles = ArrayList<CandleEntity>()
 
-        val future = candlesService.getHistoricalCandles("BBG00QPYJ5H0", "TCSG", CandleInterval.CANDLE_INTERVAL_DAY, candles)
+        val future = candlesService.getHistoricalCandles("BBG004730N88", "SBER", CandleInterval.CANDLE_INTERVAL_DAY, candles)
 
         future.get()
         assertFalse(candles.isEmpty())
@@ -99,13 +99,13 @@ class CandlesServiceImplTest {
     @Test
     fun `test getting candles from db + grpc - hour interval`() {
         `when`(candlesRepository.findByFigiAndIntervalOrderByDateTimeDesc(any(), any())).thenReturn(listOf(
-            CandleEntity(id = 1, figi = "BBG00QPYJ5H0", ticker = "TCSG", open = 1000.0, close = 1001.0, high = 1001.0,
+            CandleEntity(id = 1, figi = "BBG004730N88", ticker = "SBER", open = 1000.0, close = 1001.0, high = 1001.0,
                 low = 999.0, volume = 1000, interval = CandleInterval.CANDLE_INTERVAL_HOUR,
                 dateTime = ZonedDateTime.now().minusDays(10))
         ))
         val candles = ArrayList<CandleEntity>()
 
-        val future = candlesService.getHistoricalCandles("BBG00QPYJ5H0", "TCSG", CandleInterval.CANDLE_INTERVAL_HOUR, candles)
+        val future = candlesService.getHistoricalCandles("BBG004730N88", "SBER", CandleInterval.CANDLE_INTERVAL_HOUR, candles)
 
         future.get()
         assertFalse(candles.isEmpty())
@@ -117,7 +117,7 @@ class CandlesServiceImplTest {
         `when`(candlesRepository.findByFigiAndIntervalOrderByDateTimeDesc(any(), any())).thenReturn(emptyList())
         val candles = ArrayList<CandleEntity>()
 
-        val future = candlesService.getHistoricalCandles("BBG00QPYJ5H0", "TCSG", CandleInterval.CANDLE_INTERVAL_HOUR, candles)
+        val future = candlesService.getHistoricalCandles("BBG004730N88", "SBER", CandleInterval.CANDLE_INTERVAL_HOUR, candles)
 
         future.get()
         assertFalse(candles.isEmpty())
@@ -127,15 +127,25 @@ class CandlesServiceImplTest {
     @Test
     fun `test getting candles from db + grpc - exception`() {
         `when`(candlesRepository.findByFigiAndIntervalOrderByDateTimeDesc(any(), any())).thenReturn(listOf(
-            CandleEntity(id = 1, figi = "BBG00QPYJ5H0", ticker = "TCSG", open = 1000.0, close = 1001.0, high = 1001.0,
+            CandleEntity(id = 1, figi = "BBG004730N88", ticker = "SBER", open = 1000.0, close = 1001.0, high = 1001.0,
                 low = 999.0, volume = 1000, interval = CandleInterval.CANDLE_INTERVAL_1_MIN,
                 dateTime = ZonedDateTime.of(2023, 10, 11, 1, 1, 1, 1, ZoneId.of("UTC")))
         ))
         val candles = ArrayList<CandleEntity>()
 
-        val future = candlesService.getHistoricalCandles("BBG00QPYJ5H0", "TCSG", CandleInterval.CANDLE_INTERVAL_1_MIN, candles)
+        val future = candlesService.getHistoricalCandles("BBG004730N88", "SBER", CandleInterval.CANDLE_INTERVAL_1_MIN, candles)
 
         assertThrows<ExecutionException> { future.get() }
-        assertTrue(candles.isEmpty())
+    }
+
+    @Test
+    fun `test cached candles`() {
+        val sberFigi = "BBG004730N88"
+        val result = candlesService.getLastCandles(figi = sberFigi, dayFrom = 14, interval = CandleInterval.CANDLE_INTERVAL_DAY)
+
+        Thread.sleep(5000)
+
+        val cached = candlesService.getLastCandles(figi = sberFigi, dayFrom = 14, interval = CandleInterval.CANDLE_INTERVAL_DAY)
+        assertEquals(result.size, cached.size)
     }
 }

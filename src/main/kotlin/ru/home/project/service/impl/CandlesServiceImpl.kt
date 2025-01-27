@@ -2,6 +2,7 @@ package ru.home.project.service.impl
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.stereotype.Service
 import ru.home.project.entity.CandleEntity
 import ru.home.project.model.IntervalForScan
@@ -78,6 +79,7 @@ class CandlesServiceImpl(
         return candles
     }
 
+    @Cacheable(cacheNames = [ "daily-tinkoff" ], condition = "@checkRedis.get()")
     override fun getLastCandles(figi: String, interval: CandleInterval, dayFrom: Int): List<CandleEntity> {
         val fromDate = LocalDateTime.now().minus(Period.ofDays(dayFrom)).toInstant(ZoneOffset.UTC)
         val toDate = LocalDateTime.now().toInstant(ZoneOffset.UTC)
