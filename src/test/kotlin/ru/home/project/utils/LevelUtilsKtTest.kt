@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import ru.home.project.entity.LevelEntity
 import ru.home.project.entity.MergedLevelEntity
+import ru.home.project.model.ItemType
 import ru.home.project.util.readValueAsString
 import java.time.ZonedDateTime
 
@@ -40,7 +41,7 @@ class LevelUtilsKtTest {
             LevelEntity(figi = "figi", ticker = "ticker", levelDate = dateTime.minusDays(9), level = 140.9)
         )
 
-        val result = ArrayList<MergedLevelEntity>(mergeLevels(levels)).sortedWith(Comparator.comparing { it.minLevel })
+        val result = ArrayList<MergedLevelEntity>(mergeLevels(levels, ItemType.CRYPTO)).sortedWith(Comparator.comparing { it.minLevel })
 
         assertEquals(3, result.size)
         result.forEach {
@@ -63,7 +64,7 @@ class LevelUtilsKtTest {
         val content: String = readValueAsString("levels/detected-levels-bugfix.json")
         val levels: ArrayList<LevelEntity> = mapper.readValue(content, typeRef)
 
-        val result = ArrayList<MergedLevelEntity>(mergeLevels(levels)).sortedWith(Comparator.comparing { it.minLevel })
+        val result = ArrayList<MergedLevelEntity>(mergeLevels(levels, ItemType.CRYPTO)).sortedWith(Comparator.comparing { it.minLevel })
 
         assertEquals(11, result.size)
 
@@ -74,7 +75,7 @@ class LevelUtilsKtTest {
         val content: String = readValueAsString("levels/posi-levels.json")
         val levels: ArrayList<LevelEntity> = mapper.readValue(content, object : TypeReference<ArrayList<LevelEntity>>() {})
 
-        val result = mergeLevels(levels)
+        val result = mergeLevels(levels, ItemType.CRYPTO)
         assertEquals(15, result.size)
 
     }

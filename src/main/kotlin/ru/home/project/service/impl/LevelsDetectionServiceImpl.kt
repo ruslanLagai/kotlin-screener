@@ -127,7 +127,7 @@ class LevelsDetectionServiceImpl(
 
         log.info("Detected {} levels for {}", detectedLevels.size, figi)
 
-        val mergedLevels = mergeLevels(detectedLevels)
+        val mergedLevels = mergeLevels(detectedLevels, type)
         mergedLevelsRepository.saveAll(mergedLevels)
         mergedLevels.forEach { level ->
             statisticsProcessor[intervalForStatistics]?.invoke(candles, level, figi, instrument)

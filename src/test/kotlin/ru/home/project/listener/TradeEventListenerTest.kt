@@ -150,7 +150,7 @@ class TradeEventListenerTest {
     @Test
     fun `process tinkoff trade event`() {
         val lock = CountDownLatch(1)
-        instrumentRepository.save(InstrumentEntity(figi = "BBG004S68B31", ticker = "ALRS", lot = 10, currency = "rub", name = "Алроса"))
+        instrumentRepository.save(InstrumentEntity(figi = "BBG004S686N0", ticker = "ALRS", lot = 10, currency = "rub", name = "Алроса"))
         val candles = listOf(
             CandleEntity(figi = "BBG004S68B31", close = 75.58, high = 75.73, low = 75.41, open = 75.63,
                 dateTime = ZonedDateTime.of(2024, 4, 19, 0, 0, 0, 0, ZoneId.of("UTC")),
@@ -172,6 +172,6 @@ class TradeEventListenerTest {
 
         tradeEventListener.processTradeEvent(TradeEvent(price = 2578.5, figi = "BBG004S686N0"))
 
-        Thread.sleep(5000)
+        Thread.sleep(50000)
     }
 }

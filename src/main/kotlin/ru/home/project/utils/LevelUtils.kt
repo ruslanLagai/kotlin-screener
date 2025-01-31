@@ -4,11 +4,12 @@ import org.apache.commons.math3.util.Precision
 import ru.home.project.entity.LevelEntity
 import ru.home.project.entity.LevelStatisticsEntity
 import ru.home.project.entity.MergedLevelEntity
+import ru.home.project.model.ItemType
 import ru.home.project.model.LevelType
 import kotlin.math.abs
 import kotlin.math.max
 
-fun mergeLevels(levels: List<LevelEntity>): Set<MergedLevelEntity> {
+fun mergeLevels(levels: List<LevelEntity>, type: ItemType): Set<MergedLevelEntity> {
     val mergedLevels = HashSet<MergedLevelEntity>()
     val levelsToSkip = ArrayList<LevelEntity>()
 
@@ -17,13 +18,13 @@ fun mergeLevels(levels: List<LevelEntity>): Set<MergedLevelEntity> {
             continue
         }
 
-        val closeLevels = getNearByLevels(level, levels)
+        val closeLevels = getNearByLevels(level, levels, type)
         val nearByLevels = HashSet<LevelEntity>(closeLevels)
 
         if (closeLevels.size > 1) {
             val buffer = ArrayList<LevelEntity>(closeLevels)
             for (i in 0..< buffer.size) {
-                val closeToNearBy = getNearByLevels(buffer[i], levels)
+                val closeToNearBy = getNearByLevels(buffer[i], levels, type)
                 levelsToSkip.addAll(closeToNearBy)
                 buffer.addAll(closeToNearBy)
             }
@@ -43,8 +44,9 @@ fun mergeLevels(levels: List<LevelEntity>): Set<MergedLevelEntity> {
     return mergedLevels
 }
 
-private fun getNearByLevels(levelEntity: LevelEntity, levels: List<LevelEntity>): List<LevelEntity> {
-    return levels.filter { abs(it.level - levelEntity.level) / max(it.level, levelEntity.level) < 0.04 }
+private fun getNearByLevels(levelEntity: LevelEntity, levels: List<LevelEntity>, type: ItemType): List<LevelEntity> {
+    val threshold = if (type == ItemType.CRYPTO) 0.03 else 0.02
+    return levels.filter { abs(it.level - levelEntity.level) / max(it.level, levelEntity.level) < threshold }
 }
 
 fun levelType(closestLevel: MergedLevelEntity, price: Double) =
