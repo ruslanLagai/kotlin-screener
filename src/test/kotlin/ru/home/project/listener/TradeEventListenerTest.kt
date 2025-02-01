@@ -143,8 +143,6 @@ class TradeEventListenerTest {
         assertTrue(levels.size > 5)
         statistics = statisticsRepository.getByFigi("ETH/USD")
         assertTrue(statistics.size > 5)
-
-        cryptoCandlesReceivingService.retrieveCandles()
     }
 
     @Test

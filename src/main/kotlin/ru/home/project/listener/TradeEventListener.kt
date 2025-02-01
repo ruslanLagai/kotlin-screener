@@ -118,7 +118,7 @@ class TradeEventListener(
             executors.execute {
                 for (account in telegramBotProperties.accounts) {
                     log.info("Sending alert to trading bot")
-                    val alertType = if (levelType == LevelType.Support) AlertType.BUY else AlertType.SELL
+                    val alertType = getAlertType(levelType, type)
                     tradingBotService.sendSignal(ticker = instrument.ticker, accountId = account, alertType = alertType, level = level,
                         isPrimaryTrade = true, takeProfit = takeProfit, stopLoss = stopLoss, price = event.price)
                 }
@@ -135,7 +135,13 @@ class TradeEventListener(
         }
 
     }
-    
+
+    private fun getAlertType(levelType: LevelType, type: ItemType) =
+        if (levelType == LevelType.Support && type == ItemType.STOCK) AlertType.BUY
+        else if (levelType == LevelType.Resistance && type == ItemType.STOCK) AlertType.SELL
+        else if (levelType == LevelType.Support && type == ItemType.CRYPTO) AlertType.CRYPTO_BUY
+        else AlertType.CRYPTO_SELL
+
     private fun checkTinkoffStock(): TriFunction<TradeEvent, MergedLevelEntity, AtomicDouble, Boolean> {
         return TriFunction { event, level, levelValue ->
             val lastCandles = candlesService.getLastCandles(event.figi, CandleInterval.CANDLE_INTERVAL_DAY, 14)

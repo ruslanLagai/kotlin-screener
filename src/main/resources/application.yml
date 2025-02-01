@@ -53,6 +53,9 @@ ru:
       - 65901c0f82324bdc84816468b2aa0838
       - a37067dc3b4642f8aabe9b26627ea960
       - 16ecacf18e744e8099ff2052e851d160
+      - ccf3b98089dd4a29a5805bf47c7d9d86
+      - 4f36cdddcbc94d598081b12528d29ce3
+      - 15756ee5f2d54b669eeb10262430c44c
   trading:
     service:
       url: trading-bot:9091

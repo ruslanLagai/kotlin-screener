@@ -12,5 +12,5 @@ data class AlertDto (
 )
 
 enum class AlertType {
-    BUY, SELL, TAKE_PROFIT, STOP_LOSS
+    BUY, SELL, CRYPTO_BUY, CRYPTO_SELL
 }
