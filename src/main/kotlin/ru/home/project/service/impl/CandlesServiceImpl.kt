@@ -82,7 +82,7 @@ class CandlesServiceImpl(
     @Cacheable(cacheNames = [ "daily-tinkoff" ], condition = "@checkRedis.get()")
     override fun getLastCandles(figi: String, interval: CandleInterval, dayFrom: Int): List<CandleEntity> {
         val fromDate = LocalDateTime.now().minus(Period.ofDays(dayFrom)).toInstant(ZoneOffset.UTC)
-        val toDate = LocalDateTime.now().toInstant(ZoneOffset.UTC)
+        val toDate = LocalDateTime.now().minusDays(1).toInstant(ZoneOffset.UTC)
         val allCandles = ArrayList<CandleEntity>()
         retrieveCandles(figi, fromDate, toDate, null, CandleInterval.CANDLE_INTERVAL_HOUR, allCandles, false)
         return allCandles

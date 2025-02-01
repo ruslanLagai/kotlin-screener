@@ -152,7 +152,7 @@ class TradeEventListener(
     private fun checkCrypto(): TriFunction<TradeEvent, MergedLevelEntity, AtomicDouble, Boolean> {
         return TriFunction { event, level, levelValue ->
             // изменил с 10 до 7
-            val lastCandles = cryptoCandlesService.getFiveMinCandles(event.figi, LocalDate.now().minusDays(7))
+            val lastCandles = cryptoCandlesService.getDailyCandles(event.figi, LocalDate.now().minusDays(7))
             val withoutLastCandle = ArrayList<Candle>(lastCandles)
             withoutLastCandle.removeAt(0)
 
