@@ -26,7 +26,7 @@ class CryptoCandlesServiceImpl(
         return getCandles(symbol, size.toInt(), "5min")
     }
 
-    @Cacheable(cacheNames = [ "twelve-data" ], key = "#symbol + #from.toEpochDay()", condition = "@checkRedis.get()")
+    @Cacheable(cacheNames = [ "daily-crypto" ], key = "#symbol + #from.toEpochDay()", condition = "@checkRedis.get()")
     override fun getDailyCandles(symbol: String, from: LocalDate) : List<Candle> {
         val size = LocalDate.now().dayOfYear - from.dayOfYear
         return getCandles(symbol, size, "1day")
