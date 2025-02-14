@@ -15,10 +15,7 @@ import ru.home.project.utils.yearsToScan
 import ru.tinkoff.piapi.contract.v1.CandleInterval
 import ru.tinkoff.piapi.contract.v1.HistoricCandle
 import ru.tinkoff.piapi.core.InvestApi
-import java.time.Instant
-import java.time.LocalDateTime
-import java.time.Period
-import java.time.ZoneOffset
+import java.time.*
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -82,7 +79,7 @@ class CandlesServiceImpl(
     @Cacheable(cacheNames = [ "daily-tinkoff" ], condition = "@checkRedis.get()")
     override fun getLastCandles(figi: String, interval: CandleInterval, dayFrom: Int): List<CandleEntity> {
         val fromDate = LocalDateTime.now().minus(Period.ofDays(dayFrom)).toInstant(ZoneOffset.UTC)
-        val toDate = LocalDateTime.now().minusDays(1).toInstant(ZoneOffset.UTC)
+        val toDate = LocalDate.now().minusDays(1).atTime(23, 50).toInstant(ZoneOffset.ofHours(3))
         val allCandles = ArrayList<CandleEntity>()
         retrieveCandles(figi, fromDate, toDate, null, CandleInterval.CANDLE_INTERVAL_HOUR, allCandles, false)
         return allCandles
