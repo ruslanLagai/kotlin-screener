@@ -12,6 +12,8 @@ import org.springframework.stereotype.Component
 import ru.home.project.dto.AlertType
 import ru.home.project.entity.MergedLevelEntity
 import ru.home.project.model.*
+import ru.home.project.model.events.AlertEvent
+import ru.home.project.model.events.TradeEvent
 import ru.home.project.properties.TelegramBotProperties
 import ru.home.project.repository.InstrumentRepository
 import ru.home.project.repository.LevelStatisticsRepository
@@ -94,6 +96,8 @@ class TradeEventListener(
                 return
             }
 
+            sentMessages[event.figi] = LocalDateTime.now()
+
             val instrument = instrumentRepository.getByFigi(event.figi)
             if (instrument == null) {
                 log.warn("No record in instrument table for {}", event.figi)
@@ -129,7 +133,6 @@ class TradeEventListener(
                     telegramBotGrpcService.sendMessage(figi = event.figi, ticker = instrument.ticker, text = message, accountId = account)
                 }
             }
-            sentMessages[event.figi] = LocalDateTime.now()
         } catch (e: Exception) {
             log.error("Error occurred in trade event", e)
         }
@@ -144,7 +147,8 @@ class TradeEventListener(
 
     private fun checkTinkoffStock(): TriFunction<TradeEvent, MergedLevelEntity, AtomicDouble, Boolean> {
         return TriFunction { event, level, levelValue ->
-            val lastCandles = candlesService.getLastCandles(event.figi, CandleInterval.CANDLE_INTERVAL_DAY, 14)
+            val lastCandles = candlesService.getLastCandles(figi = event.figi, instrumentUid = event.uuid,
+                interval = CandleInterval.CANDLE_INTERVAL_DAY, dayFrom = 14)
             val levelType = levelType(level, event.price)
             levelValue.set(if (levelType == LevelType.Support) level.maxLevel else level.minLevel)
             if (LevelType.Support == levelType) {

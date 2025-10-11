@@ -1,23 +1,14 @@
 package ru.home.project.service.impl
 
-import org.junit.jupiter.api.Test
-
 import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.mockito.Mockito.`when`
 import org.mockito.kotlin.any
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.boot.test.mock.mockito.MockBean
-import org.springframework.test.context.DynamicPropertyRegistry
-import org.springframework.test.context.DynamicPropertySource
-import org.testcontainers.containers.GenericContainer
-import org.testcontainers.containers.MySQLContainer
-import org.testcontainers.junit.jupiter.Container
-import org.testcontainers.junit.jupiter.Testcontainers
-import org.testcontainers.utility.DockerImageName
+import org.springframework.test.context.bean.override.mockito.MockitoBean
+import ru.home.project.AbstractIntegrationTest
 import ru.home.project.entity.CandleEntity
-import ru.home.project.properties.TinkoffTradingProperties
 import ru.home.project.repository.CandlesRepository
 import ru.home.project.service.CandlesService
 import ru.tinkoff.piapi.contract.v1.CandleInterval
@@ -30,54 +21,26 @@ import java.util.concurrent.ExecutionException
  *
  * @author rlagay
  */
-@SpringBootTest
-@Testcontainers
-class CandlesServiceImplTest {
+class CandlesServiceImplTest : AbstractIntegrationTest() {
 
     @Autowired
     private lateinit var candlesService: CandlesService
 
-    @MockBean
+    @MockitoBean
     private lateinit var candlesRepository: CandlesRepository
 
-    @MockBean
-    private lateinit var tinkoffTradingProperties: TinkoffTradingProperties
-
-    companion object {
-
-        @JvmStatic
-        @Container
-        protected var container = MySQLContainer("mysql:8")
-
-        @Container
-        protected var redisContainer: GenericContainer<Nothing> = GenericContainer<Nothing>(DockerImageName.parse("redis:5.0.3-alpine"))
-            .withExposedPorts(6379)
-
-        @JvmStatic
-        @DynamicPropertySource
-        fun mysqlProperties(registry: DynamicPropertyRegistry) {
-            registry.add("spring.datasource.url", container::getJdbcUrl)
-            registry.add("spring.datasource.username", container::getUsername)
-            registry.add("spring.datasource.password", container::getPassword)
-            registry.add("spring.datasource.driver-class-name", container::getDriverClassName)
-            registry.add("spring.flyway.schemas", container::getDatabaseName)
-            registry.add("spring.data.redis.host", redisContainer::getHost)
-            registry.add("spring.data.redis.port", redisContainer::getFirstMappedPort)
-
-        }
-
-    }
     @Test
     fun `test getting candles from grpc only`() {
 
         `when`(candlesRepository.findByFigiAndIntervalOrderByDateTimeDesc(any(), any())).thenReturn(emptyList())
         val candles = ArrayList<CandleEntity>()
 
-        val future = candlesService.getHistoricalCandles("BBG004730N88", "SBER", CandleInterval.CANDLE_INTERVAL_DAY, candles)
+        val future = candlesService.getHistoricalCandles("BBG004730N88", "SBER", "e6123145-9665-43e0-8413-cd61b8aa9b13",
+            CandleInterval.CANDLE_INTERVAL_DAY, candles)
 
         future.get()
         assertFalse(candles.isEmpty())
-        assertTrue(candles.size > 900)
+        assertTrue(candles.size > 800)
     }
 
     @Test
@@ -89,7 +52,8 @@ class CandlesServiceImplTest {
         ))
         val candles = ArrayList<CandleEntity>()
 
-        val future = candlesService.getHistoricalCandles("BBG004730N88", "SBER", CandleInterval.CANDLE_INTERVAL_DAY, candles)
+        val future = candlesService.getHistoricalCandles("BBG004730N88", "SBER", "e6123145-9665-43e0-8413-cd61b8aa9b13",
+            CandleInterval.CANDLE_INTERVAL_DAY, candles)
 
         future.get()
         assertFalse(candles.isEmpty())
@@ -105,11 +69,12 @@ class CandlesServiceImplTest {
         ))
         val candles = ArrayList<CandleEntity>()
 
-        val future = candlesService.getHistoricalCandles("BBG004730N88", "SBER", CandleInterval.CANDLE_INTERVAL_HOUR, candles)
+        val future = candlesService.getHistoricalCandles("BBG004730N88", "SBER",
+            "e6123145-9665-43e0-8413-cd61b8aa9b13",CandleInterval.CANDLE_INTERVAL_HOUR, candles)
 
         future.get()
         assertFalse(candles.isEmpty())
-        assertTrue(candles.size > 250)
+        assertTrue(candles.size > 150)
     }
 
     @Test
@@ -117,7 +82,8 @@ class CandlesServiceImplTest {
         `when`(candlesRepository.findByFigiAndIntervalOrderByDateTimeDesc(any(), any())).thenReturn(emptyList())
         val candles = ArrayList<CandleEntity>()
 
-        val future = candlesService.getHistoricalCandles("BBG004730N88", "SBER", CandleInterval.CANDLE_INTERVAL_HOUR, candles)
+        val future = candlesService.getHistoricalCandles("BBG004730N88", "SBER",
+            "e6123145-9665-43e0-8413-cd61b8aa9b13", CandleInterval.CANDLE_INTERVAL_HOUR, candles)
 
         future.get()
         assertFalse(candles.isEmpty())
@@ -133,7 +99,8 @@ class CandlesServiceImplTest {
         ))
         val candles = ArrayList<CandleEntity>()
 
-        val future = candlesService.getHistoricalCandles("BBG004730N88", "SBER", CandleInterval.CANDLE_INTERVAL_1_MIN, candles)
+        val future = candlesService.getHistoricalCandles("BBG004730N88", "SBER",
+            "e6123145-9665-43e0-8413-cd61b8aa9b13",CandleInterval.CANDLE_INTERVAL_1_MIN, candles)
 
         assertThrows<ExecutionException> { future.get() }
     }

@@ -7,11 +7,11 @@ import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan
 import org.springframework.boot.test.context.TestConfiguration
-import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Import
 import org.springframework.context.annotation.PropertySource
 import org.springframework.test.context.ContextConfiguration
+import org.springframework.test.context.bean.override.mockito.MockitoBean
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.web.reactive.function.client.WebClient
 import ru.home.project.client.TwelveDataClient
@@ -73,7 +73,7 @@ class CryptoCandlesServiceImplTest {
     @Import(ClientConfig::class)
     class TestConfig {
 
-        @MockBean
+        @MockitoBean
         private lateinit var tinkoffProperties: TinkoffProperties
 
         @Bean

@@ -13,7 +13,6 @@ import org.springframework.context.ApplicationEventPublisher
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Service
 import ru.home.project.properties.TwelveDataTradingProperties
-import ru.home.project.service.CoinMarketCapService
 import java.util.concurrent.Executor
 
 /**
@@ -21,7 +20,6 @@ import java.util.concurrent.Executor
  */
 @Service
 class CryptoCandlesReceivingService(
-    val coinMarketCapService: CoinMarketCapService,
     val eventPublisher: ApplicationEventPublisher,
     val twelveDataTradingProperties: TwelveDataTradingProperties,
     val bybitApiMarketRestClient: BybitApiAsyncMarketDataRestClient,

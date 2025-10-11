@@ -45,7 +45,7 @@ fun mergeLevels(levels: List<LevelEntity>, type: ItemType): Set<MergedLevelEntit
 }
 
 private fun getNearByLevels(levelEntity: LevelEntity, levels: List<LevelEntity>, type: ItemType): List<LevelEntity> {
-    val threshold = if (type == ItemType.CRYPTO) 0.03 else 0.02
+    val threshold = if (type == ItemType.CRYPTO) 0.02 else 0.02
     return levels.filter { abs(it.level - levelEntity.level) / max(it.level, levelEntity.level) < threshold }
 }
 

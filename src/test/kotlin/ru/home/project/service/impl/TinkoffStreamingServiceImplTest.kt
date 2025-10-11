@@ -7,17 +7,12 @@ import org.mockito.kotlin.anyVararg
 import org.mockito.kotlin.atLeast
 import org.mockito.kotlin.verify
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.boot.test.mock.mockito.MockBean
-import org.springframework.test.context.DynamicPropertyRegistry
-import org.springframework.test.context.DynamicPropertySource
-import org.testcontainers.containers.MySQLContainer
-import org.testcontainers.junit.jupiter.Container
-import org.testcontainers.junit.jupiter.Testcontainers
+import org.springframework.test.context.bean.override.mockito.MockitoBean
+import ru.home.project.AbstractIntegrationTest
+import ru.home.project.listener.ContextRefreshedEventListener
 import ru.home.project.listener.TradeEventListener
-import ru.home.project.model.TradeEvent
-import ru.home.project.processor.TinkoffTradesStreamProcessor
-import ru.home.project.properties.TinkoffTradingProperties
+import ru.home.project.listener.TradesStreamListener
+import ru.home.project.model.events.TradeEvent
 import ru.home.project.service.TinkoffStreamingService
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
@@ -27,46 +22,24 @@ import kotlin.test.assertTrue
 /**
  * @author rlagay
  */
-@SpringBootTest
-@Testcontainers
-class TinkoffStreamingServiceImplTest {
+class TinkoffStreamingServiceImplTest : AbstractIntegrationTest() {
 
     @Autowired
     private lateinit var tinkoffStreamingService: TinkoffStreamingService
 
     @Autowired
-    private lateinit var tradesStreamProcessor: TinkoffTradesStreamProcessor
+    private lateinit var tradesStreamProcessor: TradesStreamListener
 
-    @MockBean
-    private lateinit var tinkoffTradingProperties: TinkoffTradingProperties
+    @MockitoBean
+    private lateinit var contextRefreshedEventListener: ContextRefreshedEventListener
 
-    @MockBean
+    @MockitoBean
     private lateinit var tradeEventListener: TradeEventListener
 
-    companion object {
-
-        @JvmStatic
-        @Container
-        protected var container = MySQLContainer("mysql:8")
-
-        @JvmStatic
-        @DynamicPropertySource
-        fun mysqlProperties(registry: DynamicPropertyRegistry) {
-            registry.add("spring.datasource.url", container::getJdbcUrl)
-            registry.add("spring.datasource.username", container::getUsername)
-            registry.add("spring.datasource.password", container::getPassword)
-            registry.add("spring.datasource.driver-class-name", container::getDriverClassName)
-            registry.add("spring.flyway.schemas", container::getDatabaseName)
-
-        }
-
-    }
     @Test
     fun `test getting trades stream - works only with working stock exchange`() {
 
         val lock = CountDownLatch(1)
-        Mockito.`when`(tinkoffTradingProperties.instruments).thenReturn(listOf("TCS009029540", "BBG00QPYJ5H0"))
-
         tinkoffStreamingService.subscribeTradingStream()
 
         Mockito.`when`(tradeEventListener.processTradeEvent(any())).thenAnswer {

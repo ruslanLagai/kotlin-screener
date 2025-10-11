@@ -42,7 +42,7 @@ WORKDIR /opt/software/
 
 EXPOSE 8080
 
-ENV JAVA_OPTS="-Dserver.tomcat.accesslog.enabled=true -Xmx1024m -Xms256m"
+ENV JAVA_OPTS="-Dserver.tomcat.accesslog.enabled=true -Xmx1024m -Xms256m -XX:+HeapDumpOnOutOfMemoryError"
 
 
 ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -Dspring.profiles.active=$PROFILE -jar ${app_name}.jar"]

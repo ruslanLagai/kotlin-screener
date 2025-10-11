@@ -4,11 +4,69 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5719d778-1cb0-4c50-a764-2f453e82c867" name="Changes" comment="bugfix - single alert for stock">
+    <list default="true" id="5719d778-1cb0-4c50-a764-2f453e82c867" name="Changes" comment="bugfix - tinkoff candles">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/listener/HourlyCandlesStreamListener.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/listener/TradesStreamListener.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/model/Pattern.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/model/PatternType.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/model/events/AlertEvent.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/model/events/TradeEvent.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/service/PatternService.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/service/impl/TrianglePatternServiceImpl.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/utils/CandleIntervalUtils.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/utils/CandlesUtils.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/utils/ExtremumUtils.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/utils/LineUtils.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/utils/Trend.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/kotlin/ru/home/project/AbstractIntegrationTest.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/kotlin/ru/home/project/service/impl/TrianglePatternServiceImplTest.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/kotlin/ru/home/project/utils/CandlesUtilsTest.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/kotlin/ru/home/project/utils/ExtremumUtilsTest.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/kotlin/ru/home/project/utils/LineUtilsTest.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/candles/patterns/mxu-hourly-candles-channel-21.06-21.08.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/candles/patterns/pdz-hourly-candles-triangle-14.07-14.09.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/candles/patterns/ri-hourly-candles-after-exit-04.07-06.06.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/candles/patterns/ri-hourly-candles-triangle-04.07-28.05.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/candles/utils/gzu-hourly-candles-channel-06.08-06.09.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/candles/utils/mxu-hourly-candles-channel-21.06-21.08.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/candles/utils/ngu-hourly-candles-channel-06.08-06.09.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/candles/utils/nku-hourly-candles-channel-25.04-19.06.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/note.txt" beforeDir="false" afterPath="$PROJECT_DIR$/note.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/config/AsyncConfig.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/config/AsyncConfig.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/config/ClientConfig.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/config/ClientConfig.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/entity/CandleEntity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/entity/CandleEntity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/entity/InstrumentEntity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/entity/InstrumentEntity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/listener/AlertEventListener.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/listener/AlertEventListener.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/listener/TradeEventListener.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/listener/TradeEventListener.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/utils/CandlesFilteringUtils.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/utils/CandlesFilteringUtils.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/model/AlertEvent.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/model/TradeEvent.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/processor/TinkoffTradesStreamProcessor.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/repository/CandlesRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/repository/CandlesRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/scheduled/CryptoCandlesReceivingService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/scheduled/CryptoCandlesReceivingService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/service/CandlesService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/service/CandlesService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/service/impl/CandlesServiceImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/service/impl/CandlesServiceImpl.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/service/impl/TinkoffStreamingServiceImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/service/impl/TinkoffStreamingServiceImpl.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/utils/Constants.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/utils/Constants.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/utils/LevelUtils.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/utils/LevelUtils.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/utils/PriceUtils.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ru/home/project/utils/PriceUtils.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/ru/home/project/listener/AlertEventListenerIntegrationTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/ru/home/project/listener/AlertEventListenerIntegrationTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/ru/home/project/listener/AlertEventListenerTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/ru/home/project/listener/AlertEventListenerTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/ru/home/project/listener/TradeEventListenerTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/ru/home/project/listener/TradeEventListenerTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/ru/home/project/processor/TinkoffTradesStreamProcessorTest.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/ru/home/project/service/impl/CandlesServiceImplTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/ru/home/project/service/impl/CandlesServiceImplTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/ru/home/project/service/impl/CoinMarketCapServiceImplTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/ru/home/project/service/impl/CoinMarketCapServiceImplTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/ru/home/project/service/impl/CryptoCandlesServiceImplTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/ru/home/project/service/impl/CryptoCandlesServiceImplTest.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/kotlin/ru/home/project/service/impl/LevelsDetectionServiceImplTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/ru/home/project/service/impl/LevelsDetectionServiceImplTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/ru/home/project/service/impl/TinkoffStreamingServiceImplTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/ru/home/project/service/impl/TinkoffStreamingServiceImplTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/ru/home/project/utils/LevelUtilsKtTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/ru/home/project/utils/LevelUtilsKtTest.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,12 +105,6 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="screener-kotlin" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="other" type="c8890929:TasksNode$1" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="screener-kotlin" type="f1a62948:ProjectNode" />
                 <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
               </path>
               <path>
@@ -71,63 +123,133 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="Kotlin Enum" />
         <option value="Class" />
-        <option value="Kotlin File" />
         <option value="Kotlin Data Class" />
-        <option value="JUnit5 Test Class" />
         <option value="Kotlin Interface" />
+        <option value="JUnit5 Test Class" />
         <option value="Kotlin Class" />
+        <option value="Kotlin Enum" />
+        <option value="Kotlin File" />
+        <option value="Kotlin JUnit5 Test Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GradleModuleStateConfig" initialized="true">
+    <option name="configPaths">
+      <map>
+        <entry key="$PROJECT_DIR$" value="$PROJECT_DIR$/build.gradle.kts" />
+      </map>
+    </option>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/ru.tinkoff.piapi/java-sdk-core/1.40/eee7b85b443538762196a7057a48bf2fb620869d/java-sdk-core-1.40-sources.jar!/ru/ttech/piapi/core/connector/ConnectorConfiguration.java" root0="SKIP_INSPECTION" />
+    <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/ru.tinkoff.piapi/java-sdk-core/1.40/eee7b85b443538762196a7057a48bf2fb620869d/java-sdk-core-1.40-sources.jar!/ru/ttech/piapi/core/connector/resilience/ResilienceConfiguration.java" root0="SKIP_INSPECTION" />
+    <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/ru.tinkoff.piapi/java-sdk-core/1.40/eee7b85b443538762196a7057a48bf2fb620869d/java-sdk-core-1.40-sources.jar!/ru/ttech/piapi/core/connector/streaming/BaseStreamConfiguration.java" root0="SKIP_INSPECTION" />
+    <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/ru.tinkoff.piapi/java-sdk-core/1.40/eee7b85b443538762196a7057a48bf2fb620869d/java-sdk-core-1.40-sources.jar!/ru/ttech/piapi/core/connector/streaming/StreamManagerFactory.java" root0="SKIP_INSPECTION" />
+    <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/ru.tinkoff.piapi/java-sdk-core/1.40/eee7b85b443538762196a7057a48bf2fb620869d/java-sdk-core-1.40-sources.jar!/ru/ttech/piapi/core/impl/marketdata/MarketDataStreamConfiguration.java" root0="SKIP_INSPECTION" />
+    <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/ru.tinkoff.piapi/java-sdk-core/1.40/eee7b85b443538762196a7057a48bf2fb620869d/java-sdk-core-1.40-sources.jar!/ru/ttech/piapi/core/impl/marketdata/MarketDataStreamContext.java" root0="SKIP_INSPECTION" />
+    <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/ru.tinkoff.piapi/java-sdk-core/1.40/eee7b85b443538762196a7057a48bf2fb620869d/java-sdk-core-1.40-sources.jar!/ru/ttech/piapi/core/impl/marketdata/MarketDataStreamManager.java" root0="SKIP_INSPECTION" />
+    <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/ru.tinkoff.piapi/java-sdk-core/1.40/eee7b85b443538762196a7057a48bf2fb620869d/java-sdk-core-1.40-sources.jar!/ru/ttech/piapi/core/impl/marketdata/MarketDataStreamWrapperConfiguration.java" root0="SKIP_INSPECTION" />
+    <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/ru.tinkoff.piapi/java-sdk-core/1.40/eee7b85b443538762196a7057a48bf2fb620869d/java-sdk-core-1.40-sources.jar!/ru/ttech/piapi/core/impl/marketdata/subscription/MarketDataSubscriptionResult.java" root0="SKIP_INSPECTION" />
+    <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/ru.tinkoff.piapi/java-sdk-core/1.40/f794c95095ac020c573a137f0e10ffe579bfd286/java-sdk-core-1.40.jar!/errors.json" root0="SKIP_INSPECTION" />
+    <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/ru.tinkoff.piapi/java-sdk-core/1.40/f794c95095ac020c573a137f0e10ffe579bfd286/java-sdk-core-1.40.jar!/ru/ttech/piapi/core/impl/marketdata/MarketDataStreamContext.class" root0="SKIP_INSPECTION" />
+    <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/ru.tinkoff.piapi/java-sdk-spring-boot-starter/1.40/455d98aee2b18404112d69456a2a58cf95e566c0/java-sdk-spring-boot-starter-1.40.jar!/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports" root0="SKIP_INSPECTION" />
+    <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/ru.tinkoff.piapi/java-sdk-spring-boot-starter/1.40/455d98aee2b18404112d69456a2a58cf95e566c0/java-sdk-spring-boot-starter-1.40.jar!/ru/ttech/piapi/springboot/configuration/InvestAutoConfiguration.class" root0="SKIP_INSPECTION" />
+    <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/ru.tinkoff.piapi/java-sdk-spring-boot-starter/1.40/752226fae3e2151eeb945fea98bb17b15355b88f/java-sdk-spring-boot-starter-1.40-sources.jar!/ru/ttech/piapi/springboot/bot/CandleTradingBot.java" root0="SKIP_INSPECTION" />
+    <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/ru.tinkoff.piapi/java-sdk-spring-boot-starter/1.40/752226fae3e2151eeb945fea98bb17b15355b88f/java-sdk-spring-boot-starter-1.40-sources.jar!/ru/ttech/piapi/springboot/configuration/ConnectorProperties.java" root0="SKIP_INSPECTION" />
+    <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/ru.tinkoff.piapi/java-sdk-spring-boot-starter/1.40/752226fae3e2151eeb945fea98bb17b15355b88f/java-sdk-spring-boot-starter-1.40-sources.jar!/ru/ttech/piapi/springboot/configuration/InvestAutoConfiguration.java" root0="SKIP_INSPECTION" />
+    <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/ru.tinkoff.piapi/java-sdk-spring-boot-starter/1.40/752226fae3e2151eeb945fea98bb17b15355b88f/java-sdk-spring-boot-starter-1.40-sources.jar!/ru/ttech/piapi/springboot/configuration/StrategyAutoConfiguration.java" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="DEPENDENCY_CHECKER_PROBLEMS_TAB" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
 }</component>
   <component name="ProjectId" id="2b8rt6RwXIXEjCVlkCI5giwHwDV" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Gradle.AlertEventListenerTest.executor": "Run",
+    "Gradle.AlertEventListenerTest.test level breaking less 1 percent.executor": "Debug",
+    "Gradle.AlertEventListenerTest.test price coming to extremum level.executor": "Run",
+    "Gradle.AlertEventListenerTest.test price coming to median level.executor": "Run",
+    "Gradle.AlertEventListenerTest.test single level.executor": "Run",
     "Gradle.Build screener-kotlin.executor": "Run",
+    "Gradle.Building Gradle Dependencies.executor": "Run",
     "Gradle.CandlesFilteringUtilsKtTest.executor": "Run",
+    "Gradle.CandlesFilteringUtilsKtTest.test filtering daily candles.executor": "Run",
     "Gradle.CandlesFilteringUtilsKtTest.test split candles to interval - bug fix.executor": "Run",
     "Gradle.CandlesFilteringUtilsKtTest.test split candles to support interval - full candles GMKN.executor": "Debug",
     "Gradle.CandlesServiceImplTest.executor": "Run",
-    "Gradle.CandlesServiceImplTest.test getting candles from db + grpc - exception.executor": "Run",
+    "Gradle.CandlesServiceImplTest.test cached candles.executor": "Debug",
+    "Gradle.CandlesServiceImplTest.test getting candles from db + grpc - exception.executor": "Debug",
     "Gradle.CandlesServiceImplTest.test getting candles from db + grpc - hour interval.executor": "Run",
     "Gradle.CandlesServiceImplTest.test getting candles from db + grpc.executor": "Debug",
     "Gradle.CandlesServiceImplTest.test getting candles from grpc only.executor": "Debug",
+    "Gradle.CandlesUtilsTest.test candles in channel - mxu 21-06 21-08.executor": "Debug",
+    "Gradle.CandlesUtilsTest.test candles in channel.executor": "Debug",
     "Gradle.ClosestLevelServiceImplTest.executor": "Run",
     "Gradle.ClosestLevelServiceImplTest.test get resistance level.executor": "Run",
     "Gradle.ClosestLevelServiceImplTest.test get support level.executor": "Run",
     "Gradle.ClosestLevelServiceImplTest.test no levels.executor": "Run",
+    "Gradle.CoinMarketCapServiceImplTest.executor": "Run",
+    "Gradle.CoinMarketCapServiceImplTest.test get crypto prices.executor": "Run",
+    "Gradle.CryptoCandlesServiceImplTest.executor": "Run",
+    "Gradle.CryptoCandlesServiceImplTest.test getting  5 min crypto candles - from instant.executor": "Debug",
+    "Gradle.CryptoCandlesServiceImplTest.test getting  5 min crypto candles.executor": "Run",
+    "Gradle.CryptoCandlesServiceImplTest.test getting 5 min crypto candles.executor": "Run",
+    "Gradle.CryptoCandlesServiceImplTest.test getting crypto candles - from instant.executor": "Debug",
+    "Gradle.CryptoCandlesServiceImplTest.test getting crypto candles.executor": "Run",
+    "Gradle.CryptoCandlesServiceImplTest.test getting daily crypto candles.executor": "Run",
+    "Gradle.CryptoCandlesServiceImplTest.test invalid symbol.executor": "Run",
     "Gradle.DailyLevelProcessorTest.executor": "Run",
+    "Gradle.DailyLevelProcessorTest.test ethusdt - bugfix.executor": "Debug",
     "Gradle.DailyLevelProcessorTest.test not enough candles.executor": "Run",
     "Gradle.DailyLevelProcessorTest.test resistance levels.executor": "Debug",
     "Gradle.DailyLevelProcessorTest.test support levels.executor": "Debug",
+    "Gradle.Download Sources.executor": "Run",
     "Gradle.LevelStatisticServiceImplTest.executor": "Run",
+    "Gradle.LevelUtilsKtTest.executor": "Run",
+    "Gradle.LevelUtilsKtTest.test POSI levels - merge 2 percent.executor": "Run",
     "Gradle.LevelUtilsKtTest.test merge levels - bugfix.executor": "Run",
-    "Gradle.LevelUtilsKtTest.test merge levels.executor": "Run",
+    "Gradle.LevelUtilsKtTest.test merge levels.executor": "Debug",
     "Gradle.LevelsDetectionServiceImplTest.executor": "Run",
+    "Gradle.LevelsDetectionServiceImplTest.test BTCUSD daily levels.executor": "Debug",
+    "Gradle.LevelsDetectionServiceImplTest.test PISO daily levels - result validation.executor": "Debug",
     "Gradle.LevelsDetectionServiceImplTest.test SMLT daily levels - result validation.executor": "Debug",
     "Gradle.LevelsDetectionServiceImplTest.test gmkn daily levels - no data in DB.executor": "Debug",
     "Gradle.LevelsDetectionServiceImplTest.test vtbr daily levels.executor": "Debug",
+    "Gradle.LineUtilsTest.test candles in asc channel - mxu 21-06 21-08.executor": "Debug",
     "Gradle.Tests in 'ru.home.project.utils'.executor": "Run",
     "Gradle.Tests in 'screener-kotlin.test'.executor": "Run",
     "Gradle.TinkoffStreamingServiceImplTest.executor": "Run",
-    "Gradle.TinkoffStreamingServiceImplTest.test getting trades stream - works only with working stock exchange.executor": "Run",
+    "Gradle.TinkoffStreamingServiceImplTest.test getting trades stream - works only with working stock exchange.executor": "Debug",
     "Gradle.TinkoffStreamingServiceImplTest.test getting trades stream.executor": "Debug",
     "Gradle.TinkoffTradesStreamProcessorTest.executor": "Run",
     "Gradle.TinkoffTradesStreamProcessorTest.test event publishing.executor": "Run",
     "Gradle.TinkoffTradesStreamProcessorTest.test parallel level update.executor": "Run",
+    "Gradle.TradeEventListenerTest.executor": "Run",
+    "Gradle.TradeEventListenerTest.process tikoff trade event.executor": "Debug",
+    "Gradle.TradeEventListenerTest.process tinkoff trade event.executor": "Debug",
+    "Gradle.TradeEventListenerTest.test processing crypto prices.executor": "Debug",
+    "Gradle.TrianglePatternServiceImplTest.detectPattern should return triangle pattern when valid triangle pattern exists.executor": "Debug",
+    "Gradle.TrianglePatternServiceImplTest.executor": "Run",
+    "Gradle.TrianglePatternServiceImplTest.should detect channel.executor": "Debug",
+    "Gradle.TrianglePatternServiceImplTest.should detect triangle pattern.executor": "Debug",
+    "Gradle.screener-kotlin [assemble].executor": "Run",
     "Gradle.screener-kotlin [bootJar].executor": "Run",
+    "Gradle.screener-kotlin [bootRun].executor": "Run",
+    "Gradle.screener-kotlin [clean].executor": "Run",
     "Gradle.screener-kotlin [generateProto].executor": "Run",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
@@ -135,17 +257,23 @@
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "Spring Boot.TinkoffScreenerApp.executor": "Run",
+    "RunOnceActivity.git.unshallow": "true",
+    "Spring Boot.TinkoffScreenerApp.executor": "Debug",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "database.data.extractors.current.export.id": "Comma-separated (CSV)_id",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/rlagay/Documents/Github/new/ozon-api/screener-kotlin",
+    "last_opened_file_path": "/Users/rlagay/Documents/Github/new/ozon-api/screener-kotlin/src/test/resources/candles/patterns",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -159,11 +287,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/src/test/resources/candles/patterns" />
+      <recent name="$PROJECT_DIR$/src/test/resources/candles/utils" />
       <recent name="$PROJECT_DIR$/src/main/resources/db/migration" />
-      <recent name="$PROJECT_DIR$/src/main/resources" />
-      <recent name="$PROJECT_DIR$/src/main" />
-      <recent name="$PROJECT_DIR$/src/test/kotlin/ru/home/project/util" />
+      <recent name="$PROJECT_DIR$/src/main/kotlin/ru/home/project/dto" />
+      <recent name="$PROJECT_DIR$" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -173,15 +301,16 @@
     </key>
     <key name="CreateTestDialog.RecentsKey">
       <recent name="ru.home.project.utils" />
+      <recent name="ru.home.project.listener" />
       <recent name="ru.home.project.service.impl" />
       <recent name="ru.home.project.processor" />
     </key>
     <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
-      <recent name="ru.home.project.properties" />
-      <recent name="ru.home.project.entity" />
+      <recent name="ru.home.project" />
+      <recent name="ru.home.project.model" />
+      <recent name="ru.home.project.listener" />
       <recent name="ru.home.project.repository" />
-      <recent name="ru.home.project.processor" />
-      <recent name="ru.home.project.service.impl" />
+      <recent name="ru.home.project.entity" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="ru.home.project.config" />
@@ -189,8 +318,8 @@
       <recent name="ru.home.project.service" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.LevelsDetectionServiceImplTest.test SMLT daily levels - result validation">
-    <configuration name="CandlesServiceImplTest.test getting candles from db + grpc - hour interval" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+  <component name="RunManager" selected="Gradle.TrianglePatternServiceImplTest.should detect triangle pattern">
+    <configuration name="LevelsDetectionServiceImplTest.test BTCUSD daily levels" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -203,7 +332,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;ru.home.project.service.impl.CandlesServiceImplTest.test getting candles from db + grpc - hour interval&quot;" />
+            <option value="&quot;ru.home.project.service.impl.LevelsDetectionServiceImplTest.test BTCUSD daily levels&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -214,7 +343,29 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="LevelsDetectionServiceImplTest.test SMLT daily levels - result validation" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="Tests in 'screener-kotlin.test'" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="TradeEventListenerTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -227,7 +378,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;ru.home.project.service.impl.LevelsDetectionServiceImplTest.test SMLT daily levels - result validation&quot;" />
+            <option value="&quot;ru.home.project.listener.TradeEventListenerTest&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -238,7 +389,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="LevelsDetectionServiceImplTest.test gmkn daily levels - no data in DB" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="TrianglePatternServiceImplTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -251,7 +402,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;ru.home.project.service.impl.LevelsDetectionServiceImplTest.test gmkn daily levels - no data in DB&quot;" />
+            <option value="&quot;ru.home.project.service.impl.TrianglePatternServiceImplTest&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -262,55 +413,60 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="screener-kotlin [bootJar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="TrianglePatternServiceImplTest.should detect triangle pattern" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
+        <option name="scriptParameters" value="" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value="bootJar" />
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;ru.home.project.service.impl.TrianglePatternServiceImplTest.should detect triangle pattern&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
+      <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="TinkoffScreenerApp" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+    <configuration name="TinkoffScreenerApp" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="screener-kotlin.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="ru.home.project.TinkoffScreenerApp" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ru.home.project.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="aws.lambda" factoryName="Remote">
+      <option name="credentialProviderId" />
+      <option name="regionId" />
+      <option name="functionName" />
+      <option name="input" />
+      <option name="inputIsFile" value="false" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.LevelsDetectionServiceImplTest.test SMLT daily levels - result validation" />
-        <item itemvalue="Gradle.LevelsDetectionServiceImplTest.test gmkn daily levels - no data in DB" />
-        <item itemvalue="Spring Boot.TinkoffScreenerApp" />
-        <item itemvalue="Gradle.screener-kotlin [bootJar]" />
-        <item itemvalue="Gradle.CandlesServiceImplTest.test getting candles from db + grpc - hour interval" />
+        <item itemvalue="Gradle.TrianglePatternServiceImplTest.should detect triangle pattern" />
+        <item itemvalue="Gradle.TrianglePatternServiceImplTest" />
+        <item itemvalue="Gradle.Tests in 'screener-kotlin.test'" />
+        <item itemvalue="Gradle.LevelsDetectionServiceImplTest.test BTCUSD daily levels" />
+        <item itemvalue="Gradle.TradeEventListenerTest" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-20.0.2-temurin-20.0.2-f644763e9732-bd010dca" />
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.23774.435" />
+        <option value="bundled-js-predefined-d6986cc7102b-f27c65a3e318-JavaScript-IU-251.23774.435" />
       </set>
     </attachedChunks>
   </component>
@@ -332,7 +488,134 @@
       <workItem from="1710483654853" duration="60233000" />
       <workItem from="1711047329206" duration="11948000" />
       <workItem from="1711392965337" duration="16176000" />
-      <workItem from="1711695860073" duration="11707000" />
+      <workItem from="1711695860073" duration="90351000" />
+      <workItem from="1712839404370" duration="7656000" />
+      <workItem from="1713191578611" duration="22110000" />
+      <workItem from="1713775688745" duration="11518000" />
+      <workItem from="1714733562864" duration="2693000" />
+      <workItem from="1715068860679" duration="1071000" />
+      <workItem from="1716886833582" duration="1876000" />
+      <workItem from="1716984536243" duration="599000" />
+      <workItem from="1717139828492" duration="84374000" />
+      <workItem from="1717854990499" duration="596000" />
+      <workItem from="1718001511534" duration="24301000" />
+      <workItem from="1718714716459" duration="599000" />
+      <workItem from="1719433060759" duration="637000" />
+      <workItem from="1721639395532" duration="2858000" />
+      <workItem from="1721730656898" duration="1299000" />
+      <workItem from="1723151185828" duration="437000" />
+      <workItem from="1724959554131" duration="1747000" />
+      <workItem from="1727261258569" duration="57000" />
+      <workItem from="1727554048346" duration="11033000" />
+      <workItem from="1727702355104" duration="6316000" />
+      <workItem from="1729354520555" duration="12959000" />
+      <workItem from="1729573061401" duration="1152000" />
+      <workItem from="1729773046034" duration="1211000" />
+      <workItem from="1729797454349" duration="16799000" />
+      <workItem from="1730268705766" duration="405000" />
+      <workItem from="1730270507281" duration="14155000" />
+      <workItem from="1730839215585" duration="6723000" />
+      <workItem from="1730888827642" duration="6443000" />
+      <workItem from="1731013922346" duration="2379000" />
+      <workItem from="1731075895941" duration="677000" />
+      <workItem from="1731223585522" duration="8158000" />
+      <workItem from="1731307976979" duration="599000" />
+      <workItem from="1732109481749" duration="6879000" />
+      <workItem from="1732389545016" duration="2390000" />
+      <workItem from="1732516840544" duration="4848000" />
+      <workItem from="1732558937016" duration="190000" />
+      <workItem from="1732559131052" duration="54000" />
+      <workItem from="1732559198638" duration="49000" />
+      <workItem from="1732559250471" duration="145000" />
+      <workItem from="1732559417900" duration="15887000" />
+      <workItem from="1732764130524" duration="440000" />
+      <workItem from="1732873692513" duration="993000" />
+      <workItem from="1732992700821" duration="315000" />
+      <workItem from="1733503390159" duration="18353000" />
+      <workItem from="1733640604733" duration="6414000" />
+      <workItem from="1733913902209" duration="24527000" />
+      <workItem from="1734699357951" duration="6651000" />
+      <workItem from="1734943413832" duration="5064000" />
+      <workItem from="1735114939210" duration="616000" />
+      <workItem from="1735117281678" duration="973000" />
+      <workItem from="1735122010913" duration="1968000" />
+      <workItem from="1735156340920" duration="7610000" />
+      <workItem from="1736187338695" duration="46140000" />
+      <workItem from="1736966194199" duration="31028000" />
+      <workItem from="1737486497204" duration="21000" />
+      <workItem from="1737700903704" duration="34911000" />
+      <workItem from="1738134452502" duration="6588000" />
+      <workItem from="1738257472801" duration="2696000" />
+      <workItem from="1738306909941" duration="10469000" />
+      <workItem from="1738413948460" duration="13965000" />
+      <workItem from="1738605419465" duration="3180000" />
+      <workItem from="1738686382428" duration="1572000" />
+      <workItem from="1738751591461" duration="15014000" />
+      <workItem from="1739183446719" duration="530000" />
+      <workItem from="1739305058943" duration="3058000" />
+      <workItem from="1739517962005" duration="5255000" />
+      <workItem from="1739725847059" duration="4720000" />
+      <workItem from="1740047840239" duration="581000" />
+      <workItem from="1740124560951" duration="426000" />
+      <workItem from="1740572144438" duration="143000" />
+      <workItem from="1740685527511" duration="60000" />
+      <workItem from="1740685672484" duration="519000" />
+      <workItem from="1741003720872" duration="255000" />
+      <workItem from="1741007122911" duration="69000" />
+      <workItem from="1741156161633" duration="1016000" />
+      <workItem from="1741427291684" duration="501000" />
+      <workItem from="1741444816646" duration="240000" />
+      <workItem from="1741506429531" duration="10778000" />
+      <workItem from="1741937601186" duration="6162000" />
+      <workItem from="1742193945410" duration="880000" />
+      <workItem from="1742459008324" duration="309000" />
+      <workItem from="1742578897542" duration="9453000" />
+      <workItem from="1743161438645" duration="3188000" />
+      <workItem from="1744183263185" duration="1573000" />
+      <workItem from="1744187595660" duration="206000" />
+      <workItem from="1744922496761" duration="7829000" />
+      <workItem from="1746003596121" duration="9000" />
+      <workItem from="1746430750783" duration="2284000" />
+      <workItem from="1746611806262" duration="333000" />
+      <workItem from="1747065850998" duration="325000" />
+      <workItem from="1747142079539" duration="1282000" />
+      <workItem from="1747280103772" duration="7155000" />
+      <workItem from="1747716960308" duration="394000" />
+      <workItem from="1748331996351" duration="1842000" />
+      <workItem from="1748426720505" duration="82000" />
+      <workItem from="1748847033268" duration="67000" />
+      <workItem from="1748938409343" duration="170000" />
+      <workItem from="1749155733386" duration="2618000" />
+      <workItem from="1749643469499" duration="9004000" />
+      <workItem from="1749847993820" duration="104000" />
+      <workItem from="1749848320359" duration="10949000" />
+      <workItem from="1750081824403" duration="5347000" />
+      <workItem from="1750244548501" duration="4863000" />
+      <workItem from="1750689193930" duration="596000" />
+      <workItem from="1750709017723" duration="1697000" />
+      <workItem from="1752216366932" duration="2648000" />
+      <workItem from="1752861872269" duration="7389000" />
+      <workItem from="1753191938235" duration="581000" />
+      <workItem from="1753215999849" duration="13265000" />
+      <workItem from="1753381267030" duration="119000" />
+      <workItem from="1754986898063" duration="575000" />
+      <workItem from="1755060884147" duration="21931000" />
+      <workItem from="1755246494606" duration="216000" />
+      <workItem from="1755498082698" duration="13958000" />
+      <workItem from="1755775470240" duration="44761000" />
+      <workItem from="1756321696076" duration="1279000" />
+      <workItem from="1756358238566" duration="36000" />
+      <workItem from="1756358562335" duration="1776000" />
+      <workItem from="1757918838341" duration="240000" />
+      <workItem from="1758004326905" duration="907000" />
+      <workItem from="1759480650168" duration="1545000" />
+      <workItem from="1759491101110" duration="12272000" />
+      <workItem from="1759609376965" duration="1384000" />
+      <workItem from="1759610773244" duration="521000" />
+      <workItem from="1759611307132" duration="87000" />
+      <workItem from="1759757586546" duration="20000" />
+      <workItem from="1759757623991" duration="21931000" />
+      <workItem from="1760039563083" duration="7940000" />
     </task>
     <task id="LOCAL-00001" summary="init version">
       <option name="closed" value="true" />
@@ -382,11 +665,217 @@
       <option name="project" value="LOCAL" />
       <updated>1711524540651</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="daily levels for crypto">
+      <option name="closed" value="true" />
+      <created>1712693463879</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1712693463879</updated>
+    </task>
+    <task id="LOCAL-00008" summary="checkstyle">
+      <option name="closed" value="true" />
+      <created>1712693762428</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1712693762428</updated>
+    </task>
+    <task id="LOCAL-00009" summary="redis cache + bug fix">
+      <option name="closed" value="true" />
+      <created>1713530952088</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1713530952089</updated>
+    </task>
+    <task id="LOCAL-00010" summary="redis cache + bug fix">
+      <option name="closed" value="true" />
+      <created>1713855413099</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1713855413099</updated>
+    </task>
+    <task id="LOCAL-00011" summary="merged level tuning - 2%">
+      <option name="closed" value="true" />
+      <created>1727632657582</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1727632657582</updated>
+    </task>
+    <task id="LOCAL-00012" summary="merged level tuning - 2%">
+      <option name="closed" value="true" />
+      <created>1727632691405</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1727632691405</updated>
+    </task>
+    <task id="LOCAL-00013" summary="added trading support">
+      <option name="closed" value="true" />
+      <created>1729371918094</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1729371918094</updated>
+    </task>
+    <task id="LOCAL-00014" summary="crypto fix">
+      <option name="closed" value="true" />
+      <created>1732569026331</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1732569026331</updated>
+    </task>
+    <task id="LOCAL-00015" summary="crypto candles fix">
+      <option name="closed" value="true" />
+      <created>1732640345506</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1732640345507</updated>
+    </task>
+    <task id="LOCAL-00016" summary="switched to bybit">
+      <option name="closed" value="true" />
+      <created>1733593545895</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1733593545895</updated>
+    </task>
+    <task id="LOCAL-00017" summary="bugfix - levels detection">
+      <option name="closed" value="true" />
+      <created>1734347428161</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1734347428161</updated>
+    </task>
+    <task id="LOCAL-00018" summary="bugfix - levels detection">
+      <option name="closed" value="true" />
+      <created>1736192816326</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1736192816326</updated>
+    </task>
+    <task id="LOCAL-00019" summary="screener tuning">
+      <option name="closed" value="true" />
+      <created>1736262394269</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1736262394269</updated>
+    </task>
+    <task id="LOCAL-00020" summary="screener tuning">
+      <option name="closed" value="true" />
+      <created>1736356905156</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1736356905156</updated>
+    </task>
+    <task id="LOCAL-00021" summary="screener tuning">
+      <option name="closed" value="true" />
+      <created>1736358113586</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1736358113586</updated>
+    </task>
+    <task id="LOCAL-00022" summary="screener tuning">
+      <option name="closed" value="true" />
+      <created>1736362831381</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1736362831381</updated>
+    </task>
+    <task id="LOCAL-00023" summary="added median level alert">
+      <option name="closed" value="true" />
+      <created>1737925575841</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1737925575841</updated>
+    </task>
+    <task id="LOCAL-00024" summary="bugfix cache for tinkoff candles &amp; crypto fix">
+      <option name="closed" value="true" />
+      <created>1737987009760</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1737987009763</updated>
+    </task>
+    <task id="LOCAL-00025" summary="levels tuning">
+      <option name="closed" value="true" />
+      <created>1738353328058</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1738353328058</updated>
+    </task>
+    <task id="LOCAL-00026" summary="fixed cache for twelve data">
+      <option name="closed" value="true" />
+      <created>1738416031650</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1738416031650</updated>
+    </task>
+    <task id="LOCAL-00027" summary="bugfix">
+      <option name="closed" value="true" />
+      <created>1738419791135</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1738419791136</updated>
+    </task>
+    <task id="LOCAL-00028" summary="bugfix - alert type">
+      <option name="closed" value="true" />
+      <created>1738435111423</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1738435111423</updated>
+    </task>
+    <task id="LOCAL-00029" summary="bugfix - tinkoff candles">
+      <option name="closed" value="true" />
+      <created>1739520048194</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1739520048194</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+        <option value="Space.CommitStatus" />
+      </list>
+    </option>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="init version" />
@@ -394,20 +883,110 @@
     <MESSAGE value="added message body" />
     <MESSAGE value="logging" />
     <MESSAGE value="bugfix - single alert for stock" />
-    <option name="LAST_COMMIT_MESSAGE" value="bugfix - single alert for stock" />
+    <MESSAGE value="daily levels for crypto" />
+    <MESSAGE value="checkstyle" />
+    <MESSAGE value="redis cache + bug fix" />
+    <MESSAGE value="merged level tuning - 2%" />
+    <MESSAGE value="added trading support" />
+    <MESSAGE value="crypto fix" />
+    <MESSAGE value="crypto candles fix" />
+    <MESSAGE value="switched to bybit" />
+    <MESSAGE value="bugfix - levels detection" />
+    <MESSAGE value="screener tuning" />
+    <MESSAGE value="added median level alert" />
+    <MESSAGE value="bugfix cache for tinkoff candles &amp; crypto fix" />
+    <MESSAGE value="levels tuning" />
+    <MESSAGE value="fixed cache for twelve data" />
+    <MESSAGE value="bugfix" />
+    <MESSAGE value="bugfix - alert type" />
+    <MESSAGE value="bugfix - tinkoff candles" />
+    <option name="LAST_COMMIT_MESSAGE" value="bugfix - tinkoff candles" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/test/kotlin/ru/home/project/service/impl/CandlesServiceImplTest.kt</url>
-          <line>65</line>
-          <option name="timeStamp" value="66" />
+          <url>file://$PROJECT_DIR$/src/test/kotlin/ru/home/project/processor/DailyLevelProcessorTest.kt</url>
+          <line>78</line>
+          <option name="timeStamp" value="162" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/ru/home/project/service/impl/LevelStatisticServiceImpl.kt</url>
-          <line>39</line>
-          <option name="timeStamp" value="73" />
+          <url>file://$PROJECT_DIR$/src/main/kotlin/ru/home/project/client/TwelveDataClient.kt</url>
+          <line>36</line>
+          <option name="timeStamp" value="163" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/test/kotlin/ru/home/project/utils/LevelUtilsKtTest.kt</url>
+          <line>51</line>
+          <option name="timeStamp" value="171" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/ru/home/project/listener/AlertEventListener.kt</url>
+          <line>86</line>
+          <option name="timeStamp" value="193" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/ru/home/project/listener/AlertEventListener.kt</url>
+          <line>74</line>
+          <option name="timeStamp" value="194" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/test/kotlin/ru/home/project/service/impl/CryptoCandlesServiceImplTest.kt</url>
+          <line>47</line>
+          <option name="timeStamp" value="209" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/test/kotlin/ru/home/project/service/impl/TrianglePatternServiceImplTest.kt</url>
+          <line>52</line>
+          <option name="timeStamp" value="218" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/test/kotlin/ru/home/project/service/impl/TrianglePatternServiceImplTest.kt</url>
+          <line>100</line>
+          <option name="timeStamp" value="221" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/test/kotlin/ru/home/project/utils/CandlesUtilsTest.kt</url>
+          <line>17</line>
+          <option name="timeStamp" value="224" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/ru/home/project/listener/HourlyCandlesStreamListener.kt</url>
+          <line>37</line>
+          <option name="timeStamp" value="230" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/test/kotlin/ru/home/project/service/impl/LevelsDetectionServiceImplTest.kt</url>
+          <line>158</line>
+          <option name="timeStamp" value="240" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/ru/home/project/service/impl/TrianglePatternServiceImpl.kt</url>
+          <line>43</line>
+          <option name="timeStamp" value="247" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/ru/home/project/service/impl/TrianglePatternServiceImpl.kt</url>
+          <line>48</line>
+          <properties>
+            <option name="lambda-ordinal" value="-1" />
+          </properties>
+          <option name="timeStamp" value="249" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/ru/home/project/utils/ExtremumUtils.kt</url>
+          <line>64</line>
+          <option name="timeStamp" value="250" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/ru/home/project/utils/ExtremumUtils.kt</url>
+          <line>70</line>
+          <option name="timeStamp" value="251" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.github.wuhewuhe/bybit-java-api/1.2.7/40853ef9a4b704c5a2ae4b01b13f34611f0e6a75/bybit-java-api-1.2.7.jar!/com/bybit/api/client/impl/BybitApiMarketAsyncRestClientImpl.class</url>
+          <line>89</line>
+          <option name="timeStamp" value="143" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

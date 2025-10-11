@@ -1,6 +1,6 @@
 package ru.home.project.utils
 
-const val yearsToScan = 4
+const val yearsToScan = 3
 const val weeksToScan = yearsToScan * 53
 const val daysToDetectLevel = 10
 const val fourHoursToDetectLevel = 20

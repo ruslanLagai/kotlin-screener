@@ -10,7 +10,7 @@ import ru.home.project.dto.AlertType
 import ru.home.project.entity.ActiveTradeEntity
 import ru.home.project.entity.LevelEntity
 import ru.home.project.entity.MergedLevelEntity
-import ru.home.project.model.AlertEvent
+import ru.home.project.model.events.AlertEvent
 import ru.home.project.model.ItemType
 import ru.home.project.properties.TelegramBotProperties
 import ru.home.project.repository.ActiveTradeRepository

@@ -1,4 +1,6 @@
-package ru.home.project.model
+package ru.home.project.model.events
+
+import ru.home.project.model.ItemType
 
 /**
  * @author rlagay

@@ -6,8 +6,6 @@ import com.bybit.api.client.service.BybitApiClientFactory
 import io.grpc.Channel
 import io.grpc.Metadata
 import io.grpc.netty.shaded.io.grpc.netty.NettyChannelBuilder
-import io.grpc.netty.shaded.io.netty.handler.ssl.SslContextBuilder
-import io.grpc.netty.shaded.io.netty.handler.ssl.util.InsecureTrustManagerFactory
 import io.grpc.stub.MetadataUtils
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -25,7 +23,9 @@ import ru.home.project.properties.CoinMarketCapProperties
 import ru.home.project.properties.TinkoffProperties
 import ru.home.project.properties.TradingProperties
 import ru.home.project.properties.TwelveDataProperties
-import ru.tinkoff.piapi.core.InvestApi
+import ru.tinkoff.piapi.contract.v1.MarketDataServiceGrpc
+import ru.ttech.piapi.core.connector.internal.LoggingDebugInterceptor
+import java.util.concurrent.TimeUnit
 
 /**
  * @author rlagay
@@ -41,8 +41,20 @@ class ClientConfig(
     private val log: Logger = LoggerFactory.getLogger(ClientConfig::class.java)
 
     @Bean
-    fun investApi(): InvestApi {
-        return InvestApi.create(tinkoffProperties.token)
+    fun marketDataServiceBlockingStub(): MarketDataServiceGrpc.MarketDataServiceBlockingStub {
+        return MarketDataServiceGrpc.newBlockingStub(channel())
+    }
+
+    private fun channel(): Channel {
+        val headers = Metadata()
+        headers.put(Metadata.Key.of("Authorization", Metadata.ASCII_STRING_MARSHALLER), "Bearer ${tinkoffProperties.token}")
+        return NettyChannelBuilder.forTarget(tinkoffProperties.target)
+            .intercept(MetadataUtils.newAttachHeadersInterceptor(headers))
+            .intercept(LoggingDebugInterceptor())
+            .useTransportSecurity()
+            .keepAliveTime(30, TimeUnit.SECONDS)
+            .keepAliveWithoutCalls(true)
+            .build()
     }
 
     @Bean

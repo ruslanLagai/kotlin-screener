@@ -12,12 +12,12 @@ import java.util.concurrent.CompletableFuture
 interface CandlesService {
 
     fun getHistoricalCandles(
-        figi: String, ticker: String?, interval: CandleInterval, allCandles: ArrayList<CandleEntity>
+        figi: String, ticker: String?, instrumentUid: String? = null, interval: CandleInterval, allCandles: ArrayList<CandleEntity>
     ): CompletableFuture<MutableList<HistoricCandle>>
 
     fun getCandlesForIntervals(
         figi: String, ticker: String?, interval: CandleInterval, intervals: List<IntervalForScan>
     ): ArrayList<CandleEntity>
 
-    fun getLastCandles(figi: String, interval: CandleInterval, dayFrom: Int): List<CandleEntity>
+    fun getLastCandles(figi: String, interval: CandleInterval, instrumentUid: String? = null, dayFrom: Int): List<CandleEntity>
 }

@@ -8,7 +8,7 @@ import java.time.ZonedDateTime
  * @author rlagay
  */
 @Entity(name = "candle_entity")
-data class CandleEntity(
+class CandleEntity(
     @Id @GeneratedValue(strategy = GenerationType.AUTO) val id: Long? = null,
     val figi: String,
     val ticker: String? = null,
@@ -18,5 +18,6 @@ data class CandleEntity(
     val close: Double,
     val volume: Long,
     val dateTime: ZonedDateTime,
+    val instrumentUid: String? = null,
     @Enumerated(value = EnumType.STRING) @Column(name = "interval_column") val interval: CandleInterval
 )

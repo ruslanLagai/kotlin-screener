@@ -7,7 +7,7 @@ import org.springframework.scheduling.annotation.Async
 import org.springframework.stereotype.Component
 import ru.home.project.dto.AlertType
 import ru.home.project.entity.LevelEntity
-import ru.home.project.model.AlertEvent
+import ru.home.project.model.events.AlertEvent
 import ru.home.project.model.ItemType
 import ru.home.project.properties.TelegramBotProperties
 import ru.home.project.repository.ActiveTradeRepository

@@ -1,45 +1,51 @@
 package ru.home.project.service.impl
 
-import jakarta.annotation.PreDestroy
+import jakarta.annotation.PostConstruct
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
-import ru.home.project.processor.TinkoffTradesStreamProcessor
 import ru.home.project.properties.TinkoffTradingProperties
 import ru.home.project.service.TinkoffStreamingService
-import ru.tinkoff.piapi.core.InvestApi
+import ru.tinkoff.piapi.contract.v1.SubscriptionInterval
+import ru.ttech.piapi.core.connector.streaming.listeners.OnNextListener
+import ru.ttech.piapi.core.impl.marketdata.MarketDataStreamManager
+import ru.ttech.piapi.core.impl.marketdata.subscription.CandleSubscriptionSpec
+import ru.ttech.piapi.core.impl.marketdata.subscription.Instrument
+import ru.ttech.piapi.core.impl.marketdata.wrapper.CandleWrapper
+import ru.ttech.piapi.core.impl.marketdata.wrapper.LastPriceWrapper
 
 /**
  * @author rlagay
  */
 @Service
 class TinkoffStreamingServiceImpl(
-    val investApi: InvestApi,
-    val tradesStreamProcessor: TinkoffTradesStreamProcessor,
-    val tinkoffTradingProperties: TinkoffTradingProperties
+    val streamManager: MarketDataStreamManager,
+    val lastPriceStreamProcessor: OnNextListener<LastPriceWrapper>,
+    val candlesStreamProcessor: OnNextListener<CandleWrapper>,
+    val tinkoffTradingProperties: TinkoffTradingProperties,
+
 ) : TinkoffStreamingService {
 
     val log: Logger = LoggerFactory.getLogger(TinkoffStreamingServiceImpl::class.java)
+    val instrumentsHourly = tinkoffTradingProperties.instruments
+        .map { Instrument(it, SubscriptionInterval.SUBSCRIPTION_INTERVAL_ONE_HOUR) }
+        .toSet()
+    val instrumentsDaily = tinkoffTradingProperties.instruments
+        .map { Instrument(it, SubscriptionInterval.SUBSCRIPTION_INTERVAL_ONE_DAY) }
+        .toSet()
 
     override fun subscribeTradingStream() {
-        kotlin
-            .runCatching { investApi.marketDataStreamService
-                .newStream("1", tradesStreamProcessor) { e -> log.error("Error on trading stream", e) }
-                .subscribeTrades(tinkoffTradingProperties.instruments) }
-            .onFailure {
-                log.error("Error on creating trading stream", it)
-                investApi.marketDataStreamService.getStreamById("1").cancel()
-            }
-            .onSuccess {
-                log.info("Successfully subscribed to trades stream")
-            }
+        streamManager.subscribeLastPrices(instrumentsHourly, lastPriceStreamProcessor)
+        streamManager.subscribeCandles(instrumentsHourly, CandleSubscriptionSpec(), candlesStreamProcessor)
+        streamManager.subscribeCandles(instrumentsDaily, CandleSubscriptionSpec(), candlesStreamProcessor)
+        streamManager.start()
     }
 
-    @PreDestroy
-    fun close() {
-        if (investApi.marketDataStreamService.streamCount() != 0) {
-            investApi.marketDataStreamService.getStreamById("1").cancel()
-        }
-
+    @PostConstruct
+    fun init() {
+        streamManager.unsubscribeCandles(instrumentsHourly, CandleSubscriptionSpec())
+        streamManager.unsubscribeCandles(instrumentsDaily, CandleSubscriptionSpec())
+        streamManager.unsubscribeLastPrices(instrumentsHourly)
+        streamManager.shutdown()
     }
 }
