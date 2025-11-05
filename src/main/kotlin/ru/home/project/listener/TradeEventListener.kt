@@ -17,6 +17,7 @@ import ru.home.project.model.events.TradeEvent
 import ru.home.project.properties.TelegramBotProperties
 import ru.home.project.repository.InstrumentRepository
 import ru.home.project.repository.LevelStatisticsRepository
+import ru.home.project.repository.PatternsRepository
 import ru.home.project.service.*
 import ru.home.project.utils.*
 import ru.tinkoff.piapi.contract.v1.CandleInterval
@@ -39,12 +40,14 @@ class TradeEventListener(
     val telegramBotProperties: TelegramBotProperties,
     val levelStatisticsRepository: LevelStatisticsRepository,
     val tradingBotService: TradingBotService,
-    val applicationEventPublisher: ApplicationEventPublisher
+    val applicationEventPublisher: ApplicationEventPublisher,
+    val patternsRepository: PatternsRepository
 ) {
 
     private val log: Logger = LoggerFactory.getLogger(TradeEventListener::class.java)
     private val sentMessages = ConcurrentHashMap<String, LocalDateTime>()
-    private val executors: ExecutorService = Executors.newFixedThreadPool(2)
+    private val sentMessagesForPatterns = ConcurrentHashMap<String, LocalDateTime>()
+    private val executors: ExecutorService = Executors.newVirtualThreadPerTaskExecutor()
 
     private val farRetestProcessor = mapOf(
         Pair(ItemType.STOCK, checkTinkoffStock()),
@@ -59,6 +62,7 @@ class TradeEventListener(
     @EventListener
     fun processTradeEvent(event: TradeEvent) {
         processEvent(event, ItemType.STOCK)
+        processPattern(event, ItemType.STOCK)
     }
 
     @EventListener
@@ -72,7 +76,6 @@ class TradeEventListener(
      * Проверка близости к уровням
      * Если ближе, чем 1%, считаем статистику и шлем оповещение
      */
-
     private fun processEvent(event: TradeEvent, type: ItemType) {
         try {
             val prevMessageDate = sentMessages[event.figi]
@@ -137,6 +140,50 @@ class TradeEventListener(
             log.error("Error occurred in trade event", e)
         }
 
+    }
+
+    private fun processPattern(event: TradeEvent, type: ItemType) {
+        val prevMessageDate = sentMessagesForPatterns[event.figi]
+        if (prevMessageDate != null) {
+            if (prevMessageDate.plusDays(5).isAfter(LocalDateTime.now())) {
+                return
+            }
+        }
+
+        val instrument = instrumentRepository.getByFigi(event.figi)
+        if (instrument == null) {
+            log.warn("No instrument found for {}", event.figi)
+            return
+        }
+
+        patternsRepository.findPatternByFigiAndFinishedIsTrue(event.figi).forEach {
+            val isBetweenLines = checkPriceIsBetweenLines(
+                maxLine = Pair(it.maxA, it.maxB),
+                minLine = Pair(it.minA, it.minB),
+                price = event.price,
+                startDate = it.startDate
+            )
+            if (isBetweenLines.first) {
+                val distance = (isBetweenLines.second - event.price) / maxOf(isBetweenLines.second, event.price)
+                if (distance < 0.02) {
+                    it.finished = true
+                    patternsRepository.save(it)
+
+                    sentMessagesForPatterns[event.figi] = LocalDateTime.now()
+                    val message = String.format(telegramMessageForPattern, instrument.ticker)
+                    log.info("Detected pattern signal for {}", event.figi)
+                    executors.execute {
+                        for (account in telegramBotProperties.accounts) {
+                            log.info("Sending message on {} to telegram user {}", instrument.ticker, account)
+                            telegramBotGrpcService.sendMessage(figi = event.figi, ticker = instrument.ticker, text = message, accountId = account)
+                        }
+                    }
+                }
+            } else {
+                it.finished = true
+                patternsRepository.save(it)
+            }
+        }
     }
 
     private fun getAlertType(levelType: LevelType, type: ItemType) =

@@ -12,7 +12,7 @@ import java.time.ZonedDateTime
  * @author rlagay
  */
 @Entity(name = "instrument_entity")
-class InstrumentEntity(
+open class InstrumentEntity(
     @Id @GeneratedValue(strategy = GenerationType.AUTO) val id: Long? = null,
     @Column(unique = true) val figi: String,
     @Column(unique = true) val ticker: String,
@@ -20,6 +20,6 @@ class InstrumentEntity(
     val lot: Int,
     val currency: String,
     val name: String,
-    val instrumentUid: String? = null,
+    var instrumentUid: String? = null,
     val first1dayCandleDate: ZonedDateTime? = null
 )

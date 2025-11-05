@@ -18,11 +18,11 @@ class AsyncConfig {
 
     @Bean
     fun cryptoEventExecutor() : Executor {
-        return Executors.newFixedThreadPool(3)
+        return Executors.newVirtualThreadPerTaskExecutor()
     }
 
     @Bean
     fun alertEventExecutor() : Executor {
-        return Executors.newFixedThreadPool(1)
+        return Executors.newVirtualThreadPerTaskExecutor()
     }
 }

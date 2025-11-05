@@ -37,8 +37,12 @@ class HourlyCandlesStreamListener(
         )
         candles.add(candle)
         if (candles.size >= tinkoffTradingProperties.instruments.size) {
-            candlesRepository.saveAll(candles)
-            candles.clear()
+            kotlin.runCatching {
+                candlesRepository.saveAll(candles)
+                candles.clear()
+            }.onFailure {
+                logger.error("Error saving candles", it)
+            }
         }
     }
 }

@@ -8,6 +8,6 @@ import ru.tinkoff.piapi.contract.v1.CandleInterval
  */
 interface PatternService {
 
-    fun detectPattern(figi: String, ticker: String, instrumentUid: String?, interval: CandleInterval): Pattern?
+    fun detectPattern(figi: String, ticker: String, instrumentUid: String?, interval: CandleInterval, days: Int): Pattern?
 
 }

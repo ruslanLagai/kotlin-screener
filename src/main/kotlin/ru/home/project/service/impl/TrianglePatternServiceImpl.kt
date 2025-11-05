@@ -22,11 +22,12 @@ final class TrianglePatternServiceImpl(
 
     private final val log: Logger = LoggerFactory.getLogger(TrianglePatternServiceImpl::class.java)
 
-    override fun detectPattern(figi: String, ticker: String, intrumentUid: String?, interval: CandleInterval): Pattern? {
+    // for crypto candles - candles sorting should be added
+    override fun detectPattern(figi: String, ticker: String, intrumentUid: String?, interval: CandleInterval, days: Int): Pattern? {
 
-        val candles = candlesService.getLastCandles(figi, interval, intrumentUid, 60)
+        val candles = candlesService.getLastCandles(figi, interval, intrumentUid, days)
 
-        val extremums = getExtremums(candles)
+        val extremums = getExtremums(candles, days)
         val maximums = extremums.first
         val minimums = extremums.second
 
@@ -34,21 +35,22 @@ final class TrianglePatternServiceImpl(
             return null
         }
 
+        val patternDto = checkExtremumsAreBetweenLines(maximums, minimums, candles);
+        if (patternDto == null) {
+            log.debug("Extremums are not between lines.")
+            return null
+        }
+
         log.info("Maximums: $maximums")
         log.info("Minimums: $minimums")
-        if (!checkExtremumsOrdered(maximums, minimums)) {
+        if (patternDto.patternType == PatternType.TRIANGLE && !checkExtremumsOrdered(maximums, minimums)) {
             log.debug("Extremums are not ordered")
             return null
         }
 
-        if (!checkExtremumsAreBetweenLines(maximums, minimums, candles)) {
-            log.debug("Extremums are not between lines. It seems that the price left triangle")
-            return null
-        }
-
         val startDate = listOf(maximums, minimums).flatten().minBy { it.dateTime }.dateTime
-        return Pattern(patternType = PatternType.TRIANGLE, figi = figi, ticker = ticker, startDate = startDate.toLocalDateTime(),
-            price = null, interval = interval)
+        return Pattern(patternType = patternDto.patternType, figi = figi, ticker = ticker, startDate = startDate.toLocalDateTime(),
+            price = null, interval = interval, aMax = patternDto.maxA, bMax = patternDto.maxB, aMin = patternDto.minA, bMin = patternDto.minB)
     }
 
     /**

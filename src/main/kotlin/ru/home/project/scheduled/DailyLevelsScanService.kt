@@ -11,11 +11,17 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Service
+import ru.home.project.entity.InstrumentEntity
 import ru.home.project.model.ItemType
 import ru.home.project.properties.TinkoffTradingProperties
 import ru.home.project.properties.TwelveDataTradingProperties
+import ru.home.project.repository.InstrumentRepository
 import ru.home.project.service.LevelsDetectionService
+import ru.home.project.service.PatternsDetectionService
+import ru.home.project.utils.timestampToDate
 import ru.tinkoff.piapi.contract.v1.CandleInterval
+import ru.tinkoff.piapi.contract.v1.InstrumentsRequest
+import ru.tinkoff.piapi.contract.v1.InstrumentsServiceGrpc
 import java.time.Duration
 
 /**
@@ -24,9 +30,12 @@ import java.time.Duration
 @Service
 class DailyLevelsScanService(
     val levelsDetectionService: LevelsDetectionService,
+    val patternsDetectionService: PatternsDetectionService,
     val tinkoffTradingProperties: TinkoffTradingProperties,
     val bybitApiMarketRestClient: BybitApiAsyncMarketDataRestClient,
-    val twelveDataTradingProperties: TwelveDataTradingProperties
+    val twelveDataTradingProperties: TwelveDataTradingProperties,
+    val instrumentRepository: InstrumentRepository,
+    val instrumentsServiceBlockingV2Stub: InstrumentsServiceGrpc.InstrumentsServiceBlockingV2Stub
 ) {
 
     private val log: Logger = LoggerFactory.getLogger(DailyLevelsScanService::class.java)
@@ -38,11 +47,33 @@ class DailyLevelsScanService(
             kotlin.runCatching {
                 log.info("Starting levels scan for {}", it)
                 levelsDetectionService.detectLevels(it, CandleInterval.CANDLE_INTERVAL_DAY, CandleInterval.CANDLE_INTERVAL_HOUR, ItemType.STOCK)
-                Thread.sleep(Duration.ofSeconds(120))
+                Thread.sleep(Duration.ofSeconds(60))
             }.onFailure {
                 log.error("Failed to detect levels", it)
             }
         }
+    }
+
+    @Scheduled(cron = "\${service.tinkoff.daily-cron}")
+    fun scanPatterns() {
+        instrumentsServiceBlockingV2Stub.futures(InstrumentsRequest.newBuilder().build()).instrumentsList
+            .forEach {
+                kotlin.runCatching {
+                    val instrumentEntity = instrumentRepository.save(InstrumentEntity(
+                        figi = it.figi,
+                        ticker = it.ticker,
+                        instrumentUid = it.uid,
+                        lot = it.lot,
+                        currency = it.currency,
+                        name = it.name,
+                        first1dayCandleDate = timestampToDate(it.first1DayCandleDate)
+                    ))
+                    patternsDetectionService.detectPatterns(instrumentEntity, CandleInterval.CANDLE_INTERVAL_HOUR, ItemType.STOCK)
+                    Thread.sleep(Duration.ofSeconds(10))
+                }.onFailure {
+                    log.error("Failed to detect levels", it)
+                }
+            }
     }
 
     @Scheduled(cron = "\${service.crypto.daily-cron}")

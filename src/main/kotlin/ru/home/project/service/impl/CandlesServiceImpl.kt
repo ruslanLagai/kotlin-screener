@@ -4,6 +4,7 @@ import com.google.protobuf.Timestamp
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.cache.annotation.Cacheable
+import org.springframework.dao.OptimisticLockingFailureException
 import org.springframework.stereotype.Service
 import ru.home.project.entity.CandleEntity
 import ru.home.project.model.IntervalForScan
@@ -171,7 +172,13 @@ class CandlesServiceImpl(
             )
         }
         if (saveData) {
-            executors.execute { candlesRepository.saveAll(converted) }
+            executors.execute {
+                runCatching {
+                    candlesRepository.saveAll(converted)
+                }.onFailure {
+                    log.error("Error saving candles: {}", it.message, it)
+                }
+            }
         }
         return converted
     }

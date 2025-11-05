@@ -12,5 +12,9 @@ data class Pattern(
     val ticker: String?,
     val startDate: LocalDateTime,
     val price: Double?,
-    val interval: CandleInterval
+    val interval: CandleInterval,
+    val aMax: Double,
+    val bMax: Double,
+    val aMin: Double,
+    val bMin: Double
 ) 

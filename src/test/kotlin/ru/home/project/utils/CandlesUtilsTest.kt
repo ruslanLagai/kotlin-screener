@@ -15,7 +15,7 @@ class CandlesUtilsTest {
                 close = priceToDouble(it.close), high = priceToDouble(it.high), low = priceToDouble(it.low),
                 volume = it.volume, dateTime = timestampToDate(it.time), interval = CandleInterval.CANDLE_INTERVAL_HOUR) }
 
-        val result = splitToTrends(candles)
+        val result = splitToTrends(candles, 30)
 
         assertEquals(5, result.size)
         assertEquals(Trend.ASCENDING, result[0].first)
@@ -32,7 +32,7 @@ class CandlesUtilsTest {
                 close = priceToDouble(it.close), high = priceToDouble(it.high), low = priceToDouble(it.low),
                 volume = it.volume, dateTime = timestampToDate(it.time), interval = CandleInterval.CANDLE_INTERVAL_HOUR) }
 
-        val result = splitToTrends(candles)
+        val result = splitToTrends(candles, 30)
 
         assertEquals(4, result.size)
         assertEquals(Trend.DESCENDING, result[0].first)
@@ -49,7 +49,7 @@ class CandlesUtilsTest {
                 close = priceToDouble(it.close), high = priceToDouble(it.high), low = priceToDouble(it.low),
                 volume = it.volume, dateTime = timestampToDate(it.time), interval = CandleInterval.CANDLE_INTERVAL_HOUR) }
 
-        val result = splitToTrends(candles)
+        val result = splitToTrends(candles, 30)
 
         assertEquals(3, result.size)
         assertEquals(Trend.ASCENDING, result[0].first)
@@ -65,7 +65,7 @@ class CandlesUtilsTest {
                 close = priceToDouble(it.close), high = priceToDouble(it.high), low = priceToDouble(it.low),
                 volume = it.volume, dateTime = timestampToDate(it.time), interval = CandleInterval.CANDLE_INTERVAL_HOUR) }
 
-        val result = splitToTrends(candles)
+        val result = splitToTrends(candles, 30)
 
         assertEquals(4, result.size)
     }

@@ -23,6 +23,7 @@ import ru.home.project.properties.CoinMarketCapProperties
 import ru.home.project.properties.TinkoffProperties
 import ru.home.project.properties.TradingProperties
 import ru.home.project.properties.TwelveDataProperties
+import ru.tinkoff.piapi.contract.v1.InstrumentsServiceGrpc
 import ru.tinkoff.piapi.contract.v1.MarketDataServiceGrpc
 import ru.ttech.piapi.core.connector.internal.LoggingDebugInterceptor
 import java.util.concurrent.TimeUnit
@@ -43,6 +44,16 @@ class ClientConfig(
     @Bean
     fun marketDataServiceBlockingStub(): MarketDataServiceGrpc.MarketDataServiceBlockingStub {
         return MarketDataServiceGrpc.newBlockingStub(channel())
+    }
+
+    @Bean
+    fun instrumentsServiceFutureStub(): InstrumentsServiceGrpc.InstrumentsServiceFutureStub {
+        return InstrumentsServiceGrpc.newFutureStub(channel())
+    }
+
+    @Bean
+    fun instrumentsServiceBlockingStub(): InstrumentsServiceGrpc.InstrumentsServiceBlockingV2Stub {
+        return InstrumentsServiceGrpc.newBlockingV2Stub(channel())
     }
 
     private fun channel(): Channel {

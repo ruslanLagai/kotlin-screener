@@ -23,8 +23,10 @@ open class AbstractIntegrationTest {
         protected var container = MySQLContainer("mysql:8")
 
         @Container
-        protected var redisContainer: GenericContainer<Nothing> = GenericContainer<Nothing>(DockerImageName.parse("redis:5.0.3-alpine"))
-            .withExposedPorts(6379)
+        protected var redisContainer: GenericContainer<Nothing> = GenericContainer<Nothing>(DockerImageName.parse("redis:5.0.3-alpine")).apply {
+            withReuse(true)
+            withExposedPorts(6379)
+        }
 
         @JvmStatic
         @DynamicPropertySource
@@ -38,7 +40,6 @@ open class AbstractIntegrationTest {
             registry.add("spring.data.redis.host", redisContainer::getHost)
             registry.add("spring.data.redis.port", redisContainer::getFirstMappedPort)
             registry.add("service.tinkoff.instruments", { "8e2b0325-0292-4654-8a18-4f63ed3b0e09,e6123145-9665-43e0-8413-cd61b8aa9b13" })
-
         }
     }
 }

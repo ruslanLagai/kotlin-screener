@@ -28,6 +28,8 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test")
     testImplementation("com.google.protobuf:protobuf-java-util:4.32.1")
     testImplementation("io.grpc:grpc-testing:1.71.0")
+    testImplementation("io.mockk:mockk:1.13.8")
+    testImplementation("io.mockk:mockk-agent-jvm:1.13.8") // For static mocking
 
     testImplementation("org.junit.jupiter:junit-jupiter:6.0.0")
 //    testImplementation("com.github.tomakehurst:wiremock:3.0.0")

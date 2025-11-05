@@ -87,26 +87,26 @@ class LevelsDetectionServiceImplTest {
 
     @Test
     fun `test ozon daily levels - data in DB`() {
-        `when`(instrumentRepository.getByFigi("BBG00Y91R9T3")).thenReturn(
+        `when`(instrumentRepository.getByFigi("BBG004730ZJ9")).thenReturn(
             InstrumentEntity(
                 id = 123123,
-                figi = "BBG00Y91R9T3",
-                ticker = "OZON",
+                figi = "BBG004730ZJ9",
+                ticker = "VTBR",
                 lot = 1,
                 currency = "rub",
-                name = "Ozon",
+                name = "Банк ВТБ",
                 version = 2
             )
         )
-        levelsRepository.save(LevelEntity(figi = "BBG00Y91R9T3", ticker = "OZON", level = 3012.5,
-            levelDate = ZonedDateTime.of(2023, 11, 22, 0, 0, 0, 0, ZoneId.of("UTC"))))
+        levelsRepository.save(LevelEntity(figi = "BBG004730ZJ9", ticker = "VTBR", level = 66.12,
+            levelDate = ZonedDateTime.of(2025, 4, 10, 0, 0, 0, 0, ZoneId.of("UTC"))))
 
-        levelsDetectionService.detectLevels("BBG00Y91R9T3", CandleInterval.CANDLE_INTERVAL_DAY, CandleInterval.CANDLE_INTERVAL_HOUR, ItemType.STOCK)
+        levelsDetectionService.detectLevels("BBG004730ZJ9", CandleInterval.CANDLE_INTERVAL_DAY, CandleInterval.CANDLE_INTERVAL_HOUR, ItemType.STOCK)
 
-        val levels = levelsRepository.getLevelsByFigi("BBG00Y91R9T3")
+        val levels = levelsRepository.getLevelsByFigi("BBG004730ZJ9")
         assertTrue { levels.isNotEmpty() }
 
-        val levelStatistics = levelStatisticsRepository.getByFigi("BBG00Y91R9T3")
+        val levelStatistics = levelStatisticsRepository.getByFigi("BBG004730ZJ9")
         assertTrue { levelStatistics.isNotEmpty() }
     }
 
