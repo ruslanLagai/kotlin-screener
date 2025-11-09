@@ -59,15 +59,24 @@ class DailyLevelsScanService(
         instrumentsServiceBlockingV2Stub.futures(InstrumentsRequest.newBuilder().build()).instrumentsList
             .forEach {
                 kotlin.runCatching {
-                    val instrumentEntity = instrumentRepository.save(InstrumentEntity(
-                        figi = it.figi,
-                        ticker = it.ticker,
-                        instrumentUid = it.uid,
-                        lot = it.lot,
-                        currency = it.currency,
-                        name = it.name,
-                        first1dayCandleDate = timestampToDate(it.first1DayCandleDate)
-                    ))
+                    var instrumentEntity = instrumentRepository.getByFigi(it.figi)
+                    if (instrumentEntity == null || instrumentEntity.instrumentUid == null) {
+                        if (instrumentEntity == null) {
+                            instrumentEntity = instrumentRepository.save(InstrumentEntity(
+                                figi = it.figi,
+                                ticker = it.ticker,
+                                instrumentUid = it.uid,
+                                lot = it.lot,
+                                currency = it.currency,
+                                name = it.name,
+                                first1dayCandleDate = timestampToDate(it.first1DayCandleDate)
+                            ))
+                        } else {
+                            instrumentEntity.instrumentUid = it.uid
+                            instrumentEntity = instrumentRepository.save(instrumentEntity)
+                        }
+                    }
+
                     patternsDetectionService.detectPatterns(instrumentEntity, CandleInterval.CANDLE_INTERVAL_HOUR, ItemType.STOCK)
                     Thread.sleep(Duration.ofSeconds(10))
                 }.onFailure {

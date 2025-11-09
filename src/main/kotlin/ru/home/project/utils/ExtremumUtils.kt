@@ -41,6 +41,9 @@ fun getExtremums(candles: List<CandleEntity>, days: Int): Pair<List<CandleEntity
         }
     }
 
+    if (maximums.isEmpty() || minimums.isEmpty()) {
+        return Pair(listOf(), listOf())
+    }
 
     val lastMinIndex = candles.indexOf(minimums.last())
     val lastMaxIndex = candles.indexOf(maximums.last())

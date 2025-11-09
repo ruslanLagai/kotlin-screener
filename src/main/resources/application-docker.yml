@@ -41,6 +41,9 @@ ru:
 logging:
   level:
     root: ${LOGGING_LEVEL}
+    io.grpc: ${CLIENT_LOGGING_LEVEL}
+    reactor.netty: ${CLIENT_LOGGING_LEVEL}
+    org.springframework.web.reactive.function.client: ${CLIENT_LOGGING_LEVEL}
 service:
   crypto:
     prices-cron: ${CRYPTO_PRICES_CRON}

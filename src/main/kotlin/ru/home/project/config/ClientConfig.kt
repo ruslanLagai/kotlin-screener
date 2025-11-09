@@ -25,6 +25,7 @@ import ru.home.project.properties.TradingProperties
 import ru.home.project.properties.TwelveDataProperties
 import ru.tinkoff.piapi.contract.v1.InstrumentsServiceGrpc
 import ru.tinkoff.piapi.contract.v1.MarketDataServiceGrpc
+import ru.ttech.piapi.core.connector.ServiceStubFactory
 import ru.ttech.piapi.core.connector.internal.LoggingDebugInterceptor
 import java.util.concurrent.TimeUnit
 
@@ -36,24 +37,22 @@ class ClientConfig(
     val tinkoffProperties: TinkoffProperties,
     val twelveDataProperties: TwelveDataProperties,
     val coinMarketCapProperties: CoinMarketCapProperties,
-    val tradingProperties: TradingProperties
+    val tradingProperties: TradingProperties,
+    val serviceStubFactory: ServiceStubFactory
 ) {
 
     private val log: Logger = LoggerFactory.getLogger(ClientConfig::class.java)
 
     @Bean
     fun marketDataServiceBlockingStub(): MarketDataServiceGrpc.MarketDataServiceBlockingStub {
-        return MarketDataServiceGrpc.newBlockingStub(channel())
-    }
-
-    @Bean
-    fun instrumentsServiceFutureStub(): InstrumentsServiceGrpc.InstrumentsServiceFutureStub {
-        return InstrumentsServiceGrpc.newFutureStub(channel())
+        return serviceStubFactory.newSyncService {
+            MarketDataServiceGrpc.newBlockingStub(it)
+        }.stub
     }
 
     @Bean
     fun instrumentsServiceBlockingStub(): InstrumentsServiceGrpc.InstrumentsServiceBlockingV2Stub {
-        return InstrumentsServiceGrpc.newBlockingV2Stub(channel())
+        return serviceStubFactory.newSyncService { InstrumentsServiceGrpc.newBlockingV2Stub(it) }.stub
     }
 
     private fun channel(): Channel {
@@ -63,7 +62,9 @@ class ClientConfig(
             .intercept(MetadataUtils.newAttachHeadersInterceptor(headers))
             .intercept(LoggingDebugInterceptor())
             .useTransportSecurity()
-            .keepAliveTime(30, TimeUnit.SECONDS)
+            .idleTimeout(240, TimeUnit.SECONDS)
+            .keepAliveTime(120, TimeUnit.SECONDS)
+            .keepAliveTimeout(120, TimeUnit.SECONDS)
             .keepAliveWithoutCalls(true)
             .build()
     }

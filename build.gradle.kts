@@ -47,9 +47,9 @@ dependencies {
     implementation ("org.projectlombok:lombok")
     implementation("org.hibernate.validator:hibernate-validator")
     implementation("org.apache.commons:commons-lang3")
-    implementation("ru.tinkoff.piapi:java-sdk-spring-boot-starter:1.40")
+    implementation("ru.tinkoff.piapi:java-sdk-spring-boot-starter:1.42")
     // Для поддержки стратегий
-    implementation("ru.tinkoff.piapi:java-sdk-strategy:1.40")
+    implementation("ru.tinkoff.piapi:java-sdk-strategy:1.42")
     implementation("com.mysql:mysql-connector-j:9.4.0") {
         exclude("com.google.protobuf", "protobuf-java")
     }
@@ -58,7 +58,8 @@ dependencies {
 
     implementation ("javax.annotation:javax.annotation-api:1.3.2")
     implementation ("io.github.wuhewuhe:bybit-java-api:1.2.7")
-
+    implementation("io.grpc:grpc-census:1.71.0")
+    implementation("io.grpc:grpc-context-override-opentelemetry:1.71.0")
 }
 
 tasks.test {

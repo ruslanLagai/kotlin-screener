@@ -1,6 +1,9 @@
 package ru.home.project.entity
 
+import jakarta.persistence.Column
 import jakarta.persistence.Entity
+import jakarta.persistence.EnumType
+import jakarta.persistence.Enumerated
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
@@ -13,16 +16,16 @@ import java.time.LocalDateTime
  */
 @Entity(name = "pattern_entity")
 open class PatternEntity(
-    @Id @GeneratedValue(strategy = GenerationType.UUID) val id: String? = null,
-    val figi: String,
-    val instrumentUid: String,
-    val ticker: String,
-    val patternType: PatternType,
-    val interval: CandleInterval,
-    val startDate: LocalDateTime,
-    val maxA: Double,
-    val maxB: Double,
-    val minA: Double,
-    val minB: Double,
-    var finished: Boolean = false
+    @Id @GeneratedValue(strategy = GenerationType.UUID) open val id: String? = null,
+    open val figi: String,
+    open val instrumentUid: String,
+    open val ticker: String,
+    open val patternType: PatternType,
+    @Enumerated(value = EnumType.STRING) @Column(name = "interval_column") open val interval: CandleInterval,
+    open val startDate: LocalDateTime,
+    open val maxA: Double,
+    open val maxB: Double,
+    open val minA: Double,
+    open val minB: Double,
+    open var finished: Boolean = false
 )

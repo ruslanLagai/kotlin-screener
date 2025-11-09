@@ -13,13 +13,13 @@ import java.time.ZonedDateTime
  */
 @Entity(name = "instrument_entity")
 open class InstrumentEntity(
-    @Id @GeneratedValue(strategy = GenerationType.AUTO) val id: Long? = null,
-    @Column(unique = true) val figi: String,
-    @Column(unique = true) val ticker: String,
-    @Version val version: Long? = null,
-    val lot: Int,
-    val currency: String,
-    val name: String,
-    var instrumentUid: String? = null,
-    val first1dayCandleDate: ZonedDateTime? = null
+    @Id @GeneratedValue(strategy = GenerationType.AUTO) open val id: Long? = null,
+    @Column(unique = true) open val figi: String,
+    @Column(unique = true) open val ticker: String,
+    @Version open val version: Long? = null,
+    open val lot: Int,
+    open val currency: String,
+    open val name: String,
+    open var instrumentUid: String? = null,
+    open val first1dayCandleDate: ZonedDateTime? = null
 )
