@@ -40,7 +40,8 @@ class PatternsDetectionServiceImpl(
             ticker = instrument.ticker,
             instrumentUid = instrument.instrumentUid,
             interval = interval,
-            days = 30
+            days = 30,
+            type = type
         )
         if (pattern == null) {
             log.debug("Pattern is not detected for instrument {}", instrument.figi)

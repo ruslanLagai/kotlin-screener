@@ -17,7 +17,7 @@ class CandlesUtilsTest {
 
         val result = splitToTrends(candles, 30)
 
-        assertEquals(5, result.size)
+        assertEquals(6, result.size)
         assertEquals(Trend.ASCENDING, result[0].first)
         assertEquals(Trend.DESCENDING, result[1].first)
         assertEquals(Trend.ASCENDING, result[2].first)
@@ -34,7 +34,7 @@ class CandlesUtilsTest {
 
         val result = splitToTrends(candles, 30)
 
-        assertEquals(4, result.size)
+        assertEquals(5, result.size)
         assertEquals(Trend.DESCENDING, result[0].first)
         assertEquals(Trend.ASCENDING, result[1].first)
         assertEquals(Trend.DESCENDING, result[2].first)
@@ -51,7 +51,7 @@ class CandlesUtilsTest {
 
         val result = splitToTrends(candles, 30)
 
-        assertEquals(3, result.size)
+        assertEquals(4, result.size)
         assertEquals(Trend.ASCENDING, result[0].first)
         assertEquals(Trend.DESCENDING, result[1].first)
         assertEquals(Trend.ASCENDING, result[2].first)

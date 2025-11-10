@@ -21,6 +21,7 @@ import ru.home.project.properties.TinkoffProperties
 import ru.home.project.properties.TwelveDataProperties
 import ru.home.project.service.CryptoCandlesService
 import ru.home.project.util.YamlPropertySourceFactory
+import ru.ttech.piapi.springboot.configuration.InvestAutoConfiguration
 import java.time.LocalDate
 import kotlin.test.assertEquals
 
@@ -70,7 +71,7 @@ class CryptoCandlesServiceImplTest {
     @TestConfiguration
     @ConfigurationPropertiesScan(basePackages = ["ru.home.project.properties"])
     @PropertySource(value = ["classpath:application.yml"], factory = YamlPropertySourceFactory::class)
-    @Import(ClientConfig::class)
+    @Import(value = [ ClientConfig::class, InvestAutoConfiguration::class])
     class TestConfig {
 
         @MockitoBean

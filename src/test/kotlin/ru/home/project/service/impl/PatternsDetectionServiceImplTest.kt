@@ -55,7 +55,8 @@ class PatternsDetectionServiceImplTest {
             ticker = instrument.ticker,
             instrumentUid = instrument.instrumentUid,
             interval = interval,
-            days = 30
+            days = 30,
+            type = ItemType.STOCK
         )).thenReturn(null)
 
         patternsDetectionService.detectPatterns(instrument, interval, type)
@@ -65,7 +66,8 @@ class PatternsDetectionServiceImplTest {
             ticker = instrument.ticker,
             instrumentUid = instrument.instrumentUid,
             interval = interval,
-            days = 30
+            days = 30,
+            type = ItemType.STOCK
         )
         verifyNoMoreInteractions(patternsRepository)
     }
@@ -102,7 +104,8 @@ class PatternsDetectionServiceImplTest {
             ticker = instrument.ticker,
             instrumentUid = instrument.instrumentUid,
             interval = interval,
-            days = 30
+            days = 30,
+            type = ItemType.STOCK
         )).thenReturn(pattern)
         `when`(patternsRepository.findPattern(
             figi = figi,
@@ -130,7 +133,8 @@ class PatternsDetectionServiceImplTest {
             ticker = instrument.ticker,
             instrumentUid = instrument.instrumentUid,
             interval = interval,
-            days = 30
+            days = 30,
+            type = ItemType.STOCK
         )
         verify(patternsRepository).findPattern(
             figi = figi,
@@ -174,7 +178,8 @@ class PatternsDetectionServiceImplTest {
             ticker = instrument.ticker,
             instrumentUid = instrument.instrumentUid,
             interval = interval,
-            days = 30
+            days = 30,
+            type = ItemType.STOCK
         )).thenReturn(pattern)
         `when`(patternsRepository.findPattern(
             figi = figi,
@@ -191,7 +196,8 @@ class PatternsDetectionServiceImplTest {
             ticker = instrument.ticker,
             instrumentUid = instrument.instrumentUid,
             interval = interval,
-            days = 30
+            days = 30,
+            type = ItemType.STOCK
         )
         verify(patternsRepository).findPattern(
             figi = figi,

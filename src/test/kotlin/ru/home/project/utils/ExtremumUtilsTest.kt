@@ -1,18 +1,20 @@
 package ru.home.project.utils
 
+import io.mockk.clearAllMocks
 import io.mockk.every
 import io.mockk.mockkStatic
+import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
-import org.junit.jupiter.api.MethodOrderer
-import org.junit.jupiter.api.Order
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.TestMethodOrder
 import ru.home.project.entity.CandleEntity
+import ru.home.project.model.ItemType
 import ru.home.project.model.PatternType
+import ru.home.project.model.TwelveDataCandles
 import ru.home.project.util.getCandles
+import ru.home.project.util.readValue
 import ru.tinkoff.piapi.contract.v1.CandleInterval
 import java.time.LocalDateTime
+import java.time.ZoneId
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 class ExtremumUtilsTest {
@@ -27,7 +29,7 @@ class ExtremumUtilsTest {
 
         val result = getExtremums(candles, 30)
         assertEquals(3, result.first.size)
-        assertEquals(2, result.second.size)
+        assertEquals(3, result.second.size)
     }
 
     @Order(2)
@@ -41,9 +43,26 @@ class ExtremumUtilsTest {
         val result = getExtremums(candles, 30)
 
         assertEquals(2, result.first.size)
-        assertEquals(2, result.second.size)
+        assertEquals(3, result.second.size)
 
     }
+
+    @Order(3)
+    @Test
+    fun `test get extremums crypto`() {
+        // Given
+        val resp = readValue("candles/patterns/btc-hourly-candles-triangle-11.10-25.10.json", TwelveDataCandles::class.java)
+        val candles = resp.values!!.map { CandleEntity(figi = "BBG004730N88", ticker = "SBER", open = it.open,
+            close = it.close, high = it.high, low = it.low, volume = 0,
+            dateTime = it.datetime.atZone(ZoneId.of("UTC")), interval = CandleInterval.CANDLE_INTERVAL_HOUR) }
+
+        // When
+        val result = getExtremums(candles, 30, ItemType.CRYPTO)
+
+        // Then
+        assertEquals(1, result.first.size)
+        assertEquals(1, result.second.size)    }
+
 
     @Order(3)
     @Test
@@ -56,7 +75,7 @@ class ExtremumUtilsTest {
         val result = getExtremums(candles, 30)
 
         assertEquals(2, result.first.size)
-        assertEquals(1, result.second.size)
+        assertEquals(2, result.second.size)
 
     }
 
@@ -89,4 +108,25 @@ class ExtremumUtilsTest {
 
         assertFalse(result.first)
     }
+
+    @Order(6)
+    @Test
+    fun `test get extremums data from debug`() {
+        val candles = getCandles("candles/utils/x5z-hourly-candles-debug-10.10-10.11.json").candlesList
+            .map { CandleEntity(figi = "BBG004730N88", ticker = "SBER", open = priceToDouble(it.open),
+                close = priceToDouble(it.close), high = priceToDouble(it.high), low = priceToDouble(it.low),
+                volume = it.volume, dateTime = timestampToDate(it.time), interval = CandleInterval.CANDLE_INTERVAL_HOUR) }
+
+        val result = getExtremums(candles, 30)
+
+        assertEquals(2, result.first.size)
+        assertEquals(1, result.second.size)
+
+    }
+
+    @AfterEach
+    fun tearDown() {
+        clearAllMocks()
+    }
+
 }

@@ -10,6 +10,7 @@ import ru.home.project.model.Candle
 import ru.home.project.service.CryptoCandlesService
 import java.time.Duration
 import java.time.LocalDate
+import java.time.LocalDateTime
 
 /**
  * @author rlagay
@@ -30,6 +31,12 @@ class CryptoCandlesServiceImpl(
     override fun getDailyCandles(symbol: String, from: LocalDate) : List<Candle> {
         val size = LocalDate.now().dayOfYear - from.dayOfYear
         return getCandles(symbol, size, "1day")
+    }
+
+    @Cacheable(cacheNames = [ "hourly-crypto" ], key = "#symbol + #from.toEpochDay()", condition = "@checkRedis.get()")
+    override fun getHourlyCandles(symbol: String, from: LocalDateTime) : List<Candle> {
+        val size = Duration.between(from, LocalDateTime.now()).toHours().toInt()
+        return getCandles(symbol, size, "1h")
     }
 
     override fun getDailyCandles(symbol: String) : List<Candle> {

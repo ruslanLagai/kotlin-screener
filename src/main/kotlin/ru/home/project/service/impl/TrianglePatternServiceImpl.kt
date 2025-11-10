@@ -4,30 +4,65 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import ru.home.project.entity.CandleEntity
+import ru.home.project.exceptions.InvalidTypeException
+import ru.home.project.model.ItemType
 import ru.home.project.model.Pattern
 import ru.home.project.model.PatternType
 import ru.home.project.service.CandlesService
+import ru.home.project.service.CryptoCandlesService
 import ru.home.project.service.PatternService
 import ru.home.project.utils.checkExtremumsAreBetweenLines
 import ru.home.project.utils.getExtremums
 import ru.tinkoff.piapi.contract.v1.CandleInterval
+import java.time.LocalDate
+import java.time.ZoneOffset
+import java.time.ZonedDateTime
 
 /**
  * @author rlagay
  */
 @Service
 final class TrianglePatternServiceImpl(
-    val candlesService: CandlesService
+    val candlesService: CandlesService,
+    val cryptoCandlesService: CryptoCandlesService
 ) : PatternService {
 
     private final val log: Logger = LoggerFactory.getLogger(TrianglePatternServiceImpl::class.java)
 
+    private val tinkoffCandlesProvider: (String, String?, CandleInterval, Int) -> List<CandleEntity> =
+        {
+            figi, intrumentUid, interval, from ->
+            candlesService.getLastCandles(figi = figi, instrumentUid = intrumentUid, interval = interval, dayFrom = from)
+        }
+
+    private val cryptoCandlesProvider: (String, String?, CandleInterval, Int) -> List<CandleEntity> =
+        {
+            symbol, _, interval, from ->
+            cryptoCandlesService.getDailyCandles(symbol = symbol, LocalDate.now().minusDays(from.toLong()))
+                .map {
+                    val instant = it.datetime.toInstant(ZoneOffset.UTC)
+                    CandleEntity(figi = symbol, open = it.open, close = it.close, low = it.low, high = it.high, volume = 0,
+                        dateTime = ZonedDateTime.ofInstant(instant, ZoneOffset.UTC), interval = interval)
+                }.sortedBy { it.dateTime }
+        }
+
+    private val noCandlesProvider: (String, String?, CandleInterval, Int) -> List<CandleEntity> =
+        {
+                _, _, _, _ -> throw InvalidTypeException("Unknown type")
+        }
+
+    private final val candlesProvider: Map<ItemType, (String, String?, CandleInterval, Int) -> List<CandleEntity>> = mapOf(
+        ItemType.CRYPTO to cryptoCandlesProvider,
+        ItemType.STOCK to tinkoffCandlesProvider
+    )
+
     // for crypto candles - candles sorting should be added
-    override fun detectPattern(figi: String, ticker: String, intrumentUid: String?, interval: CandleInterval, days: Int): Pattern? {
+    override fun detectPattern(figi: String, ticker: String, intrumentUid: String?, interval: CandleInterval,
+                               days: Int, type: ItemType): Pattern? {
 
-        val candles = candlesService.getLastCandles(figi, interval, intrumentUid, days)
+        val candles = candlesProvider.getOrDefault(type, noCandlesProvider).invoke(figi, intrumentUid, interval, days)
 
-        val extremums = getExtremums(candles, days)
+        val extremums = getExtremums(candles, days, type)
         val maximums = extremums.first
         val minimums = extremums.second
 

@@ -2,7 +2,7 @@ version: "3.9"
 services:
 
   webapp:
-    image: ruslanlagai/screener-kotlin:1.0
+    image: ruslanlagai/screener-kotlin:3.5
     container_name: screener-kotlin
     env_file:
       - .env
@@ -31,42 +31,42 @@ services:
 #      - ${SPRING_LOCAL_PORT}:${SPRING_DOCKER_PORT}
     depends_on:
       - mysql_db
-      - redis_cache
+#      - redis_cache
     restart: on-failure
     mem_reservation: 1G
 
-  telegram-bot:
-    image: ruslanlagai/trading-telegram-bot:1.0
-    container_name: trading-telegram-bot
-    env_file:
-      - .env
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "200k"
-        max-file: "10"
-    networks:
-      - local
-    depends_on:
-      - mysql_db
-    restart: on-failure
-    mem_reservation: 500M
+#  telegram-bot:
+#    image: ruslanlagai/trading-telegram-bot:1.0
+#    container_name: trading-telegram-bot
+#    env_file:
+#      - .env
+#    logging:
+#      driver: "json-file"
+#      options:
+#        max-size: "200k"
+#        max-file: "10"
+#    networks:
+#      - local
+#    depends_on:
+#      - mysql_db
+#    restart: on-failure
+#    mem_reservation: 500M
 
-  trading-bot:
-    image: ruslanlagai/trading-bot:3.1
-    container_name: trading-telegram-bot
-    env_file:
-      - .env
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "200k"
-        max-file: "10"
-    networks:
-      - local
-    depends_on:
-      - mysql_db
-    mem_reservation: 500M
+#  trading-bot:
+#    image: ruslanlagai/trading-bot:3.1
+#    container_name: trading-telegram-bot
+#    env_file:
+#      - .env
+#    logging:
+#      driver: "json-file"
+#      options:
+#        max-size: "200k"
+#        max-file: "10"
+#    networks:
+#      - local
+#    depends_on:
+#      - mysql_db
+#    mem_reservation: 500M
 
   mysql_db:
     networks:
@@ -87,7 +87,7 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
 
   redis:
-    image: redis:5.0.3-alpine
+    image: redis:7.0.5
     container_name: redis_cache
     logging:
       driver: "json-file"

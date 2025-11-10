@@ -1,8 +1,10 @@
 package ru.home.project.listener
 
+import io.mockk.clearAllMocks
 import io.mockk.every
 import io.mockk.mockkStatic
 import org.awaitility.Awaitility.await
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.InjectMocks
@@ -231,5 +233,10 @@ class TradeEventListenerUnitTest {
         tradeEventListener.processTradeEvent(event)
 
         verify(telegramBotGrpcService, never()).sendMessage(any(), any(), any(), any())
+    }
+
+    @AfterEach
+    fun tearDown() {
+        clearAllMocks()
     }
 }

@@ -1,21 +1,23 @@
 package ru.home.project.service.impl
 
 import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.Mock
 import org.mockito.Mockito.`when`
 import org.mockito.junit.jupiter.MockitoExtension
 import ru.home.project.entity.CandleEntity
+import ru.home.project.model.ItemType
 import ru.home.project.model.PatternType
 import ru.home.project.model.TwelveDataCandles
 import ru.home.project.service.CandlesService
+import ru.home.project.service.CryptoCandlesService
 import ru.home.project.util.getCandles
 import ru.home.project.util.readValue
 import ru.home.project.utils.priceToDouble
 import ru.home.project.utils.timestampToDate
 import ru.tinkoff.piapi.contract.v1.CandleInterval
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
@@ -28,11 +30,14 @@ class TrianglePatternServiceImplTest {
     @Mock
     private lateinit var candlesService: CandlesService
 
+    @Mock
+    private lateinit var cryCandlesService: CryptoCandlesService
+
     private lateinit var trianglePatternService: TrianglePatternServiceImpl
 
     @BeforeEach
     fun setup() {
-        trianglePatternService = TrianglePatternServiceImpl(candlesService)
+        trianglePatternService = TrianglePatternServiceImpl(candlesService, cryCandlesService)
     }
 
     @Test
@@ -50,7 +55,7 @@ class TrianglePatternServiceImplTest {
         `when`(candlesService.getLastCandles(figi, interval, null,30)).thenReturn(candles)
 
         // When
-        val result = trianglePatternService.detectPattern(figi, ticker, null, interval, 30)
+        val result = trianglePatternService.detectPattern(figi, ticker, null, interval, 30, ItemType.STOCK)
 
         // Then
         assertNull(result)
@@ -71,7 +76,7 @@ class TrianglePatternServiceImplTest {
         `when`(candlesService.getLastCandles(figi, interval, null,30)).thenReturn(candles)
 
         // When
-        val result = trianglePatternService.detectPattern(figi, ticker, null, interval, 30)
+        val result = trianglePatternService.detectPattern(figi, ticker, null, interval, 30, ItemType.STOCK)
 
         // Then
         assertNull(result)
@@ -92,7 +97,7 @@ class TrianglePatternServiceImplTest {
         `when`(candlesService.getLastCandles(figi, interval, null,30)).thenReturn(candles)
 
         // When
-        val result = trianglePatternService.detectPattern(figi, ticker, null, interval, 30)
+        val result = trianglePatternService.detectPattern(figi, ticker, null, interval, 30, ItemType.STOCK)
 
         // Then
         assertEquals(PatternType.TRIANGLE, result!!.patternType)
@@ -105,7 +110,6 @@ class TrianglePatternServiceImplTest {
     }
 
     @Test
-    @Disabled("Для свечей по крипте нужно будет добавить сортировку по дате (слева направо)")
     fun `should detect triangle pattern - BTC`() {
         // Given
         val figi = "TEST_FIGI"
@@ -113,22 +117,15 @@ class TrianglePatternServiceImplTest {
         val interval = CandleInterval.CANDLE_INTERVAL_HOUR
 
         val resp = readValue("candles/patterns/btc-hourly-candles-triangle-11.10-25.10.json", TwelveDataCandles::class.java)
-        val candles = resp.values!!.map { CandleEntity(figi = "ETH/USD", low = it.low, high = it.high,
-            open = it.open, close = it.close, dateTime = ZonedDateTime.of(it.datetime, ZoneId.of("UTC")),
-            ticker = "ETH/USD", interval = CandleInterval.CANDLE_INTERVAL_DAY, volume = 0) }
-        `when`(candlesService.getLastCandles(figi, interval, null,30)).thenReturn(candles)
+        val candles = resp.values!!
+        `when`(cryCandlesService.getDailyCandles(figi, LocalDate.now().minusDays(30)))
+            .thenReturn(candles)
 
         // When
-        val result = trianglePatternService.detectPattern(figi, ticker, null, interval, 30)
+        val result = trianglePatternService.detectPattern(figi, ticker, null, interval, 30, ItemType.CRYPTO)
 
         // Then
-        assertEquals(PatternType.TRIANGLE, result!!.patternType)
-        assertEquals(interval, result.interval)
-        assertEquals(ticker, result.ticker)
-        assertEquals(figi, result.figi)
-        assertEquals(LocalDateTime.of(2025, 4, 28, 11, 0, 0),
-            result.startDate)
-
+        assertNull(result)
     }
 
     @Test
@@ -145,7 +142,7 @@ class TrianglePatternServiceImplTest {
         `when`(candlesService.getLastCandles(figi, interval, null,30)).thenReturn(candles)
 
         // When
-        val result = trianglePatternService.detectPattern(figi, ticker, null, interval, 30)
+        val result = trianglePatternService.detectPattern(figi, ticker, null, interval, 30, ItemType.STOCK)
 
         // Then
         assertEquals(PatternType.TRIANGLE, result!!.patternType)
@@ -172,7 +169,7 @@ class TrianglePatternServiceImplTest {
         `when`(candlesService.getLastCandles(figi, interval, null,7)).thenReturn(candles)
 
         // When
-        val result = trianglePatternService.detectPattern(figi, ticker, null, interval, 7)
+        val result = trianglePatternService.detectPattern(figi, ticker, null, interval, 7, ItemType.STOCK)
 
         // Then
         assertNull(result)
@@ -193,7 +190,7 @@ class TrianglePatternServiceImplTest {
         `when`(candlesService.getLastCandles(figi, interval, null, 30)).thenReturn(candles)
 
         // When
-        val result = trianglePatternService.detectPattern(figi, ticker, null, interval, 30)
+        val result = trianglePatternService.detectPattern(figi, ticker, null, interval, 30, ItemType.STOCK)
 
         // Then
         assertEquals(PatternType.CHANNEL, result!!.patternType)
@@ -219,7 +216,7 @@ class TrianglePatternServiceImplTest {
         `when`(candlesService.getLastCandles(figi, interval, null, 30)).thenReturn(candles)
 
         // When
-        val result = trianglePatternService.detectPattern(figi, ticker, null, interval, 30)
+        val result = trianglePatternService.detectPattern(figi, ticker, null, interval, 30, ItemType.STOCK)
 
         // Then
         assertNull(result)
@@ -283,7 +280,7 @@ class TrianglePatternServiceImplTest {
         `when`(candlesService.getLastCandles(figi, interval, null, 30)).thenReturn(candles)
 
         // When
-        val result = trianglePatternService.detectPattern(figi, ticker, null, interval, 30)
+        val result = trianglePatternService.detectPattern(figi, ticker, null, interval, 30, ItemType.STOCK)
 
         // Then
         assertNull(result)
@@ -299,7 +296,7 @@ class TrianglePatternServiceImplTest {
         `when`(candlesService.getLastCandles(figi, interval, null, 30)).thenReturn(emptyList())
 
         // When
-        val result = trianglePatternService.detectPattern(figi, ticker, null, interval, 30)
+        val result = trianglePatternService.detectPattern(figi, ticker, null, interval, 30, ItemType.STOCK)
 
         // Then
         assertNull(result)

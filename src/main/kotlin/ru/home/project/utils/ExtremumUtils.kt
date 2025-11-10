@@ -3,6 +3,7 @@ package ru.home.project.utils
 import org.slf4j.LoggerFactory
 import ru.home.project.dto.PatternDto
 import ru.home.project.entity.CandleEntity
+import ru.home.project.model.ItemType
 import ru.home.project.model.PatternType
 import java.time.Duration.between
 import java.time.LocalDateTime
@@ -24,14 +25,16 @@ private val log = LoggerFactory.getLogger(object{}::class.java.`package`.name)
  * @return A [Pair] where the first element is a list of maximum [CandleEntity] objects and
  *         the second element is a list of minimum [CandleEntity] objects.
  */
-fun getExtremums(candles: List<CandleEntity>, days: Int): Pair<List<CandleEntity>, List<CandleEntity>> {
+fun getExtremums(candles: List<CandleEntity>, days: Int, type: ItemType = ItemType.STOCK): Pair<List<CandleEntity>, List<CandleEntity>> {
     val maximums = ArrayList<CandleEntity>()
     val minimums = ArrayList<CandleEntity>()
 
-    val trends = splitToTrends(candles, days)
+    val trends = splitToTrends(candles, days, type)
     if (trends.isEmpty()) {
         return Pair(listOf(), listOf())
     }
+
+    log.info("Trends size: ${trends.size} for figi ${candles.first().figi} during $days days")
 
     trends.forEach {
         if (it.first == Trend.ASCENDING) {

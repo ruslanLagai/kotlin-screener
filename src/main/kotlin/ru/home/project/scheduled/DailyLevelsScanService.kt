@@ -47,6 +47,15 @@ class DailyLevelsScanService(
             kotlin.runCatching {
                 log.info("Starting levels scan for {}", it)
                 levelsDetectionService.detectLevels(it, CandleInterval.CANDLE_INTERVAL_DAY, CandleInterval.CANDLE_INTERVAL_HOUR, ItemType.STOCK)
+                val instrumentEntity = InstrumentEntity(
+                    figi = it,
+                    ticker = it,
+                    instrumentUid = it,
+                    lot = 1,
+                    currency = "USDT",
+                    name = it
+                )
+                patternsDetectionService.detectPatterns(instrumentEntity, CandleInterval.CANDLE_INTERVAL_DAY, ItemType.STOCK)
                 Thread.sleep(Duration.ofSeconds(60))
             }.onFailure {
                 log.error("Failed to detect levels", it)
@@ -76,6 +85,7 @@ class DailyLevelsScanService(
                             instrumentEntity = instrumentRepository.save(instrumentEntity)
                         }
                     }
+                    log.info("Starting patterns scan for {}", it.ticker)
 
                     patternsDetectionService.detectPatterns(instrumentEntity, CandleInterval.CANDLE_INTERVAL_HOUR, ItemType.STOCK)
                     Thread.sleep(Duration.ofSeconds(10))
