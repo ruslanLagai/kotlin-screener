@@ -4,9 +4,10 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import ru.home.project.entity.CandleEntity
+import ru.home.project.entity.ExtremumEntity
+import ru.home.project.entity.PatternEntity
 import ru.home.project.exceptions.InvalidTypeException
 import ru.home.project.model.ItemType
-import ru.home.project.model.Pattern
 import ru.home.project.model.PatternType
 import ru.home.project.service.CandlesService
 import ru.home.project.service.CryptoCandlesService
@@ -14,9 +15,10 @@ import ru.home.project.service.PatternService
 import ru.home.project.utils.checkExtremumsAreBetweenLines
 import ru.home.project.utils.getExtremums
 import ru.tinkoff.piapi.contract.v1.CandleInterval
-import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
+import java.util.Set
 
 /**
  * @author rlagay
@@ -38,7 +40,7 @@ final class TrianglePatternServiceImpl(
     private val cryptoCandlesProvider: (String, String?, CandleInterval, Int) -> List<CandleEntity> =
         {
             symbol, _, interval, from ->
-            cryptoCandlesService.getDailyCandles(symbol = symbol, LocalDate.now().minusDays(from.toLong()))
+            cryptoCandlesService.getHourlyCandles(symbol = symbol, LocalDateTime.now().minusDays(from.toLong()))
                 .map {
                     val instant = it.datetime.toInstant(ZoneOffset.UTC)
                     CandleEntity(figi = symbol, open = it.open, close = it.close, low = it.low, high = it.high, volume = 0,
@@ -58,7 +60,7 @@ final class TrianglePatternServiceImpl(
 
     // for crypto candles - candles sorting should be added
     override fun detectPattern(figi: String, ticker: String, intrumentUid: String?, interval: CandleInterval,
-                               days: Int, type: ItemType): Pattern? {
+                               days: Int, type: ItemType): PatternEntity? {
 
         val candles = candlesProvider.getOrDefault(type, noCandlesProvider).invoke(figi, intrumentUid, interval, days)
 
@@ -84,8 +86,29 @@ final class TrianglePatternServiceImpl(
         }
 
         val startDate = listOf(maximums, minimums).flatten().minBy { it.dateTime }.dateTime
-        return Pattern(patternType = patternDto.patternType, figi = figi, ticker = ticker, startDate = startDate.toLocalDateTime(),
-            price = null, interval = interval, aMax = patternDto.maxA, bMax = patternDto.maxB, aMin = patternDto.minA, bMin = patternDto.minB)
+        val emptySet: Set<ExtremumEntity> = setOf<ExtremumEntity>() as Set<ExtremumEntity>
+        val patternEntity = PatternEntity(
+            figi = figi,
+            ticker = ticker,
+            patternType = patternDto.patternType,
+            interval = interval,
+            startDate = startDate.toLocalDateTime(),
+            maxA = patternDto.maxA,
+            maxB = patternDto.maxB,
+            minA = patternDto.minA,
+            minB = patternDto.minB,
+            instrumentUid = intrumentUid!!,
+            maximums = emptySet,
+            minimums = emptySet
+        )
+        patternEntity.minimums = minimums.map {
+            ExtremumEntity(value = it.low, date = it.dateTime.toLocalDateTime(), patternEntity = patternEntity)
+        }.toSet() as Set<ExtremumEntity>
+        patternEntity.maximums = maximums.map {
+            ExtremumEntity(value = it.high, date = it.dateTime.toLocalDateTime(), patternEntity = patternEntity)
+        }.toSet() as Set<ExtremumEntity>
+
+        return patternEntity
     }
 
     /**

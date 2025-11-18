@@ -11,7 +11,6 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean
 import ru.home.project.AbstractIntegrationTest
 import ru.home.project.listener.ContextRefreshedEventListener
 import ru.home.project.listener.TradeEventListener
-import ru.home.project.listener.TradesStreamListener
 import ru.home.project.model.events.TradeEvent
 import ru.home.project.service.TinkoffStreamingService
 import java.util.concurrent.CountDownLatch
@@ -26,9 +25,6 @@ class TinkoffStreamingServiceImplTest : AbstractIntegrationTest() {
 
     @Autowired
     private lateinit var tinkoffStreamingService: TinkoffStreamingService
-
-    @Autowired
-    private lateinit var tradesStreamProcessor: TradesStreamListener
 
     @MockitoBean
     private lateinit var contextRefreshedEventListener: ContextRefreshedEventListener

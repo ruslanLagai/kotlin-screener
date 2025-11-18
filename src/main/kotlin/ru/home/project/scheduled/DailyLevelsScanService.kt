@@ -47,15 +47,6 @@ class DailyLevelsScanService(
             kotlin.runCatching {
                 log.info("Starting levels scan for {}", it)
                 levelsDetectionService.detectLevels(it, CandleInterval.CANDLE_INTERVAL_DAY, CandleInterval.CANDLE_INTERVAL_HOUR, ItemType.STOCK)
-                val instrumentEntity = InstrumentEntity(
-                    figi = it,
-                    ticker = it,
-                    instrumentUid = it,
-                    lot = 1,
-                    currency = "USDT",
-                    name = it
-                )
-                patternsDetectionService.detectPatterns(instrumentEntity, CandleInterval.CANDLE_INTERVAL_DAY, ItemType.STOCK)
                 Thread.sleep(Duration.ofSeconds(60))
             }.onFailure {
                 log.error("Failed to detect levels", it)
@@ -113,6 +104,18 @@ class DailyLevelsScanService(
                             CandleInterval.CANDLE_INTERVAL_DAY,
                             ItemType.CRYPTO
                         )
+                        val instrumentEntity = InstrumentEntity(
+                            figi = twelveDataFormatSymbol,
+                            ticker = it.symbol,
+                            instrumentUid = it.symbol,
+                            lot = 1,
+                            currency = "USDT",
+                            name = it.symbol
+                        )
+                        log.info("Starting patterns scan for {}", it.symbol)
+
+                        patternsDetectionService.detectPatterns(instrumentEntity, CandleInterval.CANDLE_INTERVAL_HOUR, ItemType.CRYPTO)
+
                     }.onFailure {
                         log.error("Failed to detect crypto levels", it)
                     }

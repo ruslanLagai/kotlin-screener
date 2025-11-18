@@ -14,6 +14,7 @@ import ru.home.project.entity.MergedLevelEntity
 import ru.home.project.model.*
 import ru.home.project.model.events.AlertEvent
 import ru.home.project.model.events.TradeEvent
+import ru.home.project.model.events.Type
 import ru.home.project.properties.TelegramBotProperties
 import ru.home.project.repository.InstrumentRepository
 import ru.home.project.repository.LevelStatisticsRepository
@@ -61,15 +62,18 @@ class TradeEventListener(
     @Async("tradeEventExecutor")
     @EventListener
     fun processTradeEvent(event: TradeEvent) {
-        processEvent(event, ItemType.STOCK)
-        processPattern(event, ItemType.STOCK)
+        when (event.type) {
+            Type.LEVEL -> processEvent(event, ItemType.STOCK)
+            Type.PATTERN -> processPattern(event, ItemType.STOCK)
+        }
     }
 
     @EventListener
     fun processCryptoPricesEvent(price: TickerEntry) {
         val twelveDataFormatSymbol = price.symbol.replace("USDT", "/USD")
-        val event = TradeEvent(price.lastPrice.toDouble(), twelveDataFormatSymbol)
+        val event = TradeEvent(price.lastPrice.toDouble(), twelveDataFormatSymbol, type = Type.LEVEL)
         processEvent(event, ItemType.CRYPTO)
+        processPattern(event, ItemType.CRYPTO)
     }
     
     /**
@@ -165,7 +169,7 @@ class TradeEventListener(
             )
             if (isBetweenLines.first) {
                 val distance = (isBetweenLines.second - event.price) / maxOf(isBetweenLines.second, event.price)
-                if (distance < 0.02) {
+                if (distance < 0.01) {
                     it.finished = true
                     patternsRepository.save(it)
 

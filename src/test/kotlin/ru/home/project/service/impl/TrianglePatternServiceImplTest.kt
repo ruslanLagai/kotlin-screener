@@ -6,6 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.Mock
 import org.mockito.Mockito.`when`
 import org.mockito.junit.jupiter.MockitoExtension
+import org.mockito.kotlin.any
 import ru.home.project.entity.CandleEntity
 import ru.home.project.model.ItemType
 import ru.home.project.model.PatternType
@@ -17,7 +18,6 @@ import ru.home.project.util.readValue
 import ru.home.project.utils.priceToDouble
 import ru.home.project.utils.timestampToDate
 import ru.tinkoff.piapi.contract.v1.CandleInterval
-import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
@@ -94,10 +94,10 @@ class TrianglePatternServiceImplTest {
                 high = priceToDouble(it.high), low = priceToDouble(it.low), volume = it.volume,
                 dateTime = timestampToDate(it.time), interval = CandleInterval.CANDLE_INTERVAL_HOUR) }
 
-        `when`(candlesService.getLastCandles(figi, interval, null,30)).thenReturn(candles)
+        `when`(candlesService.getLastCandles(figi, interval, ticker,30)).thenReturn(candles)
 
         // When
-        val result = trianglePatternService.detectPattern(figi, ticker, null, interval, 30, ItemType.STOCK)
+        val result = trianglePatternService.detectPattern(figi, ticker, ticker, interval, 30, ItemType.STOCK)
 
         // Then
         assertEquals(PatternType.TRIANGLE, result!!.patternType)
@@ -118,8 +118,7 @@ class TrianglePatternServiceImplTest {
 
         val resp = readValue("candles/patterns/btc-hourly-candles-triangle-11.10-25.10.json", TwelveDataCandles::class.java)
         val candles = resp.values!!
-        `when`(cryCandlesService.getDailyCandles(figi, LocalDate.now().minusDays(30)))
-            .thenReturn(candles)
+        `when`(cryCandlesService.getHourlyCandles(any(), any())).thenReturn(candles)
 
         // When
         val result = trianglePatternService.detectPattern(figi, ticker, null, interval, 30, ItemType.CRYPTO)
@@ -139,10 +138,10 @@ class TrianglePatternServiceImplTest {
             .map { CandleEntity(figi = "BBG004730N88", ticker = "SBER", open = priceToDouble(it.open), close = priceToDouble(it.close),
                 high = priceToDouble(it.high), low = priceToDouble(it.low), volume = it.volume,
                 dateTime = timestampToDate(it.time), interval = CandleInterval.CANDLE_INTERVAL_HOUR) }
-        `when`(candlesService.getLastCandles(figi, interval, null,30)).thenReturn(candles)
+        `when`(candlesService.getLastCandles(figi, interval, ticker,30)).thenReturn(candles)
 
         // When
-        val result = trianglePatternService.detectPattern(figi, ticker, null, interval, 30, ItemType.STOCK)
+        val result = trianglePatternService.detectPattern(figi, ticker, ticker, interval, 30, ItemType.STOCK)
 
         // Then
         assertEquals(PatternType.TRIANGLE, result!!.patternType)
@@ -187,10 +186,10 @@ class TrianglePatternServiceImplTest {
                 high = priceToDouble(it.high), low = priceToDouble(it.low), volume = it.volume,
                 dateTime = timestampToDate(it.time), interval = CandleInterval.CANDLE_INTERVAL_HOUR) }
 
-        `when`(candlesService.getLastCandles(figi, interval, null, 30)).thenReturn(candles)
+        `when`(candlesService.getLastCandles(figi, interval, ticker, 30)).thenReturn(candles)
 
         // When
-        val result = trianglePatternService.detectPattern(figi, ticker, null, interval, 30, ItemType.STOCK)
+        val result = trianglePatternService.detectPattern(figi, ticker, ticker, interval, 30, ItemType.STOCK)
 
         // Then
         assertEquals(PatternType.CHANNEL, result!!.patternType)

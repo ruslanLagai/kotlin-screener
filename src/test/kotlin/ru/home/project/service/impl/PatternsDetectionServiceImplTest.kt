@@ -5,10 +5,10 @@ import org.junit.jupiter.api.Test
 import org.mockito.Mock
 import org.mockito.Mockito.*
 import org.mockito.MockitoAnnotations
+import ru.home.project.entity.ExtremumEntity
 import ru.home.project.entity.InstrumentEntity
 import ru.home.project.entity.PatternEntity
 import ru.home.project.model.ItemType
-import ru.home.project.model.Pattern
 import ru.home.project.model.PatternType
 import ru.home.project.repository.PatternsRepository
 import ru.home.project.service.PatternService
@@ -86,17 +86,19 @@ class PatternsDetectionServiceImplTest {
             currency = "RUB",
             first1dayCandleDate = null
         )
-        val pattern = Pattern(
+        val pattern = PatternEntity(
             patternType = PatternType.TRIANGLE,
             startDate = LocalDateTime.now(),
-            aMax = 1.0,
-            bMax = 2.0,
-            aMin = 0.5,
-            bMin = 1.5,
-            price = 30.0,
+            maxA = 1.0,
+            maxB = 2.0,
+            minA = 0.5,
+            minB = 1.5,
             interval = CandleInterval.CANDLE_INTERVAL_1_MIN,
             figi = figi,
-            ticker = instrument.ticker
+            ticker = instrument.ticker,
+            instrumentUid = instrument.instrumentUid!!,
+            minimums = setOf<ExtremumEntity>() as java.util.Set<ExtremumEntity>,
+            maximums = setOf<ExtremumEntity>() as java.util.Set<ExtremumEntity>
         )
 
         `when`(trianglePatternServiceImpl.detectPattern(
@@ -109,21 +111,23 @@ class PatternsDetectionServiceImplTest {
         )).thenReturn(pattern)
         `when`(patternsRepository.findPattern(
             figi = figi,
-            maxA = pattern.aMax,
-            maxB = pattern.bMax,
-            minA = pattern.aMin,
-            minB = pattern.bMin
+            maxA = pattern.maxA,
+            maxB = pattern.maxB,
+            minA = pattern.minA,
+            minB = pattern.minB
         )).thenReturn(Optional.of(PatternEntity(
             ticker = instrument.ticker,
             patternType = pattern.patternType,
             interval = pattern.interval,
             startDate = pattern.startDate,
-            maxA = pattern.aMax,
-            maxB = pattern.bMax,
-            minA = pattern.aMin,
-            minB = pattern.bMin,
+            maxA = pattern.maxA,
+            maxB = pattern.maxB,
+            minA = pattern.minA,
+            minB = pattern.minB,
             figi = figi,
-            instrumentUid = instrument.instrumentUid!!
+            instrumentUid = instrument.instrumentUid!!,
+            maximums = pattern.maximums,
+            minimums = pattern.minimums
         )))
 
         patternsDetectionService.detectPatterns(instrument, interval, type)
@@ -138,10 +142,10 @@ class PatternsDetectionServiceImplTest {
         )
         verify(patternsRepository).findPattern(
             figi = figi,
-            maxA = pattern.aMax,
-            maxB = pattern.bMax,
-            minA = pattern.aMin,
-            minB = pattern.bMin
+            maxA = pattern.maxA,
+            maxB = pattern.maxB,
+            minA = pattern.minA,
+            minB = pattern.minB
         )
         verifyNoMoreInteractions(patternsRepository)
     }
@@ -160,17 +164,19 @@ class PatternsDetectionServiceImplTest {
             currency = "RUB",
             first1dayCandleDate = null
         )
-        val pattern = Pattern(
+        val pattern = PatternEntity(
             patternType = PatternType.TRIANGLE,
             startDate = LocalDateTime.now(),
-            aMax = 1.0,
-            bMax = 2.0,
-            aMin = 0.5,
-            bMin = 1.5,
-            price = 30.0,
+            maxA = 1.0,
+            maxB = 2.0,
+            minA = 0.5,
+            minB = 1.5,
             interval = CandleInterval.CANDLE_INTERVAL_1_MIN,
             figi = figi,
-            ticker = instrument.ticker
+            instrumentUid = instrument.instrumentUid!!,
+            minimums = setOf<ExtremumEntity>() as java.util.Set<ExtremumEntity>,
+            maximums = setOf<ExtremumEntity>() as java.util.Set<ExtremumEntity>,
+            ticker = "ticker"
         )
 
         `when`(trianglePatternServiceImpl.detectPattern(
@@ -183,10 +189,10 @@ class PatternsDetectionServiceImplTest {
         )).thenReturn(pattern)
         `when`(patternsRepository.findPattern(
             figi = figi,
-            maxA = pattern.aMax,
-            maxB = pattern.bMax,
-            minA = pattern.aMin,
-            minB = pattern.bMin
+            maxA = pattern.maxA,
+            maxB = pattern.maxB,
+            minA = pattern.minA,
+            minB = pattern.minB
         )).thenReturn(Optional.empty())
 
         patternsDetectionService.detectPatterns(instrument, interval, type)
@@ -201,10 +207,10 @@ class PatternsDetectionServiceImplTest {
         )
         verify(patternsRepository).findPattern(
             figi = figi,
-            maxA = pattern.aMax,
-            maxB = pattern.bMax,
-            minA = pattern.aMin,
-            minB = pattern.bMin
+            maxA = pattern.maxA,
+            maxB = pattern.maxB,
+            minA = pattern.minA,
+            minB = pattern.minB
         )
         verify(patternsRepository).save(any(PatternEntity::class.java))
     }

@@ -1,5 +1,6 @@
 package ru.home.project.listener
 
+import org.awaitility.Awaitility.await
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -73,16 +74,16 @@ class TradeEventListenerTest : AbstractIntegrationTest() {
 
         cryptoCandlesReceivingService.retrieveCandles()
 
-        Thread.sleep(Duration.ofSeconds(20))
+        await().atMost(Duration.ofSeconds(20)).untilAsserted {
+            var levels = mergedLevelsRepository.getLevelsByFigi("BTC/USD")
+            assertTrue(levels.size > 5)
+            var statistics = statisticsRepository.getByFigi("BTC/USD")
+            assertTrue(statistics.size > 5)
 
-        var levels = mergedLevelsRepository.getLevelsByFigi("BTC/USD")
-        assertTrue(levels.size > 5)
-        var statistics = statisticsRepository.getByFigi("BTC/USD")
-        assertTrue(statistics.size > 5)
-
-        levels = mergedLevelsRepository.getLevelsByFigi("ETH/USD")
-        assertTrue(levels.size > 5)
-        statistics = statisticsRepository.getByFigi("ETH/USD")
-        assertTrue(statistics.size > 5)
+            levels = mergedLevelsRepository.getLevelsByFigi("ETH/USD")
+            assertTrue(levels.size > 5)
+            statistics = statisticsRepository.getByFigi("ETH/USD")
+            assertTrue(statistics.size > 5)
+        }
     }
 }

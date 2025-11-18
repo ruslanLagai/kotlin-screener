@@ -3,8 +3,12 @@ package ru.home.project.service.impl
 import jakarta.annotation.PostConstruct
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Service
+import ru.home.project.model.events.TradeEvent
+import ru.home.project.model.events.Type
 import ru.home.project.properties.TinkoffTradingProperties
+import ru.home.project.repository.InstrumentRepository
 import ru.home.project.service.TinkoffStreamingService
 import ru.tinkoff.piapi.contract.v1.SubscriptionInterval
 import ru.ttech.piapi.core.connector.streaming.listeners.OnNextListener
@@ -12,7 +16,6 @@ import ru.ttech.piapi.core.impl.marketdata.MarketDataStreamManager
 import ru.ttech.piapi.core.impl.marketdata.subscription.CandleSubscriptionSpec
 import ru.ttech.piapi.core.impl.marketdata.subscription.Instrument
 import ru.ttech.piapi.core.impl.marketdata.wrapper.CandleWrapper
-import ru.ttech.piapi.core.impl.marketdata.wrapper.LastPriceWrapper
 
 /**
  * @author rlagay
@@ -20,9 +23,10 @@ import ru.ttech.piapi.core.impl.marketdata.wrapper.LastPriceWrapper
 @Service
 class TinkoffStreamingServiceImpl(
     val streamManager: MarketDataStreamManager,
-    val lastPriceStreamProcessor: OnNextListener<LastPriceWrapper>,
     val candlesStreamProcessor: OnNextListener<CandleWrapper>,
     val tinkoffTradingProperties: TinkoffTradingProperties,
+    val instrumentRepository: InstrumentRepository,
+    val eventPublisher: ApplicationEventPublisher
 
 ) : TinkoffStreamingService {
 
@@ -33,9 +37,22 @@ class TinkoffStreamingServiceImpl(
     val instrumentsDaily = tinkoffTradingProperties.instruments
         .map { Instrument(it, SubscriptionInterval.SUBSCRIPTION_INTERVAL_ONE_DAY) }
         .toSet()
+    val futures = instrumentRepository.findAll()
+        .filter { it.instrumentUid != null }
+        .map { Instrument(it.instrumentUid, SubscriptionInterval.SUBSCRIPTION_INTERVAL_ONE_HOUR) }
+        .toSet()
 
     override fun subscribeTradingStream() {
-        streamManager.subscribeLastPrices(instrumentsHourly, lastPriceStreamProcessor)
+        streamManager.subscribeLastPrices(futures) {
+            val figi = it.figi
+            val event = TradeEvent(price = it.price.toDouble(), figi = figi, uuid = it.instrumentUid, type = Type.PATTERN)
+            eventPublisher.publishEvent(event)
+        }
+        streamManager.subscribeLastPrices(instrumentsHourly, {
+            val figi = it.figi
+            val event = TradeEvent(price = it.price.toDouble(), figi = figi, uuid = it.instrumentUid, type = Type.LEVEL)
+            eventPublisher.publishEvent(event)
+        })
         streamManager.subscribeCandles(instrumentsHourly, CandleSubscriptionSpec(), candlesStreamProcessor)
         streamManager.subscribeCandles(instrumentsDaily, CandleSubscriptionSpec(), candlesStreamProcessor)
         streamManager.start()
@@ -46,6 +63,7 @@ class TinkoffStreamingServiceImpl(
         streamManager.unsubscribeCandles(instrumentsHourly, CandleSubscriptionSpec())
         streamManager.unsubscribeCandles(instrumentsDaily, CandleSubscriptionSpec())
         streamManager.unsubscribeLastPrices(instrumentsHourly)
+        streamManager.unsubscribeLastPrices(futures)
         streamManager.shutdown()
     }
 }

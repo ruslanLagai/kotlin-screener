@@ -33,7 +33,7 @@ class CryptoCandlesServiceImpl(
         return getCandles(symbol, size, "1day")
     }
 
-    @Cacheable(cacheNames = [ "hourly-crypto" ], key = "#symbol + #from.toEpochDay()", condition = "@checkRedis.get()")
+//    @Cacheable(cacheNames = [ "hourly-crypto" ], key = "#symbol + #from", condition = "@checkRedis.get()")
     override fun getHourlyCandles(symbol: String, from: LocalDateTime) : List<Candle> {
         val size = Duration.between(from, LocalDateTime.now()).toHours().toInt()
         return getCandles(symbol, size, "1h")

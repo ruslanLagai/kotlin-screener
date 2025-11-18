@@ -4,7 +4,6 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import ru.home.project.entity.InstrumentEntity
-import ru.home.project.entity.PatternEntity
 import ru.home.project.model.ItemType
 import ru.home.project.repository.PatternsRepository
 import ru.home.project.service.PatternService
@@ -51,29 +50,16 @@ class PatternsDetectionServiceImpl(
 
         val optional = patternsRepository.findPattern(
             figi = instrument.figi,
-            maxA = pattern.aMax,
-            maxB = pattern.bMax,
-            minA = pattern.aMin,
-            minB = pattern.bMin
+            maxA = pattern.maxA,
+            maxB = pattern.maxB,
+            minA = pattern.minA,
+            minB = pattern.minB
         )
         if (optional.isPresent) {
             log.debug("Pattern is already in pattern_entity {}", instrument.figi)
             return
         }
 
-        optional.orElseGet {
-            patternsRepository.save(PatternEntity(
-                figi = instrument.figi,
-                ticker = instrument.ticker,
-                patternType = pattern.patternType,
-                interval = interval,
-                startDate = pattern.startDate,
-                maxA = pattern.aMax,
-                maxB = pattern.bMax,
-                minA = pattern.aMin,
-                minB = pattern.bMin,
-                instrumentUid = instrument.instrumentUid!!)
-            )
-        }
+        optional.orElseGet { patternsRepository.save(pattern) }
     }
 }

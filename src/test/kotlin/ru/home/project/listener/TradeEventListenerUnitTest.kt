@@ -12,10 +12,12 @@ import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 import org.mockito.kotlin.*
 import org.springframework.context.ApplicationEventPublisher
+import ru.home.project.entity.ExtremumEntity
 import ru.home.project.entity.InstrumentEntity
 import ru.home.project.entity.PatternEntity
 import ru.home.project.model.PatternType
 import ru.home.project.model.events.TradeEvent
+import ru.home.project.model.events.Type
 import ru.home.project.properties.TelegramBotProperties
 import ru.home.project.repository.InstrumentRepository
 import ru.home.project.repository.LevelStatisticsRepository
@@ -25,6 +27,7 @@ import ru.home.project.utils.checkPriceIsBetweenLines
 import ru.tinkoff.piapi.contract.v1.CandleInterval
 import java.time.Duration
 import java.time.LocalDateTime
+import java.util.Set
 import java.util.concurrent.ConcurrentHashMap
 
 class TradeEventListenerUnitTest {
@@ -73,7 +76,7 @@ class TradeEventListenerUnitTest {
 
     @Test
     fun `processPattern should not send message when instrument is null`() {
-        val event = TradeEvent(100.0, "FIGI123")
+        val event = TradeEvent(100.0, "FIGI123", type = Type.LEVEL)
         whenever(instrumentRepository.getByFigi(event.figi)).thenReturn(null)
 
         tradeEventListener.processTradeEvent(event)
@@ -83,7 +86,7 @@ class TradeEventListenerUnitTest {
 
     @Test
     fun `processPattern should not send message when pattern is not between lines`() {
-        val event = TradeEvent(100.0, "FIGI123")
+        val event = TradeEvent(100.0, "FIGI123", type = Type.LEVEL)
         val instrument = InstrumentEntity(
             figi = "FIGI123",
             instrumentUid = "INSTRUMENT_UID",
@@ -103,7 +106,10 @@ class TradeEventListenerUnitTest {
             minA = 3.0,
             minB = 4.0,
             startDate = LocalDateTime.now(),
-            finished = true)
+            finished = true,
+            minimums = setOf<ExtremumEntity>() as Set<ExtremumEntity>,
+            maximums = setOf<ExtremumEntity>() as Set<ExtremumEntity>
+        )
 
         whenever(instrumentRepository.getByFigi(event.figi)).thenReturn(instrument)
         whenever(patternsRepository.findPatternByFigiAndFinishedIsTrue(event.figi)).thenReturn(listOf(pattern))
@@ -120,7 +126,7 @@ class TradeEventListenerUnitTest {
     //
     @Test
     fun `processPattern should not send message when distance is more than 0_02`() {
-        val event = TradeEvent(100.0, "FIGI123")
+        val event = TradeEvent(100.0, "FIGI123", type = Type.LEVEL)
         val instrument = InstrumentEntity(
             figi = "FIGI123",
             instrumentUid = "INSTRUMENT_UID",
@@ -139,7 +145,9 @@ class TradeEventListenerUnitTest {
             minA = 3.0,
             minB = 4.0,
             startDate = LocalDateTime.now(),
-            finished = true
+            finished = true,
+            minimums = setOf<ExtremumEntity>() as Set<ExtremumEntity>,
+            maximums = setOf<ExtremumEntity>() as Set<ExtremumEntity>
         )
 
         whenever(instrumentRepository.getByFigi(event.figi)).thenReturn(instrument)
@@ -155,7 +163,7 @@ class TradeEventListenerUnitTest {
 
     @Test
     fun `processPattern should send message and update pattern when distance is less than 0_02`() {
-        val event = TradeEvent(100.0, "FIGI123")
+        val event = TradeEvent(100.0, "FIGI123", type = Type.LEVEL)
         val instrument = InstrumentEntity(
             figi = "FIGI123",
             instrumentUid = "INSTRUMENT_UID",
@@ -175,7 +183,9 @@ class TradeEventListenerUnitTest {
             minB = 4.0,
             startDate = LocalDateTime.now(),
             finished = true,
-            figi = "FIGI123"
+            figi = "FIGI123",
+            minimums = setOf<ExtremumEntity>() as Set<ExtremumEntity>,
+            maximums = setOf<ExtremumEntity>() as Set<ExtremumEntity>
         )
         val accounts = listOf("account1", "account2")
 
@@ -196,7 +206,7 @@ class TradeEventListenerUnitTest {
 
     @Test
     fun `processPattern should not send message when message was sent recently`() {
-        val event = TradeEvent(100.0, "FIGI123")
+        val event = TradeEvent(100.0, "FIGI123", type = Type.LEVEL)
         val instrument = InstrumentEntity(
             figi = "FIGI123",
             instrumentUid = "INSTRUMENT_UID",
@@ -216,7 +226,9 @@ class TradeEventListenerUnitTest {
             minB = 4.0,
             startDate = LocalDateTime.now(),
             finished = true,
-            figi = "FIGI123"
+            figi = "FIGI123",
+            minimums = setOf<ExtremumEntity>() as Set<ExtremumEntity>,
+            maximums = setOf<ExtremumEntity>() as Set<ExtremumEntity>
         )
 
         // Set up sentMessagesForPatterns with recent date
