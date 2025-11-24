@@ -154,12 +154,6 @@ class TradeEventListener(
             }
         }
 
-        val instrument = instrumentRepository.getByFigi(event.figi)
-        if (instrument == null) {
-            log.warn("No instrument found for {}", event.figi)
-            return
-        }
-
         patternsRepository.findPatternByFigiAndFinishedIsTrue(event.figi).forEach {
             val isBetweenLines = checkPriceIsBetweenLines(
                 maxLine = Pair(it.maxA, it.maxB),
@@ -174,6 +168,11 @@ class TradeEventListener(
                     patternsRepository.save(it)
 
                     sentMessagesForPatterns[event.figi] = LocalDateTime.now()
+                    val instrument = instrumentRepository.getByFigi(event.figi)
+                    if (instrument == null) {
+                        log.warn("No instrument found for {}", event.figi)
+                        return
+                    }
                     val message = String.format(telegramMessageForPattern, instrument.ticker)
                     log.info("Detected pattern signal for {}", event.figi)
                     executors.execute {
@@ -184,6 +183,7 @@ class TradeEventListener(
                     }
                 }
             } else {
+                log.info("${it.figi} has left pattern")
                 it.finished = true
                 patternsRepository.save(it)
             }

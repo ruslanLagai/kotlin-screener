@@ -1,5 +1,6 @@
 package ru.home.project.entity
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
@@ -32,8 +33,8 @@ open class PatternEntity(
     open val minA: Double,
     open val minB: Double,
     open var finished: Boolean = false,
-    @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], mappedBy = "patternEntity")
-    open var minimums: Set<ExtremumEntity>,
-    @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], mappedBy = "patternEntity")
-    open var maximums: Set<ExtremumEntity>
+    @JsonIgnore @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], mappedBy = "patternEntity")
+    open var minimums: Set<ExtremumEntity> = Set.of<ExtremumEntity>() as Set<ExtremumEntity>,
+    @JsonIgnore @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], mappedBy = "patternEntity")
+    open var maximums: Set<ExtremumEntity> = Set.of<ExtremumEntity>() as Set<ExtremumEntity>
 )

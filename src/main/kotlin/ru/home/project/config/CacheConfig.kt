@@ -17,6 +17,8 @@ import org.springframework.data.redis.core.StringRedisTemplate
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer
 import org.springframework.data.redis.serializer.RedisSerializationContext
 import ru.home.project.entity.CandleEntity
+import ru.home.project.entity.InstrumentEntity
+import ru.home.project.entity.PatternEntity
 import ru.home.project.model.Candle
 import java.time.Duration
 import java.util.function.Supplier
@@ -46,6 +48,16 @@ class CacheConfig(
         val javaType = objectMapper.typeFactory.constructType(type)
         val serializer: Jackson2JsonRedisSerializer<JavaType> = Jackson2JsonRedisSerializer(objectMapper, javaType)
 
+//        val filterProvider = SimpleFilterProvider()
+//        filterProvider.addFilter("extremumsFilter", SimpleBeanPropertyFilter.serializeAllExcept("minimums", "maximums"))
+//        objectMapper.setFilterProvider(filterProvider)
+        val patternsType: TypeReference<List<PatternEntity>> = object : TypeReference<List<PatternEntity>>() {}
+        val patternJavaType = objectMapper.typeFactory.constructType(patternsType)
+        val patternSerializer: Jackson2JsonRedisSerializer<JavaType> = Jackson2JsonRedisSerializer(objectMapper, patternJavaType)
+
+        val instrumentTypeJavaType = objectMapper.typeFactory.constructType(InstrumentEntity::class.java)
+        val instrumentSerializer: Jackson2JsonRedisSerializer<JavaType> = Jackson2JsonRedisSerializer(objectMapper, instrumentTypeJavaType)
+
         return RedisCacheManagerBuilderCustomizer { builder: RedisCacheManagerBuilder ->
             builder
                 .withCacheConfiguration(
@@ -61,6 +73,20 @@ class CacheConfig(
                         .prefixCacheNameWith("daily-tinkoff")
                         .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(tinkoffSerializer))
                         .entryTtl(Duration.ofMinutes(2))
+                )
+                .withCacheConfiguration(
+                    "instruments",
+                    RedisCacheConfiguration.defaultCacheConfig()
+                        .disableCachingNullValues()
+                        .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(instrumentSerializer))
+                        .entryTtl(Duration.ofDays(1))
+                )
+                .withCacheConfiguration(
+                    "patterns",
+                    RedisCacheConfiguration.defaultCacheConfig()
+                        .disableCachingNullValues()
+                        .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(patternSerializer))
+                        .entryTtl(Duration.ofMinutes(5))
                 )
         }
     }

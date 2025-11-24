@@ -1,5 +1,6 @@
 package ru.home.project.repository
 
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository
@@ -16,7 +17,7 @@ interface PatternsRepository : JpaRepository<PatternEntity, String> {
             "AND p.minA = :minA AND p.minB = :minB")
     fun findPattern(figi: String, maxA: Double, maxB: Double, minA: Double, minB: Double): Optional<PatternEntity>
 
-
+    @Cacheable(cacheNames = ["patterns"], key = "#figi")
     fun findPatternByFigiAndFinishedIsTrue(figi: String): List<PatternEntity>
 
     fun findPatternByInstrumentUidAndFinishedIsTrue(figi: String): List<PatternEntity>

@@ -4,13 +4,15 @@ import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
+import org.hibernate.Hibernate.getClass
+import org.hibernate.proxy.HibernateProxy
 import java.time.ZonedDateTime
 
 /**
  * @author rlagay
  */
 @Entity(name = "merged_level_entity")
-data class MergedLevelEntity(
+open class MergedLevelEntity(
     @Id @GeneratedValue(strategy = GenerationType.UUID) val id: String? = null,
     val figi: String? = null,
     val ticker: String? = "",
@@ -37,10 +39,10 @@ data class MergedLevelEntity(
     }
 
     override fun hashCode(): Int {
-        var result = figi.hashCode()
-        result = 31 * result + (ticker?.hashCode() ?: 0)
-        result = 31 * result + minLevel.hashCode()
-        result = 31 * result + maxLevel.hashCode()
-        return result
+        return if (this is HibernateProxy) {
+            (this as HibernateProxy).getHibernateLazyInitializer().getPersistentClass().hashCode()
+        } else {
+            getClass(this).hashCode()
+        }
     }
 }

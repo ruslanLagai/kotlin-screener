@@ -32,7 +32,7 @@ class CandlesServiceImpl(
     val candlesRepository: CandlesRepository
 ) : CandlesService {
 
-    val executors: ExecutorService = Executors.newVirtualThreadPerTaskExecutor()
+    val executors: ExecutorService = Executors.newFixedThreadPool(10)
     val log: Logger = LoggerFactory.getLogger(CandlesServiceImpl::class.java)
 
     private final val processDailyInterval: (LocalDateTime, String, String?, String?, ArrayList<CandleEntity>) ->

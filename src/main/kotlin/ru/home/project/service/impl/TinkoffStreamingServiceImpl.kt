@@ -11,6 +11,7 @@ import ru.home.project.properties.TinkoffTradingProperties
 import ru.home.project.repository.InstrumentRepository
 import ru.home.project.service.TinkoffStreamingService
 import ru.tinkoff.piapi.contract.v1.SubscriptionInterval
+import ru.tinkoff.piapi.contract.v1.TradeSourceType
 import ru.ttech.piapi.core.connector.streaming.listeners.OnNextListener
 import ru.ttech.piapi.core.impl.marketdata.MarketDataStreamManager
 import ru.ttech.piapi.core.impl.marketdata.subscription.CandleSubscriptionSpec
@@ -43,12 +44,12 @@ class TinkoffStreamingServiceImpl(
         .toSet()
 
     override fun subscribeTradingStream() {
-        streamManager.subscribeLastPrices(futures) {
+        streamManager.subscribeTrades(futures, TradeSourceType.TRADE_SOURCE_ALL) {
             val figi = it.figi
             val event = TradeEvent(price = it.price.toDouble(), figi = figi, uuid = it.instrumentUid, type = Type.PATTERN)
             eventPublisher.publishEvent(event)
         }
-        streamManager.subscribeLastPrices(instrumentsHourly, {
+        streamManager.subscribeTrades(instrumentsHourly, TradeSourceType.TRADE_SOURCE_ALL, {
             val figi = it.figi
             val event = TradeEvent(price = it.price.toDouble(), figi = figi, uuid = it.instrumentUid, type = Type.LEVEL)
             eventPublisher.publishEvent(event)
