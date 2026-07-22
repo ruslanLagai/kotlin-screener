@@ -2,12 +2,19 @@ import com.google.protobuf.gradle.*
 
 plugins {
     kotlin("jvm") version "2.1.20"
+    kotlin("plugin.allopen") version "2.1.20"
 
     id("org.springframework.boot") version "3.5.6"
     id("io.spring.dependency-management") version "1.1.7"
     id("org.jetbrains.kotlin.plugin.spring") version "2.1.20"
     id("org.jetbrains.kotlin.plugin.jpa") version "2.1.20"
     id("com.google.protobuf") version "0.9.4"
+}
+
+allOpen {
+    annotation("jakarta.persistence.Entity")
+    annotation("jakarta.persistence.MappedSuperclass")
+    annotation("jakarta.persistence.Embeddable")
 }
 
 group = "ru.home.project"
@@ -30,7 +37,7 @@ dependencies {
     testImplementation("io.grpc:grpc-testing:1.71.0")
     testImplementation("io.mockk:mockk:1.13.8")
     testImplementation("io.mockk:mockk-agent-jvm:1.13.8") // For static mocking
-
+    testImplementation("com.h2database:h2")
     testImplementation("org.junit.jupiter:junit-jupiter:6.0.0")
 //    testImplementation("com.github.tomakehurst:wiremock:3.0.0")
 
