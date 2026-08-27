@@ -82,13 +82,16 @@ class TradeEventListener(
      */
     private fun processEvent(event: TradeEvent, type: ItemType) {
         try {
-            val prevMessageDate = sentMessages[event.figi]
-            if (prevMessageDate != null) {
-                applicationEventPublisher.publishEvent(AlertEvent(event.price, event.figi, type))
-                if (prevMessageDate.plusDays(5).isAfter(LocalDateTime.now())) {
-                    return
+            synchronized(sentMessages, {
+                val prevMessageDate = sentMessages[event.figi]
+                if (prevMessageDate != null) {
+                    applicationEventPublisher.publishEvent(AlertEvent(event.price, event.figi, type))
+                    if (prevMessageDate.plusDays(5).isAfter(LocalDateTime.now())) {
+                        return
+                    }
                 }
-            }
+                sentMessages[event.figi] = LocalDateTime.now()
+            })
 
             val level = closestLevelService.getClosestLevel(event.figi, event.price)
             if (level == null) {
@@ -164,14 +167,22 @@ class TradeEventListener(
             if (isBetweenLines.first) {
                 val distance = (isBetweenLines.second - event.price) / maxOf(isBetweenLines.second, event.price)
                 if (distance < 0.01) {
+                    val patternKey = event.figi
+                    synchronized(sentMessagesForPatterns, {
+                        val prevMessageDate = sentMessagesForPatterns[patternKey]
+                        if (prevMessageDate != null && prevMessageDate.plusDays(5).isAfter(LocalDateTime.now())) {
+                            return@forEach
+                        }
+                        sentMessagesForPatterns[patternKey] = LocalDateTime.now()
+                    })
+
                     it.finished = true
                     patternsRepository.save(it)
 
-                    sentMessagesForPatterns[event.figi] = LocalDateTime.now()
                     val instrument = instrumentRepository.getByFigi(event.figi)
                     if (instrument == null) {
                         log.warn("No instrument found for {}", event.figi)
-                        return
+                        return@forEach
                     }
                     val message = String.format(telegramMessageForPattern, instrument.ticker)
                     log.info("Detected pattern signal for {}", event.figi)
@@ -183,7 +194,7 @@ class TradeEventListener(
                     }
                 }
             } else {
-                log.info("${it.figi} has left pattern")
+                log.debug("${it.figi} has left pattern")
                 it.finished = true
                 patternsRepository.save(it)
             }

@@ -1,7 +1,6 @@
 spring:
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    type: com.mysql.cj.jdbc.MysqlConnectionPoolDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3307/screener?allowPublicKeyRetrieval=true
     username: root
     password: j&4$R>TqA2

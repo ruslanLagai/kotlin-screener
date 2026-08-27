@@ -29,12 +29,12 @@ open class MergedLevelEntity(
     var figi: String? = null,
     var ticker: String? = "",
     var price: Double = 0.0,
-    @Column(name = "minLevel", nullable = false) var minLevel: Double,
-    @Column(name = "maxLevel", nullable = false) var maxLevel: Double,
+    @Column(name = "min_level", nullable = false) var minLevel: Double,
+    @Column(name = "max_level", nullable = false) var maxLevel: Double,
     var level: Double = 0.0,
 //    @Convert(converter = DateConverter::class.java)
-    @Column(name = "minLevelDate") var minLevelDate: ZonedDateTime,
-    @Column(name = "maxLevelDate") var maxLevelDate: ZonedDateTime,
+    @Column(name = "min_level_date") var minLevelDate: ZonedDateTime,
+    @Column(name = "max_level_date") var maxLevelDate: ZonedDateTime,
     @CreationTimestamp var createdOn: LocalDateTime? = null,
     @UpdateTimestamp var lastModified: LocalDateTime? = null
 

@@ -33,7 +33,7 @@ class TradingBotServiceImpl(
             tradingServiceClient.sendAlert(alert)
             if (isPrimaryTrade) {
                 level?.id?.let {
-                    activeTradeRepository.save(ActiveTradeEntity(ticker = ticker, closed = false, alertType = alertType, mergedLevelId = level.id))
+                    activeTradeRepository.save(ActiveTradeEntity(ticker = ticker, closed = false, alertType = alertType, mergedLevelId = level.id!!))
                 }
             }
         } catch (e: Exception) {

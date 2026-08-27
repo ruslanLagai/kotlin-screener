@@ -10,10 +10,10 @@ import java.time.ZonedDateTime
  * @author rlagay
  */
 @Entity(name = "level_entity")
-data class LevelEntity(
-    @Id @GeneratedValue(strategy = GenerationType.UUID) val id: String? = null,
-    val figi: String,
-    val ticker: String,
-    val level: Double,
-    val levelDate: ZonedDateTime
+class LevelEntity(
+    @Id @GeneratedValue(strategy = GenerationType.UUID) var id: String? = null,
+    var figi: String,
+    var ticker: String,
+    var level: Double,
+    var levelDate: ZonedDateTime
 )

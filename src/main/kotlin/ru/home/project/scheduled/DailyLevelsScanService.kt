@@ -43,6 +43,7 @@ class DailyLevelsScanService(
 
     @Scheduled(cron = "\${service.tinkoff.daily-cron}")
     fun scanLevels() {
+        log.info("Instruments size: ${tinkoffTradingProperties.instruments.size}")
         tinkoffTradingProperties.instruments.forEach {
             kotlin.runCatching {
                 log.info("Starting levels scan for {}", it)

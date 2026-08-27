@@ -21,20 +21,22 @@ import java.util.Set
  */
 @Entity(name = "pattern_entity")
 open class PatternEntity(
-    @Id @GeneratedValue(strategy = GenerationType.UUID) open val id: String? = null,
-    open val figi: String,
-    open val instrumentUid: String,
-    open val ticker: String,
-    @Enumerated(value = EnumType.STRING) @Column(name = "pattern_type") open val patternType: PatternType,
-    @Enumerated(value = EnumType.STRING) @Column(name = "interval_column") open val interval: CandleInterval,
-    open val startDate: LocalDateTime,
-    open val maxA: Double,
-    open val maxB: Double,
-    open val minA: Double,
-    open val minB: Double,
+    @Id @GeneratedValue(strategy = GenerationType.UUID) open var id: String? = null,
+    open var figi: String,
+    open var instrumentUid: String,
+    open var ticker: String,
+    @Enumerated(value = EnumType.STRING) @Column(name = "pattern_type") open var patternType: PatternType,
+    @Enumerated(value = EnumType.STRING) @Column(name = "interval_column") open var interval: CandleInterval,
+    open var startDate: LocalDateTime,
+    open var maxA: Double,
+    open var maxB: Double,
+    open var minA: Double,
+    open var minB: Double,
     open var finished: Boolean = false,
-    @JsonIgnore @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], mappedBy = "patternEntity")
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], mappedBy = "patternEntity")
     open var minimums: Set<ExtremumEntity> = Set.of<ExtremumEntity>() as Set<ExtremumEntity>,
-    @JsonIgnore @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], mappedBy = "patternEntity")
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], mappedBy = "patternEntity")
     open var maximums: Set<ExtremumEntity> = Set.of<ExtremumEntity>() as Set<ExtremumEntity>
 )

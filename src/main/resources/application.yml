@@ -1,7 +1,13 @@
 server:
   shutdown: graceful
+  http2:
+    enabled: true
 
 spring:
+  task:
+    scheduling:
+      pool:
+        size: 3
   main:
     allow-bean-definition-overriding: true
   flyway:
@@ -10,11 +16,19 @@ spring:
     locations: classpath:db/migration
     schemas: screener
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    type: com.mysql.cj.jdbc.MysqlConnectionPoolDataSource
-    url: jdbc:mysql://localhost:3307/screener?allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
+    hikari:
+      maximum-pool-size: 120
+      pool-name: HikariPool
+      schema: screener
+      minimum-idle: 10
+      connection-timeout: 10000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+      leak-detection-threshold: 60000
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://{HOST}:3307/screener?allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
     username: root
-    password: j&4$R>TqA2
+    password: {MYSQL_PASSWORD}
   jpa:
     properties:
       hibernate:
@@ -34,6 +48,12 @@ spring:
     redis:
       cache-null-values: false
 
+invest:
+  connector:
+    token: {TINKOFF_TOKEN}
+    connection:
+      timeout: 20000
+      keep-alive: 60000
 ru:
   tinkoff:
     piapi:
@@ -41,34 +61,33 @@ ru:
         target: invest-public-api.tinkoff.ru:443
         connection-timeout: PT30
         request-timeout: PT30
-        token: t.z3VkhlabQQqBM7v2JRuRcOLB9tWDluDgpz24p1yo38BQbS6VqGH4bYBPw0ORrL35qXjKk4Cwk4NEwxh0sT1mcQ
+        token: {TINKOFF_TOKEN}
   coin-market-cap:
     url: https://pro-api.coinmarketcap.com/v1/cryptocurrency
     token: 6829f0ff-56e0-48f8-8cc2-11dcc37cc9f3
   twelve-data:
     url: https://api.twelvedata.com
     token:
-      - b7e76a8b950e427daafdf6d939e4dd82
-      - 45cdc790f12540cabc0efdfa07e799dc
-      - 65901c0f82324bdc84816468b2aa0838
-      - a37067dc3b4642f8aabe9b26627ea960
-      - 16ecacf18e744e8099ff2052e851d160
-      - ccf3b98089dd4a29a5805bf47c7d9d86
-      - 4f36cdddcbc94d598081b12528d29ce3
-      - 15756ee5f2d54b669eeb10262430c44c
+      - {TOKENS}
   trading:
     service:
       url: trading-bot:9091
+grpc:
+  debug=false
+  context-fork=true
 logging:
   level:
     root: debug
+    com:
+      bybit:
+        api: warn
 service:
   crypto:
     daily-cron: 0 35 23 * * MON-FRI
     prices-cron: 0 35 23 * * MON-FRI
     instruments: BTC/USD,ETH/USD,BNB/USD,SOL/USD,DOGE/USD,XRP/USD,ADA/USD,TON/USD,SHIB/USD,DOT/USD,AVAX/USD,LINK/USD,TRX/USD,MATIC/USD,NEAR/USD,ICP/USD,UNI/USD,LTC/USD,APT/USD,DAI/USD,ETC/USD,STX/USD,FIL/USD,MNT/USD,ATOM/USD,ARB/USD,CRO/USD,XLM/USD,IMX/USD,RNDR/USD,HBAR/USD,OKB/USD,VET/USD,KAS/USD,MKR/USD,INJ/USD,OP/USD,GRT/USD,PEPE/USD,THETA/USD,FTM/USD,XMR/USD,RUNE/USD,LDO/USD,FET/USD,AR/USD,SUI/USD,CORE/USD,TIA/USD,ALGO/USD,AAVE/USD,FLOW/USD,GALA/USD,BSV/USD,BEAM/USD,EGLD/USD,BTT/USD,DYDX/USD,XEC/USD,AXS/USD,SAND/USD,QNT/USD,STRK/USD,NEO/USD,CHZ/USD,SEI/USD,SNX/USD,XTZ/USD,EOS/USD,WLD/USD,CFX/USD,PYTH/USD,RON/USD,MANA/USD,ONDO/USD,KAVA/USD,JASMY/USD,APE/USD,KCS/USD,IOTA/USD,MINA/USD
   tinkoff:
-    instruments: BBG004731489,BBG004730N88
+    instruments: 509edd0c-129c-4ee2-934d-7f6246126da1,e6123145-9665-43e0-8413-cd61b8aa9b13
     daily-cron: 0 35 23 * * MON-FRI
   telegram:
     bot:

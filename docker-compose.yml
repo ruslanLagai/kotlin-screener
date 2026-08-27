@@ -15,7 +15,7 @@ services:
                   "spring.jpa.hibernate.ddl-auto" : "create-drop"
                 }'
     healthcheck:
-      test: curl -f http://localhost:8080 || exit 1
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
       interval: 5m
       timeout: 10s
       retries: 3

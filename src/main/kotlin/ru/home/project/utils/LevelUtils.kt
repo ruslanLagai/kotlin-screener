@@ -23,7 +23,7 @@ fun mergeLevels(levels: List<LevelEntity>, type: ItemType): Set<MergedLevelEntit
 
         if (closeLevels.size > 1) {
             val buffer = ArrayList<LevelEntity>(closeLevels)
-            for (i in 0..< buffer.size) {
+            for (i in buffer.indices) {
                 val closeToNearBy = getNearByLevels(buffer[i], levels, type)
                 levelsToSkip.addAll(closeToNearBy)
                 buffer.addAll(closeToNearBy)
@@ -38,8 +38,16 @@ fun mergeLevels(levels: List<LevelEntity>, type: ItemType): Set<MergedLevelEntit
         if (minLevel == null || maxLevel == null) {
             continue
         }
-        mergedLevels.add(MergedLevelEntity(minLevel = minLevel.level, maxLevel = maxLevel.level, maxLevelDate = maxLevel.levelDate,
-            minLevelDate = minLevel.levelDate, figi = maxLevel.figi, ticker = maxLevel.ticker))
+        mergedLevels.add(
+            MergedLevelEntity(
+                minLevel = minLevel.level,
+                maxLevel = maxLevel.level,
+                maxLevelDate = maxLevel.levelDate,
+                minLevelDate = minLevel.levelDate,
+                figi = maxLevel.figi,
+                ticker = maxLevel.ticker
+            )
+        )
     }
     return mergedLevels
 }

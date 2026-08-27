@@ -14,6 +14,6 @@ data class Candle(
     @JsonProperty("close") val close: Double,
     @JsonProperty("high") val high: Double,
     @JsonProperty("low") val low: Double,
-    @JsonProperty("datetime") @JsonDeserialize(using = TwelveDataCandleDateDeserializer::class)
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", shape = JsonFormat.Shape.STRING) val datetime: LocalDateTime
+    @param:JsonProperty("datetime") @param:JsonDeserialize(using = TwelveDataCandleDateDeserializer::class)
+    @param:JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", shape = JsonFormat.Shape.STRING) val datetime: LocalDateTime
 )

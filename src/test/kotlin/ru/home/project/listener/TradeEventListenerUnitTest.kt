@@ -112,7 +112,7 @@ class TradeEventListenerUnitTest {
         )
 
         whenever(instrumentRepository.getByFigi(event.figi)).thenReturn(instrument)
-        whenever(patternsRepository.findPatternByFigiAndFinishedIsTrue(event.figi)).thenReturn(listOf(pattern))
+        whenever(patternsRepository.findPatternByFigiAndFinishedIsFalse(event.figi)).thenReturn(listOf(pattern))
         mockkStatic("ru.home.project.utils.ExtremumUtilsKt")
         every { checkPriceIsBetweenLines(any(), any(), any(), any()) } returns Pair(false, 0.0)
 
@@ -151,7 +151,7 @@ class TradeEventListenerUnitTest {
         )
 
         whenever(instrumentRepository.getByFigi(event.figi)).thenReturn(instrument)
-        whenever(patternsRepository.findPatternByFigiAndFinishedIsTrue(event.figi)).thenReturn(listOf(pattern))
+        whenever(patternsRepository.findPatternByFigiAndFinishedIsFalse(event.figi)).thenReturn(listOf(pattern))
         mockkStatic("ru.home.project.utils.ExtremumUtilsKt")
         every { checkPriceIsBetweenLines(any(), any(), any(), any()) } returns Pair(true, 120.0)
 
@@ -190,7 +190,7 @@ class TradeEventListenerUnitTest {
         val accounts = listOf("account1", "account2")
 
         whenever(instrumentRepository.getByFigi(event.figi)).thenReturn(instrument)
-        whenever(patternsRepository.findPatternByFigiAndFinishedIsTrue(event.figi)).thenReturn(listOf(pattern))
+        whenever(patternsRepository.findPatternByFigiAndFinishedIsFalse(event.figi)).thenReturn(listOf(pattern))
         whenever(telegramBotProperties.accounts).thenReturn(accounts)
         mockkStatic("ru.home.project.utils.ExtremumUtilsKt")
         every { checkPriceIsBetweenLines(any(), any(), any(), any()) } returns Pair(true, 99.0) // distance = (20000 - 100)/20000 = 19900/20000 = 0.995
@@ -216,6 +216,7 @@ class TradeEventListenerUnitTest {
             name = "NAME"
         )
         val pattern = PatternEntity(
+            id = "PATTERN123",
             instrumentUid = "INSTRUMENT_UID",
             ticker = "TICKER",
             interval = CandleInterval.CANDLE_INTERVAL_HOUR,
@@ -231,14 +232,14 @@ class TradeEventListenerUnitTest {
             maximums = setOf<ExtremumEntity>() as Set<ExtremumEntity>
         )
 
-        // Set up sentMessagesForPatterns with recent date
+        // Set up sentMessagesForPatterns with recent date, keyed per figi+pattern
         val sentMessagesField = TradeEventListener::class.java.getDeclaredField("sentMessagesForPatterns")
         sentMessagesField.isAccessible = true
         val sentMessagesMap = sentMessagesField.get(tradeEventListener) as ConcurrentHashMap<String, LocalDateTime>
-        sentMessagesMap[event.figi] = LocalDateTime.now().minusDays(1) // Within 5 days
+        sentMessagesMap["${event.figi}:${pattern.id}"] = LocalDateTime.now().minusDays(1) // Within 5 days
 
         whenever(instrumentRepository.getByFigi(event.figi)).thenReturn(instrument)
-        whenever(patternsRepository.findPatternByFigiAndFinishedIsTrue(event.figi)).thenReturn(listOf(pattern))
+        whenever(patternsRepository.findPatternByFigiAndFinishedIsFalse(event.figi)).thenReturn(listOf(pattern))
         mockkStatic("ru.home.project.utils.ExtremumUtilsKt")
         every { checkPriceIsBetweenLines(any(), any(), any(), any()) } returns Pair(true, 20000.0)
 

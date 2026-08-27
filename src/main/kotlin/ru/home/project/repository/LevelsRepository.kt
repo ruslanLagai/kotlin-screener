@@ -1,6 +1,7 @@
 package ru.home.project.repository
 
 import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.util.Streamable
 import org.springframework.stereotype.Repository
 import ru.home.project.entity.LevelEntity
 
@@ -13,4 +14,6 @@ interface LevelsRepository : JpaRepository<LevelEntity, String> {
     fun getLevelsByFigi(figi: String): Set<LevelEntity>
 
     fun getLevelEntityByLevelBetween(min: Double, max: Double): Set<LevelEntity>
+
+    fun getLevelEntityByFigi(figi: String): Streamable<LevelEntity>
 }

@@ -11,6 +11,7 @@ open class ExtremumEntity(
     @Id @GeneratedValue(strategy = GenerationType.UUID) open val id: String? = null,
     open val date: LocalDateTime,
     @Column(name = "value") open val value: Double,
-    @ManyToOne(fetch = FetchType.LAZY) @JoinColumn(name = "pattern_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pattern_id", nullable = false)
     open val patternEntity: PatternEntity
 )

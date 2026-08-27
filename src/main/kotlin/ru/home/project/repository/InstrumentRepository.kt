@@ -12,9 +12,9 @@ import ru.home.project.entity.InstrumentEntity
 @Repository
 interface InstrumentRepository : JpaRepository<InstrumentEntity, Long> {
 
-    @Cacheable(cacheNames = ["instruments"], key = "#figi")
+    @Cacheable(cacheNames = ["instruments"], key = "#figi", unless = "#result == null")
     fun getByFigi(figi: String): InstrumentEntity?
 
-    @CachePut(cacheNames = ["instruments"], key = "#instrument.figi")
+    @CachePut(cacheNames = ["instruments"], key = "#instrument.figi", unless = "#result == null")
     fun save(instrument: InstrumentEntity): InstrumentEntity
 }

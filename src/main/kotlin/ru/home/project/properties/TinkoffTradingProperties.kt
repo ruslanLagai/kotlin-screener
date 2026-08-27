@@ -10,6 +10,6 @@ import org.springframework.validation.annotation.Validated
 @ConfigurationProperties("service.tinkoff")
 @Validated
 data class TinkoffTradingProperties(
-    @NotEmpty val instruments: List<String>,
+    @param:NotEmpty val instruments: List<String>,
     val dailyCron: String
 )

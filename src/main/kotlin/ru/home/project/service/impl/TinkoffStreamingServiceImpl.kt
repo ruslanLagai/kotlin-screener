@@ -28,15 +28,18 @@ class TinkoffStreamingServiceImpl(
     val tinkoffTradingProperties: TinkoffTradingProperties,
     val instrumentRepository: InstrumentRepository,
     val eventPublisher: ApplicationEventPublisher
-
 ) : TinkoffStreamingService {
 
     val log: Logger = LoggerFactory.getLogger(TinkoffStreamingServiceImpl::class.java)
-    val instrumentsHourly = tinkoffTradingProperties.instruments
-        .map { Instrument(it, SubscriptionInterval.SUBSCRIPTION_INTERVAL_ONE_HOUR) }
+    val instrumentsHourly = instrumentRepository.findAll()
+        .filter { it.instrumentUid != null }
+        .filter { tinkoffTradingProperties.instruments.contains(it.figi) }
+        .map { Instrument(it.instrumentUid, SubscriptionInterval.SUBSCRIPTION_INTERVAL_ONE_HOUR) }
         .toSet()
-    val instrumentsDaily = tinkoffTradingProperties.instruments
-        .map { Instrument(it, SubscriptionInterval.SUBSCRIPTION_INTERVAL_ONE_DAY) }
+    val instrumentsDaily = instrumentRepository.findAll()
+        .filter { it.instrumentUid != null }
+        .filter { tinkoffTradingProperties.instruments.contains(it.figi) }
+        .map { Instrument(it.instrumentUid, SubscriptionInterval.SUBSCRIPTION_INTERVAL_ONE_DAY) }
         .toSet()
     val futures = instrumentRepository.findAll()
         .filter { it.instrumentUid != null }

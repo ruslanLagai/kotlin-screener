@@ -13,7 +13,7 @@ class AsyncConfig {
 
     @Bean
     fun tradeEventExecutor() : Executor {
-        return Executors.newFixedThreadPool(30)
+        return Executors.newFixedThreadPool(40)
     }
 
     @Bean
